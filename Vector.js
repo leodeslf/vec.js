@@ -86,6 +86,32 @@ class Vector {
     }
 
     /**
+     * Returns the division of A by B.
+     * @param {Vector} a A Vector.
+     * @param {number | Vector} b A numeric expression or a Vector.
+     */
+    static divide(a, b) {
+        if (b instanceof Vector) {
+            return new Vector(a.x / b.x, a.y / b.y);
+        } else {
+            return new Vector(a.x / b, a.y / b);
+        }
+    }
+
+    /**
+     * Returns the product of A by B.
+     * @param {Vector} a A Vector.
+     * @param {number | Vector} b A numeric expression or a Vector
+     */
+    static multiply(a, b) {
+        if (b instanceof Vector) {
+            return new Vector(a.x * b.x, a.y * b.y);
+        } else {
+            return new Vector(a.x * b, a.y * b);
+        }
+    }
+
+    /**
      * Returns a Vector equals to A minus B.
      * @param {Vector} a A Vector.
      * @param {number | Vector} b A numeric expression or a Vector.
@@ -212,16 +238,17 @@ class Vector {
     }
 }
 
+
 /**
  * Features:
  * 
  * - Static methods:
- * Add, subtract, (euclidian, manhattan and chebyshev) distance,
- * create vector by polar coordinates.
+ * Add, subtract, multiply, divide, (euclidian, manhattan and 
+ * chebyshev) distance, create vector by polar coordinates.
  * 
  * - Instance methods:
  * Add, subtract, multiply, divide, normalize, get/set magnitude,
  * limit, get angle.
  * 
- * Leonardo de Souza Leal - 10/2018
+ * Leonardo de Souza Leal - 10/2018 - Last update: 11/2018
  */
