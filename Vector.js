@@ -219,7 +219,6 @@ class Vector {
  * Add, subtract, (euclidian, manhattan and chebyshev) distance,
  * create vector by polar coordinates.
  * 
- * 
  * - Instance methods:
  * Add, subtract, multiply, divide, normalize, get/set magnitude,
  * limit, get angle.
