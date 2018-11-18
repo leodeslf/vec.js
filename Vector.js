@@ -241,11 +241,9 @@ class Vector {
 
 /**
  * Features:
- * 
  * - Static methods:
  * Add, subtract, multiply, divide, (euclidian, manhattan and 
  * chebyshev) distance, create vector by polar coordinates.
- * 
  * - Instance methods:
  * Add, subtract, multiply, divide, normalize, get/set magnitude,
  * limit, get angle.
