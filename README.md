@@ -63,6 +63,10 @@ let vector_b = Vector.byPolarCoords(radius, angle);
 
 *See in-line docs for more info (100% documented).*
 
+## License
+
+MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
+
 ## Author
 
-[Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
+Copyright (c) 2018 [Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
