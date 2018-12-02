@@ -22,11 +22,9 @@ class Vector {
      * @param {number | Vector} b A numeric expression or a Vector.
      */
     static add(a, b) {
-        if (b instanceof Vector) {
-            return new Vector(a.x + b.x, a.y + b.y);
-        } else {
-            return new Vector(a.x + b, a.y + b);
-        }
+        return b instanceof Vector ?
+            new Vector(a.x + b.x, a.y + b.y) :
+            new Vector(a.x + b, a.y + b);
     }
 
     /**
@@ -51,10 +49,10 @@ class Vector {
      * @returns {number}
      */
     static distanceChebyshev(a, b) {
-        const DIFF = Vector.subtract(a, b);
-        const U = DIFF.x > 0 ? DIFF.x : -DIFF.x;
-        const V = DIFF.y > 0 ? DIFF.y : -DIFF.y;
-        return U > V ? U : V;
+        return Math.max(
+            Math.abs(a.x - b.x),
+            Math.abs(a.y - b.y)
+        );
     }
 
     /**
@@ -81,9 +79,10 @@ class Vector {
      * @param {Vector} b A Vector.
      */
     static distanceManhattan(a, b) {
-        const U = Math.abs(a.x - b.x);
-        const V = Math.abs(a.y - b.y);
-        return Math.sqrt(U + V);
+        return Math.sqrt(
+            Math.abs(a.x - b.x) +
+            Math.abs(a.y - b.y)
+        );
     }
 
     /**
@@ -92,11 +91,9 @@ class Vector {
      * @param {number | Vector} b A numeric expression or a Vector.
      */
     static divide(a, b) {
-        if (b instanceof Vector) {
-            return new Vector(a.x / b.x, a.y / b.y);
-        } else {
-            return new Vector(a.x / b, a.y / b);
-        }
+        return b instanceof Vector ?
+            new Vector(a.x / b.x, a.y / b.y) :
+            new Vector(a.x / b, a.y / b);
     }
 
     /**
@@ -105,11 +102,9 @@ class Vector {
      * @param {number | Vector} b A numeric expression or a Vector
      */
     static multiply(a, b) {
-        if (b instanceof Vector) {
-            return new Vector(a.x * b.x, a.y * b.y);
-        } else {
-            return new Vector(a.x * b, a.y * b);
-        }
+        return b instanceof Vector ?
+            new Vector(a.x * b.x, a.y * b.y) :
+            new Vector(a.x * b, a.y * b);
     }
 
     /**
@@ -118,11 +113,9 @@ class Vector {
      * @param {number | Vector} b A numeric expression or a Vector.
      */
     static subtract(a, b) {
-        if (b instanceof Vector) {
-            return new Vector(a.x - b.x, a.y - b.y);
-        } else {
-            return new Vector(a.x - b, a.y - b);
-        }
+        return b instanceof Vector ?
+            new Vector(a.x - b.x, a.y - b.y) :
+            new Vector(a.x - b, a.y - b);
     }
 
     //////////////////////
@@ -134,13 +127,9 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     add(a) {
-        if (a instanceof Vector) {
-            this.x += a.x;
-            this.y += a.y;
-        } else {
-            this.x += a;
-            this.y += a;
-        }
+        a instanceof Vector ?
+            (this.x += a.x, this.y += a.y) :
+            (this.x += a, this.y += a);
     }
 
     /**
@@ -148,8 +137,7 @@ class Vector {
      * @param {Vector} a A Vector.
      */
     copy(a) {
-        this.x = a.x;
-        this.y = a.y;
+        this.x = a.x, this.y = a.y;
     }
 
     /**
@@ -157,13 +145,9 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     divide(a) {
-        if (a instanceof Vector) {
-            this.x = this.x / a.x;
-            this.y = this.y / a.y;
-        } else {
-            this.x = this.x / a;
-            this.y = this.y / a;
-        }
+        a instanceof Vector ?
+            (this.x = this.x / a.x, this.y = this.y / a.y) :
+            (this.x = this.x / a, this.y = this.y / a);
     }
 
     /**
@@ -186,10 +170,7 @@ class Vector {
      * @param {number} a A numeric expression.
      */
     limit(a) {
-        if (this.getMagnitude() > a) {
-            this.normalize();
-            this.multiply(a);
-        }
+        if (this.getMagnitude() > a) this.normalize(), this.multiply(a);
     }
 
     /**
@@ -197,13 +178,9 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     multiply(a) {
-        if (a instanceof Vector) {
-            this.x = this.x * a.x;
-            this.y = this.y * a.y;
-        } else {
-            this.x = this.x * a;
-            this.y = this.y * a;
-        }
+        a instanceof Vector ?
+            (this.x = this.x * a.x, this.y = this.y * a.y) :
+            (this.x = this.x * a, this.y = this.y * a);
     }
 
     /**
@@ -211,8 +188,7 @@ class Vector {
      */
     normalize() {
         const MA = this.getMagnitude();
-        this.x = this.x / MA;
-        this.y = this.y / MA;
+        this.x = this.x / MA, this.y = this.y / MA;
     }
 
     /**
@@ -220,8 +196,7 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     setMagnitude(a) {
-        this.normalize();
-        this.multiply(a);
+        this.normalize(), this.multiply(a);
     }
 
     /**
@@ -229,14 +204,8 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     subtract(a) {
-        if (a instanceof Vector) {
-            this.x -= a.x;
-            this.y -= a.y;
-        } else {
-            this.x -= a;
-            this.y -= a;
-        }
+        a instanceof Vector ?
+            (this.x -= a.x, this.y -= a.y) :
+            (this.x -= a, this.y -= a);
     }
 }
-
-export default Vector;
