@@ -29,8 +29,6 @@ A two-dimensional vector `class` for `JavaScript`.
 ## Usage
 
 ```JavaScript
-import Vector from '/modules/Vector.js';
-
 // The normal way, by cartesian coordinates e.g
 let x = 3;
 let y = 6;
@@ -63,7 +61,7 @@ let vector_b = Vector.byPolarCoords(radius, angle);
   - Normalize `normalize()`
   - Subtract `subtract()`
 
-*See in-line docs for more info (100% documented).*
+*See in-line docs for more info.*
 
 ## License
 
