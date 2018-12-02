@@ -127,9 +127,13 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     add(a) {
-        a instanceof Vector ?
-            (this.x += a.x, this.y += a.y) :
-            (this.x += a, this.y += a);
+        if (a instanceof Vector) {
+            this.x += a.x;
+            this.y += a.y;
+        } else {
+            this.x += a;
+            this.y += a;
+        }
     }
 
     /**
@@ -137,7 +141,8 @@ class Vector {
      * @param {Vector} a A Vector.
      */
     copy(a) {
-        this.x = a.x, this.y = a.y;
+        this.x = a.x;
+        this.y = a.y;
     }
 
     /**
@@ -145,9 +150,13 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     divide(a) {
-        a instanceof Vector ?
-            (this.x = this.x / a.x, this.y = this.y / a.y) :
-            (this.x = this.x / a, this.y = this.y / a);
+        if (a instanceof Vector) {
+            this.x = this.x / a.x;
+            this.y = this.y / a.y;
+        } else {
+            this.x = this.x / a;
+            this.y = this.y / a;
+        }
     }
 
     /**
@@ -170,7 +179,10 @@ class Vector {
      * @param {number} a A numeric expression.
      */
     limit(a) {
-        if (this.getMagnitude() > a) this.normalize(), this.multiply(a);
+        if (this.getMagnitude() > a) {
+            this.normalize();
+            this.multiply(a);
+        }
     }
 
     /**
@@ -178,9 +190,13 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     multiply(a) {
-        a instanceof Vector ?
-            (this.x = this.x * a.x, this.y = this.y * a.y) :
-            (this.x = this.x * a, this.y = this.y * a);
+        if (a instanceof Vector) {
+            this.x = this.x * a.x;
+            this.y = this.y * a.y;
+        } else {
+            this.x = this.x * a;
+            this.y = this.y * a;
+        }
     }
 
     /**
@@ -188,7 +204,8 @@ class Vector {
      */
     normalize() {
         const MA = this.getMagnitude();
-        this.x = this.x / MA, this.y = this.y / MA;
+        this.x = this.x / MA;
+        this.y = this.y / MA;
     }
 
     /**
@@ -196,7 +213,8 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     setMagnitude(a) {
-        this.normalize(), this.multiply(a);
+        this.normalize();
+        this.multiply(a);
     }
 
     /**
@@ -204,8 +222,12 @@ class Vector {
      * @param {number | Vector} a A numeric expression or a Vector.
      */
     subtract(a) {
-        a instanceof Vector ?
-            (this.x -= a.x, this.y -= a.y) :
-            (this.x -= a, this.y -= a);
+        if (a instanceof Vector) {
+            this.x -= a.x;
+            this.y -= a.y;
+        } else {
+            this.x -= a;
+            this.y -= a;
+        }
     }
 }
