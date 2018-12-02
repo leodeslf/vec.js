@@ -1,5 +1,10 @@
 # Vector.js
 
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)
+[![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)
+[![GitHub issues](https://img.shields.io/github/issues/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/issues)
+[![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)
+
 ```txt
 
           .                 .
@@ -56,8 +61,8 @@ let vector_b = Vector.byPolarCoords(radius, angle);
   - Normalize `normalize()`
   - Subtract `subtract()`
 
-*See in-line doc. for parameters and types.*
+*See in-line docs for more info (100% documented).*
 
-## Credits
+## Author
 
 [Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
