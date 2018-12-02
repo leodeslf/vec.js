@@ -2,6 +2,7 @@
 
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)
 [![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Wikarot/Vector.js/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Wikarot/Vector.js/?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/issues)
 [![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)
 
@@ -65,8 +66,6 @@ let vector_b = Vector.byPolarCoords(radius, angle);
 
 ## License
 
-MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
-
-## Author
-
 Copyright (c) 2018 [Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
+
+MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
