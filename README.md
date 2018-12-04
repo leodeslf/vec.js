@@ -43,7 +43,7 @@ let vector_b = Vector.byPolarCoords(radius, angle);
 
 - Static methods:
   - Add `add()`
-  - Create vector by polar coordinates. `byPolarCoords()`
+  - Create vector by polar coordinates `byPolarCoords()`
   - Distance `distanceChebyshev()`, `distanceEuclidian()`, `distanceManhattan()`
   - Divide `divide()`
   - Multiply `multiply()`
@@ -64,6 +64,6 @@ let vector_b = Vector.byPolarCoords(radius, angle);
 
 ## License
 
-Copyright (c) 2018 [Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
+Copyright (c) 2018 [Leo de S.L.F](https://github.com/Wikarot "GitHub profile").
 
 MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
