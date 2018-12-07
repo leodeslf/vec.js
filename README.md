@@ -79,6 +79,6 @@ let vector_d = vec2.byPolarCoords(radius, angle);
 
 ## License
 
-Copyright &copy; 2018 [Leonardo de Souza Leal Figueira](https://github.com/Wikarot "GitHub profile").
+Copyright &copy; 2018 [Leonardo de Souza Leal](https://github.com/Wikarot "GitHub profile").
 
 MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
