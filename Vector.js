@@ -1,7 +1,7 @@
 /**
  * A two-dimensional vector class for JavaScript.
  */
-class vec2 {
+class Vec2 {
     /**
      * Creates a two-dimensional vector pointing to X and Y.
      * @param {number} x Numeric expression.
@@ -18,13 +18,13 @@ class vec2 {
 
     /**
      * Returns a Vector equals to A plus B.
-     * @param {vec2} a Vector.
-     * @param {number | vec2} b A numeric expression or a Vector.
+     * @param {Vec2} a Vector.
+     * @param {number | Vec2} b A numeric expression or a Vector.
      */
     static add(a, b) {
-        return b instanceof vec2 ?
-            new vec2(a.x + b.x, a.y + b.y) :
-            new vec2(a.x + b, a.y + b);
+        return b instanceof Vec2 ?
+            new Vec2(a.x + b.x, a.y + b.y) :
+            new Vec2(a.x + b, a.y + b);
     }
 
     /**
@@ -33,7 +33,7 @@ class vec2 {
      * @param {number} angle Numeric expression (angle measured in radians).
      */
     static byPolarCoords(radius, angle) {
-        return new vec2(
+        return new Vec2(
             radius * Math.cos(angle),
             radius * Math.sin(angle)
         );
@@ -44,8 +44,8 @@ class vec2 {
      * 
      * - "Also known as the Chessboard Distance, it is somewhat similar
      * to the Manhattan distance, but with 45 degrees rotation."
-     * @param {vec2} a A Vector.
-     * @param {vec2} b A Vector.
+     * @param {Vec2} a A Vector.
+     * @param {Vec2} b A Vector.
      */
     static distanceChebyshev(a, b) {
         return Math.max(
@@ -56,8 +56,8 @@ class vec2 {
 
     /**
      * Returns the Euclidian Distance of A to B.
-     * @param {vec2} a A Vector.
-     * @param {vec2} b A Vector.
+     * @param {Vec2} a A Vector.
+     * @param {Vec2} b A Vector.
      */
     static distanceEuclidian(a, b) {
         const S = (a.x - b.x);
@@ -74,8 +74,8 @@ class vec2 {
      * 
      * - In other words: 
      * Only horizontal, vertical and diagonal (45 deg.) movements.
-     * @param {vec2} a A Vector.
-     * @param {vec2} b A Vector.
+     * @param {Vec2} a A Vector.
+     * @param {Vec2} b A Vector.
      */
     static distanceManhattan(a, b) {
         return Math.sqrt(
@@ -86,35 +86,35 @@ class vec2 {
 
     /**
      * Returns the division of A by B.
-     * @param {vec2} a A Vector.
-     * @param {number | vec2} b A numeric expression or a Vector.
+     * @param {Vec2} a A Vector.
+     * @param {number | Vec2} b A numeric expression or a Vector.
      */
     static divide(a, b) {
-        return b instanceof vec2 ?
-            new vec2(a.x / b.x, a.y / b.y) :
-            new vec2(a.x / b, a.y / b);
+        return b instanceof Vec2 ?
+            new Vec2(a.x / b.x, a.y / b.y) :
+            new Vec2(a.x / b, a.y / b);
     }
 
     /**
      * Returns the product of A by B.
-     * @param {vec2} a A Vector.
-     * @param {number | vec2} b A numeric expression or a Vector
+     * @param {Vec2} a A Vector.
+     * @param {number | Vec2} b A numeric expression or a Vector
      */
     static multiply(a, b) {
-        return b instanceof vec2 ?
-            new vec2(a.x * b.x, a.y * b.y) :
-            new vec2(a.x * b, a.y * b);
+        return b instanceof Vec2 ?
+            new Vec2(a.x * b.x, a.y * b.y) :
+            new Vec2(a.x * b, a.y * b);
     }
 
     /**
      * Returns a Vector equals to A minus B.
-     * @param {vec2} a A Vector.
-     * @param {number | vec2} b A numeric expression or a Vector.
+     * @param {Vec2} a A Vector.
+     * @param {number | Vec2} b A numeric expression or a Vector.
      */
     static subtract(a, b) {
-        return b instanceof vec2 ?
-            new vec2(a.x - b.x, a.y - b.y) :
-            new vec2(a.x - b, a.y - b);
+        return b instanceof Vec2 ?
+            new Vec2(a.x - b.x, a.y - b.y) :
+            new Vec2(a.x - b, a.y - b);
     }
 
     //////////////////////
@@ -123,10 +123,10 @@ class vec2 {
 
     /**
      * Adds A to 'this' Vector.
-     * @param {number | vec2} a A numeric expression or a Vector.
+     * @param {number | Vec2} a A numeric expression or a Vector.
      */
     add(a) {
-        if (a instanceof vec2) {
+        if (a instanceof Vec2) {
             this.x += a.x;
             this.y += a.y;
         } else {
@@ -137,7 +137,7 @@ class vec2 {
 
     /**
      * Copy the coordinates of A to 'this' Vector.
-     * @param {vec2} a A Vector.
+     * @param {Vec2} a A Vector.
      */
     copy(a) {
         this.x = a.x;
@@ -146,10 +146,10 @@ class vec2 {
 
     /**
      * Divides 'this' Vector by A.
-     * @param {number | vec2} a A numeric expression or a Vector.
+     * @param {number | Vec2} a A numeric expression or a Vector.
      */
     divide(a) {
-        if (a instanceof vec2) {
+        if (a instanceof Vec2) {
             this.x /= a.x;
             this.y /= a.y;
         } else {
@@ -186,10 +186,10 @@ class vec2 {
 
     /**
      * Multiplies 'this' Vector by A.
-     * @param {number | vec2} a A numeric expression or a Vector.
+     * @param {number | Vec2} a A numeric expression or a Vector.
      */
     multiply(a) {
-        if (a instanceof vec2) {
+        if (a instanceof Vec2) {
             this.x *= a.x;
             this.y *= a.y;
         } else {
@@ -209,7 +209,7 @@ class vec2 {
 
     /**
      * Sets to A 'this' Vector's magnitude.
-     * @param {number | vec2} a A numeric expression or a Vector.
+     * @param {number | Vec2} a A numeric expression or a Vector.
      */
     setMagnitude(a) {
         this.normalize();
@@ -218,10 +218,10 @@ class vec2 {
 
     /**
      * Subtracts A to 'this' Vector.
-     * @param {number | vec2} a A numeric expression or a Vector.
+     * @param {number | Vec2} a A numeric expression or a Vector.
      */
     subtract(a) {
-        if (a instanceof vec2) {
+        if (a instanceof Vec2) {
             this.x -= a.x;
             this.y -= a.y;
         } else {
@@ -234,7 +234,7 @@ class vec2 {
 /**
  * A three-dimensional vector class for JavaScript.
  */
-class vec3 {
+class Vec3 {
     /**
      * Creates a three-dimensional vector pointing to X, Y and Z.
      * @param {number} x Numeric expression.
@@ -253,13 +253,13 @@ class vec3 {
 
     /**
      * Returns a Vector equals to A plus B.
-     * @param {vec3} a Vector.
-     * @param {number | vec3} b A numeric expression or a Vector.
+     * @param {Vec3} a Vector.
+     * @param {number | Vec3} b A numeric expression or a Vector.
      */
     static add(a, b) {
-        return b instanceof vec3 ?
-            new vec3(a.x + b.x, a.y + b.y, a.z + b.z) :
-            new vec3(a.x + b, a.y + b, a.z + b);
+        return b instanceof Vec3 ?
+            new Vec3(a.x + b.x, a.y + b.y, a.z + b.z) :
+            new Vec3(a.x + b, a.y + b, a.z + b);
     }
 
     /**
@@ -267,8 +267,8 @@ class vec3 {
      * 
      * - "Also known as the Chessboard Distance, it is somewhat similar
      * to the Manhattan distance, but with 45 degrees rotation."
-     * @param {vec3} a A Vector.
-     * @param {vec3} b A Vector.
+     * @param {Vec3} a A Vector.
+     * @param {Vec3} b A Vector.
      * @returns {number}
      */
     static distanceChebyshev(a, b) {
@@ -281,8 +281,8 @@ class vec3 {
 
     /**
      * Returns the Euclidian Distance of A to B.
-     * @param {vec3} a A Vector.
-     * @param {vec3} b A Vector.
+     * @param {Vec3} a A Vector.
+     * @param {Vec3} b A Vector.
      */
     static distanceEuclidian(a, b) {
         const S = (a.x - b.x);
@@ -300,8 +300,8 @@ class vec3 {
      * 
      * - In other words: 
      * Only horizontal, vertical and diagonal (45 deg.) movements.
-     * @param {vec3} a A Vector.
-     * @param {vec3} b A Vector.
+     * @param {Vec3} a A Vector.
+     * @param {Vec3} b A Vector.
      */
     static distanceManhattan(a, b) {
         return Math.sqrt(
@@ -313,35 +313,35 @@ class vec3 {
 
     /**
      * Returns the division of A by B.
-     * @param {vec3} a A Vector.
-     * @param {number | vec3} b A numeric expression or a Vector.
+     * @param {Vec3} a A Vector.
+     * @param {number | Vec3} b A numeric expression or a Vector.
      */
     static divide(a, b) {
-        return b instanceof vec3 ?
-            new vec3(a.x / b.x, a.y / b.y, a.z / b.z) :
-            new vec3(a.x / b, a.y / b, a.z / b);
+        return b instanceof Vec3 ?
+            new Vec3(a.x / b.x, a.y / b.y, a.z / b.z) :
+            new Vec3(a.x / b, a.y / b, a.z / b);
     }
 
     /**
      * Returns the product of A by B.
-     * @param {vec3} a A Vector.
-     * @param {number | vec3} b A numeric expression or a Vector
+     * @param {Vec3} a A Vector.
+     * @param {number | Vec3} b A numeric expression or a Vector
      */
     static multiply(a, b) {
-        return b instanceof vec3 ?
-            new vec3(a.x * b.x, a.y * b.y, a.z * b.z) :
-            new vec3(a.x * b, a.y * b, a.z * b);
+        return b instanceof Vec3 ?
+            new Vec3(a.x * b.x, a.y * b.y, a.z * b.z) :
+            new Vec3(a.x * b, a.y * b, a.z * b);
     }
 
     /**
      * Returns a Vector equals to A minus B.
-     * @param {vec3} a A Vector.
-     * @param {number | vec3} b A numeric expression or a Vector.
+     * @param {Vec3} a A Vector.
+     * @param {number | Vec3} b A numeric expression or a Vector.
      */
     static subtract(a, b) {
-        return b instanceof vec3 ?
-            new vec3(a.x - b.x, a.y - b.y, a.z - b.z) :
-            new vec3(a.x - b, a.y - b, a.z - b);
+        return b instanceof Vec3 ?
+            new Vec3(a.x - b.x, a.y - b.y, a.z - b.z) :
+            new Vec3(a.x - b, a.y - b, a.z - b);
     }
 
     //////////////////////
@@ -350,10 +350,10 @@ class vec3 {
 
     /**
      * Adds A to 'this' Vector.
-     * @param {number | vec3} a A numeric expression or a Vector.
+     * @param {number | Vec3} a A numeric expression or a Vector.
      */
     add(a) {
-        if (a instanceof vec3) {
+        if (a instanceof Vec3) {
             this.x += a.x;
             this.y += a.y;
             this.z += a.z;
@@ -366,7 +366,7 @@ class vec3 {
 
     /**
      * Copy the coordinates of A to 'this' Vector.
-     * @param {vec3} a A Vector.
+     * @param {Vec3} a A Vector.
      */
     copy(a) {
         this.x = a.x;
@@ -376,10 +376,10 @@ class vec3 {
 
     /**
      * Divides 'this' Vector by A.
-     * @param {number | vec3} a A numeric expression or a Vector.
+     * @param {number | Vec3} a A numeric expression or a Vector.
      */
     divide(a) {
-        if (a instanceof vec3) {
+        if (a instanceof Vec3) {
             this.x /= a.x;
             this.y /= a.y;
             this.z /= a.z;
@@ -418,10 +418,10 @@ class vec3 {
 
     /**
      * Multiplies 'this' Vector by A.
-     * @param {number | vec3} a A numeric expression or a Vector.
+     * @param {number | Vec3} a A numeric expression or a Vector.
      */
     multiply(a) {
-        if (a instanceof vec3) {
+        if (a instanceof Vec3) {
             this.x *= a.x;
             this.y *= a.y;
             this.z *= a.z;
@@ -444,7 +444,7 @@ class vec3 {
 
     /**
      * Sets to A 'this' Vector's magnitude.
-     * @param {number | vec3} a A numeric expression or a Vector.
+     * @param {number | Vec3} a A numeric expression or a Vector.
      */
     setMagnitude(a) {
         this.normalize();
@@ -453,10 +453,10 @@ class vec3 {
 
     /**
      * Subtracts A to 'this' Vector.
-     * @param {number | vec3} a A numeric expression or a Vector.
+     * @param {number | Vec3} a A numeric expression or a Vector.
      */
     subtract(a) {
-        if (a instanceof vec3) {
+        if (a instanceof Vec3) {
             this.x -= a.x;
             this.y -= a.y;
             this.z -= a.z;
@@ -471,7 +471,7 @@ class vec3 {
 /**
  * A four-dimensional vector class for JavaScript.
  */
-class vec4 {
+class Vec4 {
     /**
      * Creates a four-dimensional vector pointing to X, Y, Z and W.
      * @param {number} x Numeric expression.
@@ -492,13 +492,13 @@ class vec4 {
 
     /**
      * Returns a Vector equals to A plus B.
-     * @param {vec4} a Vector.
-     * @param {number | vec4} b A numeric expression or a Vector.
+     * @param {Vec4} a Vector.
+     * @param {number | Vec4} b A numeric expression or a Vector.
      */
     static add(a, b) {
-        return b instanceof vec4 ?
-            new vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w) :
-            new vec4(a.x + b, a.y + b, a.z + b, a.w + b);
+        return b instanceof Vec4 ?
+            new Vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w) :
+            new Vec4(a.x + b, a.y + b, a.z + b, a.w + b);
     }
 
     /**
@@ -506,8 +506,8 @@ class vec4 {
      * 
      * - "Also known as the Chessboard Distance, it is somewhat similar
      * to the Manhattan distance, but with 45 degrees rotation."
-     * @param {vec4} a A Vector.
-     * @param {vec4} b A Vector.
+     * @param {Vec4} a A Vector.
+     * @param {Vec4} b A Vector.
      */
     static distanceChebyshev(a, b) {
         return Math.max(
@@ -520,8 +520,8 @@ class vec4 {
 
     /**
      * Returns the Euclidian Distance of A to B.
-     * @param {vec4} a A Vector.
-     * @param {vec4} b A Vector.
+     * @param {Vec4} a A Vector.
+     * @param {Vec4} b A Vector.
      */
     static distanceEuclidian(a, b) {
         const S = (a.x - b.x);
@@ -540,8 +540,8 @@ class vec4 {
      * 
      * - In other words: 
      * Only horizontal, vertical and diagonal (45 deg.) movements.
-     * @param {vec4} a A Vector.
-     * @param {vec4} b A Vector.
+     * @param {Vec4} a A Vector.
+     * @param {Vec4} b A Vector.
      */
     static distanceManhattan(a, b) {
         return Math.sqrt(
@@ -554,35 +554,35 @@ class vec4 {
 
     /**
      * Returns the division of A by B.
-     * @param {vec4} a A Vector.
-     * @param {number | vec4} b A numeric expression or a Vector.
+     * @param {Vec4} a A Vector.
+     * @param {number | Vec4} b A numeric expression or a Vector.
      */
     static divide(a, b) {
-        return b instanceof vec4 ?
-            new vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w) :
-            new vec4(a.x / b, a.y / b, a.z / b, a.w / b);
+        return b instanceof Vec4 ?
+            new Vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w) :
+            new Vec4(a.x / b, a.y / b, a.z / b, a.w / b);
     }
 
     /**
      * Returns the product of A by B.
-     * @param {vec4} a A Vector.
-     * @param {number | vec4} b A numeric expression or a Vector
+     * @param {Vec4} a A Vector.
+     * @param {number | Vec4} b A numeric expression or a Vector
      */
     static multiply(a, b) {
-        return b instanceof vec4 ?
-            new vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w) :
-            new vec4(a.x * b, a.y * b, a.z * b, a.w * b);
+        return b instanceof Vec4 ?
+            new Vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w) :
+            new Vec4(a.x * b, a.y * b, a.z * b, a.w * b);
     }
 
     /**
      * Returns a Vector equals to A minus B.
-     * @param {vec4} a A Vector.
-     * @param {number | vec4} b A numeric expression or a Vector.
+     * @param {Vec4} a A Vector.
+     * @param {number | Vec4} b A numeric expression or a Vector.
      */
     static subtract(a, b) {
-        return b instanceof vec4 ?
-            new vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w) :
-            new vec4(a.x - b, a.y - b, a.z - b, a.w - b);
+        return b instanceof Vec4 ?
+            new Vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w) :
+            new Vec4(a.x - b, a.y - b, a.z - b, a.w - b);
     }
 
     //////////////////////
@@ -591,10 +591,10 @@ class vec4 {
 
     /**
      * Adds A to 'this' Vector.
-     * @param {number | vec4} a A numeric expression or a Vector.
+     * @param {number | Vec4} a A numeric expression or a Vector.
      */
     add(a) {
-        if (a instanceof vec4) {
+        if (a instanceof Vec4) {
             this.x += a.x;
             this.y += a.y;
             this.z += a.z;
@@ -609,7 +609,7 @@ class vec4 {
 
     /**
      * Copy the coordinates of A to 'this' Vector.
-     * @param {vec4} a A Vector.
+     * @param {Vec4} a A Vector.
      */
     copy(a) {
         this.x = a.x;
@@ -620,10 +620,10 @@ class vec4 {
 
     /**
      * Divides 'this' Vector by A.
-     * @param {number | vec4} a A numeric expression or a Vector.
+     * @param {number | Vec4} a A numeric expression or a Vector.
      */
     divide(a) {
-        if (a instanceof vec4) {
+        if (a instanceof Vec4) {
             this.x /= a.x;
             this.y /= a.y;
             this.z /= a.z;
@@ -669,10 +669,10 @@ class vec4 {
 
     /**
      * Multiplies 'this' Vector by A.
-     * @param {number | vec4} a A numeric expression or a Vector.
+     * @param {number | Vec4} a A numeric expression or a Vector.
      */
     multiply(a) {
-        if (a instanceof vec4) {
+        if (a instanceof Vec4) {
             this.x *= a.x;
             this.y *= a.y;
             this.z *= a.z;
@@ -699,7 +699,7 @@ class vec4 {
 
     /**
      * Sets to A 'this' Vector's magnitude.
-     * @param {number | vec4} a A numeric expression or a Vector.
+     * @param {number | Vec4} a A numeric expression or a Vector.
      */
     setMagnitude(a) {
         this.normalize();
@@ -708,10 +708,10 @@ class vec4 {
 
     /**
      * Subtracts A to 'this' Vector.
-     * @param {number | vec4} a A numeric expression or a Vector.
+     * @param {number | Vec4} a A numeric expression or a Vector.
      */
     subtract(a) {
-        if (a instanceof vec4) {
+        if (a instanceof Vec4) {
             this.x -= a.x;
             this.y -= a.y;
             this.z -= a.z;
