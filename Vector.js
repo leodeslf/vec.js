@@ -269,7 +269,6 @@ class Vec3 {
      * to the Manhattan distance, but with 45 degrees rotation."
      * @param {Vec3} a A Vector.
      * @param {Vec3} b A Vector.
-     * @returns {number}
      */
     static distanceChebyshev(a, b) {
         return Math.max(
@@ -389,14 +388,6 @@ class Vec3 {
             this.z /= a;
         }
     }
-
-    /**
-     * Returns the angle of 'this' Vector (in radians).
-     * Values between PI and -PI.
-     */
-    /* getAngle() {
-        return Math.atan2(this.y, this.x);
-    } */
 
     /**
      * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
@@ -637,14 +628,6 @@ class Vec4 {
     }
 
     /**
-     * Returns the angle of 'this' Vector (in radians).
-     * Values between PI and -PI.
-     */
-    /* getAngle() {
-        return Math.atan2(this.y, this.x);
-    } */
-
-    /**
      * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
      */
     getMagnitude() {
@@ -728,9 +711,9 @@ class Vec4 {
 /**
  * NOTE:
  * 
- * Why vec2, vec3 and vec4 instead of a single Vector class?
+ * Why Vec2, Vec3 and Vec4 instead of a single Vector class?
  * (more code).
  * 
- * To avoid multiple blocks with several conditions per method.
+ * To avoid multiple blocks with several conditions per each method.
  * (more ops-per-sec).
  */

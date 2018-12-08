@@ -52,24 +52,24 @@ let vector_d = vec2.byPolarCoords(radius, angle);
 
 ### Static Methods
 
-| Name | Code | Available |
-| ---  | ---  | ---       |
+| Desc. | Function | Available |
+| --- | --- | --- |
 | Add | `add()` | 2D, 3D, 4D |
-| Create by Polar Coords | `byPolarCoords()` | 2D|
-| Distance | `distanceChebyshev()`<br>`distanceEuclidian()`<br>`distanceManhattan()` | 2D, 3D, 4D |
+| Create by Polar Coords | `byPolarCoords()` | 2D |
+| Distance | `distanceChebyshev()`, `distanceEuclidian()`, `distanceManhattan()` | 2D, 3D, 4D |
 | Divide | `divide()` | 2D, 3D, 4D |
 | Multiply | `multiply()` | 2D, 3D, 4D |
 | Subtract | `subtract()` | 2D, 3D, 4D |
 
 ### Instance Methods
 
-| Name | Code | Available |
-| ---  | ---  | ---       |
+| Desc. | Function | Available |
+| --- | --- | --- |
 | Add | `add()` | 2D, 3D, 4D |
 | Copy | `copy()` | 2D, 3D, 4D |
 | Divide | `divide()` | 2D, 3D, 4D |
 | Get Angle | `getAngle()` | 2D |
-| Get/Set Magnitude | `getMagnitude()`<br>`setMagnitude()` | 2D, 3D, 4D |
+| Get/Set Magnitude | `getMagnitude()`, `setMagnitude()` | 2D, 3D, 4D |
 | Limit | `limit()` | 2D, 3D, 4D |
 | Multiply | `multiply()` | 2D, 3D, 4D |
 | Normalize | `normalize()` | 2D, 3D, 4D |
@@ -81,4 +81,4 @@ let vector_d = vec2.byPolarCoords(radius, angle);
 
 Copyright &copy; 2018 [Leonardo de Souza Leal](https://github.com/Wikarot "GitHub profile").
 
-MIT License (feel free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies).
+MIT License.
