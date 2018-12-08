@@ -2,7 +2,6 @@
 
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)
 [![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Wikarot/Vector.js/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Wikarot/Vector.js/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/Wikarot/Vector.js/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Wikarot/Vector.js/build-status/master)
 [![GitHub issues](https://img.shields.io/github/issues/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/issues)
 [![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)
@@ -37,15 +36,15 @@ let y = 6;
 let z = 9;
 let w = 12;
 
-let vector_a = new vec2(x, y);
-let vector_b = new vec3(x, y, z);
-let vector_c = new vec4(x, y, z, w);
+let vector_a = new Vec2(x, y);
+let vector_b = new Vec3(x, y, z);
+let vector_c = new Vec4(x, y, z, w);
 
 // Or (only in 2D), by polar coordinates e.g
 let radius = 9;
 let angle = PI / 3;
 
-let vector_d = vec2.byPolarCoords(radius, angle);
+let vector_d = Vec2.byPolarCoords(radius, angle);
 ```
 
 ## Features
