@@ -23,7 +23,7 @@
 
 ## About
 
-A library for two, three and four-dimensional vector `class` for `JavaScript`.
+A library for two, three and four-dimensional vectors for `JavaScript`.
 
 ## Usage
 
