@@ -22,14 +22,14 @@
 
 ## About
 
-A library for two, three and four-dimensional vectors for `JavaScript`.
+A tool for two, three and four-dimensional vectors.
 
 ## Usage
 
 ```JavaScript
 // Create a vector:
 
-// By cartesian coordinates e.g
+// By cartesian coordinates e.g:
 let x = 3;
 let y = 6;
 let z = 9;
@@ -39,7 +39,7 @@ let vector_a = new Vec2(x, y);
 let vector_b = new Vec3(x, y, z);
 let vector_c = new Vec4(x, y, z, w);
 
-// Or (only in 2D), by polar coordinates e.g
+// Or (only in 2D), by polar coordinates e.g:
 let radius = 9;
 let angle = PI / 3;
 
@@ -77,6 +77,6 @@ let vector_d = Vec2.byPolarCoords(radius, angle);
 
 ## License
 
-Copyright &copy; 2018 [Leonardo de Souza Leal](https://github.com/Wikarot "GitHub profile").
+Copyright &copy; 2018 [Leonardo de S.L.F](https://github.com/Wikarot "GitHub profile").
 
 MIT License.

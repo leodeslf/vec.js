@@ -1,5 +1,5 @@
 /**
- * A two-dimensional vector class for JavaScript.
+ * A two-dimensional vector class.
  */
 class Vec2 {
     /**
@@ -62,7 +62,7 @@ class Vec2 {
     static distanceEuclidian(a, b) {
         const S = (a.x - b.x);
         const T = (a.y - b.y);
-        return Math.sqrt(S * S + T * T);
+        return Math.sqrt((S * S) + (T * T));
     }
 
     /**
@@ -81,6 +81,31 @@ class Vec2 {
         return Math.sqrt(
             Math.abs(a.x - b.x) +
             Math.abs(a.y - b.y)
+        );
+    }
+
+	/**
+	 * Returns the Minkowski Distance.
+     * 
+     * - It takes an exponent parameter (e), and the results can be similar
+     * or even equivalent to Chebyshev, Eclidian and Manhattan.
+     * 
+     * - If { p = 1 }: It'll be equivalent to Manhattan distance.
+     * 
+     * - If { p = 2 }: It'll be equivalent to Euclidian distance.
+     * 
+     * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+	 *
+	 * @param {Vector} a A Vector.
+	 * @param {Vector} b A Vector.
+     * @param {Vector} e A numeric expression.
+	 */
+    static distanceMinkowski(a, b, e) {
+        return (
+            (
+                Math.abs(a.x - b.x) ** e +
+                Math.abs(a.y - b.y) ** e
+            ) ** (1 / e)
         );
     }
 
@@ -127,11 +152,11 @@ class Vec2 {
      */
     add(a) {
         if (a instanceof Vec2) {
-            this.x += a.x;
-            this.y += a.y;
+            this.x = this.x + a.x;
+            this.y = this.y + a.y;
         } else {
-            this.x += a;
-            this.y += a;
+            this.x = this.x + a;
+            this.y = this.y + a;
         }
     }
 
@@ -150,11 +175,11 @@ class Vec2 {
      */
     divide(a) {
         if (a instanceof Vec2) {
-            this.x /= a.x;
-            this.y /= a.y;
+            this.x = this.x / a.x;
+            this.y = this.y / a.y;
         } else {
-            this.x /= a;
-            this.y /= a;
+            this.x = this.x / a;
+            this.y = this.y / a;
         }
     }
 
@@ -190,11 +215,11 @@ class Vec2 {
      */
     multiply(a) {
         if (a instanceof Vec2) {
-            this.x *= a.x;
-            this.y *= a.y;
+            this.x = this.x * a.x;
+            this.y = this.y * a.y;
         } else {
-            this.x *= a;
-            this.y *= a;
+            this.x = this.x * a;
+            this.y = this.y * a;
         }
     }
 
@@ -203,8 +228,8 @@ class Vec2 {
      */
     normalize() {
         const MA = this.getMagnitude();
-        this.x /= MA;
-        this.y /= MA;
+        this.x = this.x / MA;
+        this.y = this.y / MA;
     }
 
     /**
@@ -222,17 +247,17 @@ class Vec2 {
      */
     subtract(a) {
         if (a instanceof Vec2) {
-            this.x -= a.x;
-            this.y -= a.y;
+            this.x = this.x - a.x;
+            this.y = this.y - a.y;
         } else {
-            this.x -= a;
-            this.y -= a;
+            this.x = this.x - a;
+            this.y = this.y - a;
         }
     }
 }
 
 /**
- * A three-dimensional vector class for JavaScript.
+ * A three-dimensional vector class.
  */
 class Vec3 {
     /**
@@ -287,7 +312,7 @@ class Vec3 {
         const S = (a.x - b.x);
         const T = (a.y - b.y);
         const P = (a.z - b.z);
-        return Math.sqrt(S * S + T * T + P * P);
+        return Math.sqrt((S * S) + (T * T) + (P * P));
     }
 
     /**
@@ -353,13 +378,13 @@ class Vec3 {
      */
     add(a) {
         if (a instanceof Vec3) {
-            this.x += a.x;
-            this.y += a.y;
-            this.z += a.z;
+            this.x = this.x + a.x;
+            this.y = this.y + a.y;
+            this.z = this.z + a.z;
         } else {
-            this.x += a;
-            this.y += a;
-            this.z += a;
+            this.x = this.x + a;
+            this.y = this.y + a;
+            this.z = this.z + a;
         }
     }
 
@@ -379,13 +404,13 @@ class Vec3 {
      */
     divide(a) {
         if (a instanceof Vec3) {
-            this.x /= a.x;
-            this.y /= a.y;
-            this.z /= a.z;
+            this.x = this.x / a.x;
+            this.y = this.y / a.y;
+            this.z = this.z / a.z;
         } else {
-            this.x /= a;
-            this.y /= a;
-            this.z /= a;
+            this.x = this.x / a;
+            this.y = this.y / a;
+            this.z = this.z / a;
         }
     }
 
@@ -393,7 +418,11 @@ class Vec3 {
      * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
      */
     getMagnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        return Math.sqrt(
+            this.x * this.x +
+            this.y * this.y +
+            this.z * this.z
+        );
     }
 
     /**
@@ -413,13 +442,13 @@ class Vec3 {
      */
     multiply(a) {
         if (a instanceof Vec3) {
-            this.x *= a.x;
-            this.y *= a.y;
-            this.z *= a.z;
+            this.x = this.x * a.x;
+            this.y = this.y * a.y;
+            this.z = this.z * a.z;
         } else {
-            this.x *= a;
-            this.y *= a;
-            this.z *= a;
+            this.x = this.x * a;
+            this.y = this.y * a;
+            this.z = this.z * a;
         }
     }
 
@@ -448,19 +477,19 @@ class Vec3 {
      */
     subtract(a) {
         if (a instanceof Vec3) {
-            this.x -= a.x;
-            this.y -= a.y;
-            this.z -= a.z;
+            this.x = this.x - a.x;
+            this.y = this.y - a.y;
+            this.z = this.z - a.z;
         } else {
-            this.x -= a;
-            this.y -= a;
-            this.z -= a;
+            this.x = this.x - a;
+            this.y = this.y - a;
+            this.z = this.z - a;
         }
     }
 }
 
 /**
- * A four-dimensional vector class for JavaScript.
+ * A four-dimensional vector class.
  */
 class Vec4 {
     /**
@@ -519,7 +548,7 @@ class Vec4 {
         const T = (a.y - b.y);
         const P = (a.z - b.z);
         const Q = (a.w - b.w);
-        return Math.sqrt(S * S + T * T + P * P + Q * Q);
+        return Math.sqrt((S * S) + (T * T) + (P * P) + (Q * Q));
     }
 
     /**
@@ -586,15 +615,15 @@ class Vec4 {
      */
     add(a) {
         if (a instanceof Vec4) {
-            this.x += a.x;
-            this.y += a.y;
-            this.z += a.z;
-            this.w += a.w;
+            this.x = this.x + a.x;
+            this.y = this.y + a.y;
+            this.z = this.z + a.z;
+            this.w = this.w + a.w;
         } else {
-            this.x += a;
-            this.y += a;
-            this.z += a;
-            this.w += a;
+            this.x = this.x + a;
+            this.y = this.y + a;
+            this.z = this.z + a;
+            this.w = this.w + a;
         }
     }
 
@@ -615,15 +644,15 @@ class Vec4 {
      */
     divide(a) {
         if (a instanceof Vec4) {
-            this.x /= a.x;
-            this.y /= a.y;
-            this.z /= a.z;
-            this.w /= a.w;
+            this.x = this.x / a.x;
+            this.y = this.y / a.y;
+            this.z = this.z / a.z;
+            this.w = this.w / a.w;
         } else {
-            this.x /= a;
-            this.y /= a;
-            this.z /= a;
-            this.w /= a;
+            this.x = this.x / a;
+            this.y = this.y / a;
+            this.z = this.z / a;
+            this.w = this.w / a;
         }
     }
 
@@ -656,15 +685,15 @@ class Vec4 {
      */
     multiply(a) {
         if (a instanceof Vec4) {
-            this.x *= a.x;
-            this.y *= a.y;
-            this.z *= a.z;
-            this.w *= a.w;
+            this.x = this.x * a.x;
+            this.y = this.y * a.y;
+            this.z = this.z * a.z;
+            this.w = this.w * a.w;
         } else {
-            this.x *= a;
-            this.y *= a;
-            this.z *= a;
-            this.w *= a;
+            this.x = this.x * a;
+            this.y = this.y * a;
+            this.z = this.z * a;
+            this.w = this.w * a;
 
         }
     }
@@ -695,25 +724,15 @@ class Vec4 {
      */
     subtract(a) {
         if (a instanceof Vec4) {
-            this.x -= a.x;
-            this.y -= a.y;
-            this.z -= a.z;
-            this.w -= a.w;
+            this.x = this.x - a.x;
+            this.y = this.y - a.y;
+            this.z = this.z - a.z;
+            this.w = this.w - a.w;
         } else {
-            this.x -= a;
-            this.y -= a;
-            this.z -= a;
-            this.w -= a;
+            this.x = this.x - a;
+            this.y = this.y - a;
+            this.z = this.z - a;
+            this.w = this.w - a;
         }
     }
 }
-
-/**
- * NOTE:
- * 
- * Why Vec2, Vec3 and Vec4 instead of a single Vector class?
- * (more code).
- * 
- * To avoid multiple blocks with several conditions per each method.
- * (more ops-per-sec).
- */
