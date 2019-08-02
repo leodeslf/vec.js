@@ -1,9 +1,13 @@
-# Vector.js
+# Vector
 
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)
-[![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)
-[![GitHub issues](https://img.shields.io/github/issues/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/issues)
-[![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)
+<!--[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)-->
+<!--[![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)-->
+<!--[![GitHub issues](https://img.shields.io/github/issues/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/issues)-->
+<!--[![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)-->
+
+## About
+
+A tool for two, three and four-dimensional vectors.
 
 ```txt
 
@@ -20,48 +24,59 @@
 
 ```
 
-## About
+## Example
 
-A tool for two, three and four-dimensional vectors.
-
-## Usage
+Importing:
 
 ```JavaScript
-// Create a vector:
+import Vec2 from './vec2'
+import Vec3 from './vec3'
+import Vec4 from './vec4'
 
-// By cartesian coordinates e.g:
-let x = 3;
-let y = 6;
-let z = 9;
-let w = 12;
+// Or
+import { Vec2, Vec3, Vec4 } from './vec'
+```
 
-let vector_a = new Vec2(x, y);
-let vector_b = new Vec3(x, y, z);
-let vector_c = new Vec4(x, y, z, w);
+Creating by cartessian coords.:
 
-// Or (only in 2D), by polar coordinates e.g:
-let radius = 9;
-let angle = PI / 3;
+```JavaScript
+// Create a vector by cartesian coordinates e.g.:
+let x = 3
+let y = 6
+let z = 9
+let w = 12
 
-let vector_d = Vec2.byPolarCoords(radius, angle);
+const vector_a = new Vec2(x, y)
+const vector_b = new Vec3(x, y, z)
+const vector_c = new Vec4(x, y, z, w)
+```
+
+Creating by polar coords.:
+
+```JavaScript
+// Create a vector by polar coordinates e.g.: (Available for 2D)
+let radius = 9
+let angle = PI / 3
+
+const vector_d = Vec2.byPolarCoords(radius, angle)
 ```
 
 ## Features
 
-### Static Methods
+### `Static` Methods
 
-| Desc. | Function | Available |
+| Desc. | Method | Available |
 | --- | --- | --- |
 | Add | `add()` | 2D, 3D, 4D |
 | Create by Polar Coords | `byPolarCoords()` | 2D |
-| Distance | `distanceChebyshev()`, `distanceEuclidian()`, `distanceManhattan()` | 2D, 3D, 4D |
+| Distance | `distanceChebyshev()`, `distanceEuclidian()`,  `distanceManhattan()`, `distanceMinkowski()` | 2D, 3D, 4D |
 | Divide | `divide()` | 2D, 3D, 4D |
 | Multiply | `multiply()` | 2D, 3D, 4D |
 | Subtract | `subtract()` | 2D, 3D, 4D |
 
-### Instance Methods
+### `Instance` Methods
 
-| Desc. | Function | Available |
+| Desc. | Method | Available |
 | --- | --- | --- |
 | Add | `add()` | 2D, 3D, 4D |
 | Copy | `copy()` | 2D, 3D, 4D |
@@ -75,8 +90,10 @@ let vector_d = Vec2.byPolarCoords(radius, angle);
 
 *See in-line docs for more info.*
 
-## License
+## Author
 
-Copyright &copy; 2018 [Leonardo de S.L.F](https://github.com/Wikarot "GitHub profile").
+[Leonardo de S.L.F](https://github.com/Wikarot).
+
+## License
 
 MIT License.
