@@ -92,7 +92,7 @@ const vector_d = Vec2.byPolarCoords(radius, angle)
 
 ## Author
 
-[Leonardo de S.L.F](https://github.com/Wikarot).
+[Leonardo de S.L.F](https://github.com/Wikarot "GitHub profile").
 
 ## License
 
