@@ -69,7 +69,7 @@ const vector_d = Vec2.byPolarCoords(radius, angle)
 | --- | --- | --- |
 | Add | `add()` | 2D, 3D, 4D |
 | Create by Polar Coords | `byPolarCoords()` | 2D |
-| Distance | `distanceChebyshev()`, `distanceEuclidian()`,  `distanceManhattan()`, `distanceMinkowski()` | 2D, 3D, 4D |
+| Distance | `distanceChebyshev()`, `distanceEuclidian()`, `distanceManhattan()`, `distanceMinkowski()` | 2D, 3D, 4D |
 | Divide | `divide()` | 2D, 3D, 4D |
 | Multiply | `multiply()` | 2D, 3D, 4D |
 | Subtract | `subtract()` | 2D, 3D, 4D |
