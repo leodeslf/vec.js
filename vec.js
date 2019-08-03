@@ -694,7 +694,6 @@ export class Vec4 {
       this.y = this.y * a;
       this.z = this.z * a;
       this.w = this.w * a;
-
     }
   }
 
