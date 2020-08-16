@@ -1,15 +1,32 @@
 /**
+ * Vectors class and utilities.
+ */
+class Vec {
+  /**
+   * @param {number} x Numeric expression.
+   * @param {number} y Numeric expression.
+   * @param {number} z Numeric expression.
+   * @param {number} w Numeric expression.
+   */
+  constructor(x, y, z, w) {
+    this.x = x;
+    this.y = y;
+    if (typeof z === 'number') this.z = z;
+    if (typeof w === 'number') this.w = w;
+  }
+}
+
+/**
  * A two-dimensional vector class.
  */
-export class Vec2 {
+export class Vec2 extends Vec {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} x Numeric expression.
    * @param {number} y Numeric expression.
    */
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    super(x, y);
   }
 
   ////////////////////
@@ -17,7 +34,7 @@ export class Vec2 {
   ////////////////////
 
   /**
-   * Returns a Vector equals to A plus B.
+   * Returns a vector equals to A plus B.
    * @param {Vec2} a Vector.
    * @param {number | Vec2} b A numeric expression or a Vector.
    */
@@ -28,7 +45,7 @@ export class Vec2 {
   }
 
   /**
-   * Creates a Vector using Polar Coordinates (radius and angle).
+   * Creates a vector using Polar Coordinates.
    * @param {number} radius Numeric expression.
    * @param {number} angle Numeric expression (angle measured in radians).
    */
@@ -40,12 +57,23 @@ export class Vec2 {
   }
 
   /**
-   * Returns the Chebyshev Distance.
+   * Returns the distance from A to B.
+   * @param {Vec2} a Vector.
+   * @param {Vec2} b Vector.
+   */
+  static distance(a, b) {
+    const S = (a.x - b.x);
+    const T = (a.y - b.y);
+    return Math.sqrt((S * S) + (T * T));
+  }
+
+  /**
+   * Returns the Chebyshev distance from A to B.
    * 
-   * - "Also known as the Chessboard Distance, it is somewhat similar
+   * - "Also known as the Chessboard distance, it is somewhat similar
    * to the Manhattan distance, but with 45 degrees rotation."
-   * @param {Vec2} a A Vector.
-   * @param {Vec2} b A Vector.
+   * @param {Vec2} a Vector.
+   * @param {Vec2} b Vector.
    */
   static distanceChebyshev(a, b) {
     return Math.max(
@@ -55,18 +83,7 @@ export class Vec2 {
   }
 
   /**
-   * Returns the Euclidian Distance of A to B.
-   * @param {Vec2} a A Vector.
-   * @param {Vec2} b A Vector.
-   */
-  static distanceEuclidian(a, b) {
-    const S = (a.x - b.x);
-    const T = (a.y - b.y);
-    return Math.sqrt((S * S) + (T * T));
-  }
-
-  /**
-   * Returns the Manhattan Distance.
+   * Returns the Manhattan distance from A to B.
    * 
    * - "Inspired by the grid-like organization of Manhattan, this
    * is distance to the nearest points when you can only travel
@@ -74,8 +91,8 @@ export class Vec2 {
    * 
    * - In other words: 
    * Only horizontal, vertical and diagonal (45 deg.) movements.
-   * @param {Vec2} a A Vector.
-   * @param {Vec2} b A Vector.
+   * @param {Vec2} a Vector.
+   * @param {Vec2} b Vector.
    */
   static distanceManhattan(a, b) {
     return Math.sqrt(
@@ -85,10 +102,10 @@ export class Vec2 {
   }
 
 	/**
-	 * Returns the Minkowski Distance.
+	 * Returns the Minkowski distance from A to B.
      * 
      * - It takes an exponent parameter (e), and the results can be similar
-     * or even equivalent to Chebyshev, Eclidian and Manhattan.
+     * or even equivalent to Chebyshev, Euclidian and Manhattan.
      * 
      * - If { p = 1 }: It'll be equivalent to Manhattan distance.
      * 
@@ -96,9 +113,9 @@ export class Vec2 {
      * 
      * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
 	 *
-	 * @param {Vector} a A Vector.
-	 * @param {Vector} b A Vector.
-     * @param {Vector} e A numeric expression.
+	 * @param {Vec2} a Vector.
+	 * @param {Vec2} b Vector.
+   * @param {number} e A numeric expression.
 	 */
   static distanceMinkowski(a, b, e) {
     return (
@@ -110,30 +127,8 @@ export class Vec2 {
   }
 
   /**
-   * Returns the division of A by B.
-   * @param {Vec2} a A Vector.
-   * @param {number | Vec2} b A numeric expression or a Vector.
-   */
-  static divide(a, b) {
-    return b instanceof Vec2 ?
-      new Vec2(a.x / b.x, a.y / b.y) :
-      new Vec2(a.x / b, a.y / b);
-  }
-
-  /**
-   * Returns the product of A by B.
-   * @param {Vec2} a A Vector.
-   * @param {number | Vec2} b A numeric expression or a Vector
-   */
-  static multiply(a, b) {
-    return b instanceof Vec2 ?
-      new Vec2(a.x * b.x, a.y * b.y) :
-      new Vec2(a.x * b, a.y * b);
-  }
-
-  /**
-   * Returns a Vector equals to A minus B.
-   * @param {Vec2} a A Vector.
+   * Returns a vector equals to A minus B.
+   * @param {Vec2} a Vector.
    * @param {number | Vec2} b A numeric expression or a Vector.
    */
   static subtract(a, b) {
@@ -147,7 +142,50 @@ export class Vec2 {
   //////////////////////
 
   /**
-   * Adds A to 'this' Vector.
+   * Returns the angle relative to the positive x-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleX() {
+    return Math.atan2(this.y, this.x);
+  }
+
+  /**
+   * Returns the angle relative to the positive y-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleY() {
+    return Math.atan2(this.x, this.y);
+  }
+
+  /**
+   * Resturns the magnitude of this vector.
+   */
+  get magnitude() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
+
+  /**
+   * Limits the maximum length of this vector to the A value.
+   * @param {number} a A numeric expression.
+   */
+  set limit(a) {
+    if (this.magnitude > a) {
+      this.normalize();
+      this.multiply(a);
+    }
+  }
+
+  /**
+   * Sets the magnitude of this vector.
+   * @param {number | Vec2} a A numeric expression or a Vector.
+   */
+  set magnitude(a) {
+    this.normalize();
+    this.multiply(a);
+  }
+
+  /**
+   * Adds A to this vector.
    * @param {number | Vec2} a A numeric expression or a Vector.
    */
   add(a) {
@@ -161,8 +199,8 @@ export class Vec2 {
   }
 
   /**
-   * Copy the coordinates of A to 'this' Vector.
-   * @param {Vec2} a A Vector.
+   * Copy the coordinates of A to this vector.
+   * @param {Vec2} a Vector.
    */
   copy(a) {
     this.x = a.x;
@@ -170,79 +208,25 @@ export class Vec2 {
   }
 
   /**
-   * Divides 'this' Vector by A.
-   * @param {number | Vec2} a A numeric expression or a Vector.
-   */
-  divide(a) {
-    if (a instanceof Vec2) {
-      this.x = this.x / a.x;
-      this.y = this.y / a.y;
-    } else {
-      this.x = this.x / a;
-      this.y = this.y / a;
-    }
-  }
-
-  /**
-   * Returns the angle of 'this' Vector (in radians).
-   * Values between PI and -PI.
-   */
-  getAngle() {
-    return Math.atan2(this.y, this.x);
-  }
-
-  /**
-   * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
-   */
-  getMagnitude() {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
-  }
-
-  /**
-   * Limits the maximum size of 'this' Vector to the A value.
-   * @param {number} a A numeric expression.
-   */
-  limit(a) {
-    if (this.getMagnitude() > a) {
-      this.normalize();
-      this.multiply(a);
-    }
-  }
-
-  /**
-   * Multiplies 'this' Vector by A.
-   * @param {number | Vec2} a A numeric expression or a Vector.
-   */
-  multiply(a) {
-    if (a instanceof Vec2) {
-      this.x = this.x * a.x;
-      this.y = this.y * a.y;
-    } else {
-      this.x = this.x * a;
-      this.y = this.y * a;
-    }
-  }
-
-  /**
-   * Sets to 1 'this' Vector's magnitude (Unit Vector).
+   * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = this.getMagnitude();
+    const MA = this.magnitude;
     this.x = this.x / MA;
     this.y = this.y / MA;
   }
 
   /**
-   * Sets to A 'this' Vector's magnitude.
-   * @param {number | Vec2} a A numeric expression or a Vector.
+   * Scales this vector by A.
+   * @param {number} a A numeric expression.
    */
-  setMagnitude(a) {
-    this.normalize();
-    this.multiply(a);
+  scale(a) {
+    this.x = this.x * a;
+    this.y = this.y * a;
   }
 
   /**
-   * Subtracts A to 'this' Vector.
+   * Subtracts A from this vector.
    * @param {number | Vec2} a A numeric expression or a Vector.
    */
   subtract(a) {
@@ -259,7 +243,7 @@ export class Vec2 {
 /**
  * A three-dimensional vector class.
  */
-export class Vec3 {
+export class Vec3 extends Vec {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} x Numeric expression.
@@ -267,9 +251,7 @@ export class Vec3 {
    * @param {number} z Numeric expression.
    */
   constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    super(x, y, z);
   }
 
   ////////////////////
@@ -277,7 +259,7 @@ export class Vec3 {
   ////////////////////
 
   /**
-   * Returns a Vector equals to A plus B.
+   * Returns a vector equals to A plus B.
    * @param {Vec3} a Vector.
    * @param {number | Vec3} b A numeric expression or a Vector.
    */
@@ -288,12 +270,24 @@ export class Vec3 {
   }
 
   /**
-   * Returns the Chebyshev Distance.
+   * Returns the Euclidian Distance from A to B.
+   * @param {Vec3} a Vector.
+   * @param {Vec3} b Vector.
+   */
+  static distance(a, b) {
+    const S = (a.x - b.x);
+    const T = (a.y - b.y);
+    const P = (a.z - b.z);
+    return Math.sqrt((S * S) + (T * T) + (P * P));
+  }
+
+  /**
+   * Returns the Chebyshev Distance from A to B.
    * 
    * - "Also known as the Chessboard Distance, it is somewhat similar
    * to the Manhattan distance, but with 45 degrees rotation."
-   * @param {Vec3} a A Vector.
-   * @param {Vec3} b A Vector.
+   * @param {Vec3} a Vector.
+   * @param {Vec3} b Vector.
    */
   static distanceChebyshev(a, b) {
     return Math.max(
@@ -304,19 +298,7 @@ export class Vec3 {
   }
 
   /**
-   * Returns the Euclidian Distance of A to B.
-   * @param {Vec3} a A Vector.
-   * @param {Vec3} b A Vector.
-   */
-  static distanceEuclidian(a, b) {
-    const S = (a.x - b.x);
-    const T = (a.y - b.y);
-    const P = (a.z - b.z);
-    return Math.sqrt((S * S) + (T * T) + (P * P));
-  }
-
-  /**
-   * Returns the Manhattan Distance.
+   * Returns the Manhattan Distance from A to B.
    * 
    * - "Inspired by the grid-like organization of Manhattan, this
    * is distance to the nearest points when you can only travel
@@ -324,8 +306,8 @@ export class Vec3 {
    * 
    * - In other words: 
    * Only horizontal, vertical and diagonal (45 deg.) movements.
-   * @param {Vec3} a A Vector.
-   * @param {Vec3} b A Vector.
+   * @param {Vec3} a Vector.
+   * @param {Vec3} b Vector.
    */
   static distanceManhattan(a, b) {
     return Math.sqrt(
@@ -335,31 +317,35 @@ export class Vec3 {
     );
   }
 
-  /**
-   * Returns the division of A by B.
-   * @param {Vec3} a A Vector.
-   * @param {number | Vec3} b A numeric expression or a Vector.
-   */
-  static divide(a, b) {
-    return b instanceof Vec3 ?
-      new Vec3(a.x / b.x, a.y / b.y, a.z / b.z) :
-      new Vec3(a.x / b, a.y / b, a.z / b);
-  }
-
-  /**
-   * Returns the product of A by B.
-   * @param {Vec3} a A Vector.
-   * @param {number | Vec3} b A numeric expression or a Vector
-   */
-  static multiply(a, b) {
-    return b instanceof Vec3 ?
-      new Vec3(a.x * b.x, a.y * b.y, a.z * b.z) :
-      new Vec3(a.x * b, a.y * b, a.z * b);
+	/**
+	 * Returns the Minkowski Distance from A to B.
+     * 
+     * - It takes an exponent parameter (e), and the results can be similar
+     * or even equivalent to Chebyshev, Euclidian and Manhattan.
+     * 
+     * - If { p = 1 }: It'll be equivalent to Manhattan distance.
+     * 
+     * - If { p = 2 }: It'll be equivalent to Euclidian distance.
+     * 
+     * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+	 *
+	 * @param {Vec3} a Vector.
+	 * @param {Vec3} b Vector.
+   * @param {number} e A numeric expression.
+	 */
+  static distanceMinkowski(a, b, e) {
+    return (
+      (
+        Math.abs(a.x - b.x) ** e +
+        Math.abs(a.y - b.y) ** e +
+        Math.abs(a.z - b.z) ** e
+      ) ** (1 / e)
+    );
   }
 
   /**
    * Returns a Vector equals to A minus B.
-   * @param {Vec3} a A Vector.
+   * @param {Vec3} a Vector.
    * @param {number | Vec3} b A numeric expression or a Vector.
    */
   static subtract(a, b) {
@@ -373,7 +359,62 @@ export class Vec3 {
   //////////////////////
 
   /**
-   * Adds A to 'this' Vector.
+   * Returns the angle relative to the positive x-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleX() {
+    return Math.atan2(Math.sqrt(this.y ** 2 + this.z ** 2), this.x);
+  }
+
+  /**
+   * Returns the angle relative to the positive y-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleY() {
+    return Math.atan2(Math.sqrt(this.x ** 2 + this.z ** 2), this.y);
+  }
+
+  /**
+   * Returns the angle relative to the positive z-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleZ() {
+    return Math.atan2(Math.sqrt(this.x ** 2 + this.y ** 2), this.z);
+  }
+
+  /**
+   * Resturns the magnitude of this vector.
+   */
+  get magnitude() {
+    return Math.sqrt(
+      this.x * this.x +
+      this.y * this.y +
+      this.z * this.z
+    );
+  }
+
+  /**
+   * Limits the maximum length of this vector to the A value.
+   * @param {number} a A numeric expression.
+   */
+  set limit(a) {
+    if (this.magnitude > a) {
+      this.normalize();
+      this.multiply(a);
+    }
+  }
+
+  /**
+   * Sets the magnitude of this vector.
+   * @param {number | Vec3} a A numeric expression or a Vector.
+   */
+  set magnitude(a) {
+    this.normalize();
+    this.multiply(a);
+  }
+
+  /**
+   * Adds A to this vector.
    * @param {number | Vec3} a A numeric expression or a Vector.
    */
   add(a) {
@@ -389,90 +430,37 @@ export class Vec3 {
   }
 
   /**
-   * Copy the coordinates of A to 'this' Vector.
-   * @param {Vec3} a A Vector.
+   * Copy the coordinates of A to this vector.
+   * @param {Vec3} a Vector.
    */
   copy(a) {
-    this.x = a.x;
-    this.y = a.y;
-    this.z = a.z;
+    this.x = { ...a }.x;
+    this.y = { ...a }.y;
+    this.z = { ...a }.z;
   }
 
   /**
-   * Divides 'this' Vector by A.
-   * @param {number | Vec3} a A numeric expression or a Vector.
-   */
-  divide(a) {
-    if (a instanceof Vec3) {
-      this.x = this.x / a.x;
-      this.y = this.y / a.y;
-      this.z = this.z / a.z;
-    } else {
-      this.x = this.x / a;
-      this.y = this.y / a;
-      this.z = this.z / a;
-    }
-  }
-
-  /**
-   * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
-   */
-  getMagnitude() {
-    return Math.sqrt(
-      this.x * this.x +
-      this.y * this.y +
-      this.z * this.z
-    );
-  }
-
-  /**
-   * Limits the maximum size of 'this' Vector to the A value.
-   * @param {number} a A numeric expression.
-   */
-  limit(a) {
-    if (this.getMagnitude() > a) {
-      this.normalize();
-      this.multiply(a);
-    }
-  }
-
-  /**
-   * Multiplies 'this' Vector by A.
-   * @param {number | Vec3} a A numeric expression or a Vector.
-   */
-  multiply(a) {
-    if (a instanceof Vec3) {
-      this.x = this.x * a.x;
-      this.y = this.y * a.y;
-      this.z = this.z * a.z;
-    } else {
-      this.x = this.x * a;
-      this.y = this.y * a;
-      this.z = this.z * a;
-    }
-  }
-
-  /**
-   * Sets to 1 'this' Vector's magnitude (Unit Vector).
+   * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = this.getMagnitude();
+    const MA = this.magnitude;
     this.x = this.x / MA;
     this.y = this.y / MA;
     this.z = this.z / MA;
   }
 
   /**
-   * Sets to A 'this' Vector's magnitude.
-   * @param {number | Vec3} a A numeric expression or a Vector.
+   * Scales this vector by A.
+   * @param {number} a A numeric expression.
    */
-  setMagnitude(a) {
-    this.normalize();
-    this.multiply(a);
+  scale(a) {
+    this.x = this.x * a;
+    this.y = this.y * a;
+    this.z = this.z * a;
   }
 
   /**
-   * Subtracts A to 'this' Vector.
+   * Subtracts A from this vector.
    * @param {number | Vec3} a A numeric expression or a Vector.
    */
   subtract(a) {
@@ -491,7 +479,7 @@ export class Vec3 {
 /**
  * A four-dimensional vector class.
  */
-export class Vec4 {
+export class Vec4 extends Vec {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} x Numeric expression.
@@ -500,10 +488,7 @@ export class Vec4 {
    * @param {number} w Numeric expression.
    */
   constructor(x, y, z, w) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.w = w;
+    super(x, y, z, w);
   }
 
   ////////////////////
@@ -511,9 +496,10 @@ export class Vec4 {
   ////////////////////
 
   /**
-   * Returns a Vector equals to A plus B.
+   * Returns a vector equals to A plus B.
    * @param {Vec4} a Vector.
    * @param {number | Vec4} b A numeric expression or a Vector.
+   * @returns {Vec4} Vector. 
    */
   static add(a, b) {
     return b instanceof Vec4 ?
@@ -522,12 +508,12 @@ export class Vec4 {
   }
 
   /**
-   * Returns the Chebyshev Distance.
+   * Returns the Chebyshev distance from A to B.
    * 
-   * - "Also known as the Chessboard Distance, it is somewhat similar
+   * - "Also known as the Chessboard distance, it is somewhat similar
    * to the Manhattan distance, but with 45 degrees rotation."
-   * @param {Vec4} a A Vector.
-   * @param {Vec4} b A Vector.
+   * @param {Vec4} a Vector.
+   * @param {Vec4} b Vector.
    */
   static distanceChebyshev(a, b) {
     return Math.max(
@@ -539,9 +525,9 @@ export class Vec4 {
   }
 
   /**
-   * Returns the Euclidian Distance of A to B.
-   * @param {Vec4} a A Vector.
-   * @param {Vec4} b A Vector.
+   * Returns the Euclidian distance from A to B.
+   * @param {Vec4} a Vector.
+   * @param {Vec4} b Vector.
    */
   static distanceEuclidian(a, b) {
     const S = (a.x - b.x);
@@ -552,7 +538,7 @@ export class Vec4 {
   }
 
   /**
-   * Returns the Manhattan Distance.
+   * Returns the Manhattan distance from A to B.
    * 
    * - "Inspired by the grid-like organization of Manhattan, this
    * is distance to the nearest points when you can only travel
@@ -560,8 +546,8 @@ export class Vec4 {
    * 
    * - In other words: 
    * Only horizontal, vertical and diagonal (45 deg.) movements.
-   * @param {Vec4} a A Vector.
-   * @param {Vec4} b A Vector.
+   * @param {Vec4} a Vector.
+   * @param {Vec4} b Vector.
    */
   static distanceManhattan(a, b) {
     return Math.sqrt(
@@ -572,31 +558,37 @@ export class Vec4 {
     );
   }
 
-  /**
-   * Returns the division of A by B.
-   * @param {Vec4} a A Vector.
-   * @param {number | Vec4} b A numeric expression or a Vector.
-   */
-  static divide(a, b) {
-    return b instanceof Vec4 ?
-      new Vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w) :
-      new Vec4(a.x / b, a.y / b, a.z / b, a.w / b);
+	/**
+	 * Returns the Minkowski distance from A to B.
+     * 
+     * - It takes an exponent parameter (e), and the results can be similar
+     * or even equivalent to Chebyshev, Euclidian and Manhattan.
+     * 
+     * - If { p = 1 }: It'll be equivalent to Manhattan distance.
+     * 
+     * - If { p = 2 }: It'll be equivalent to Euclidian distance.
+     * 
+     * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+	 *
+	 * @param {Vec4} a Vector.
+	 * @param {Vec4} b Vector.
+   * @param {number} e A numeric expression.
+	 */
+  static distanceMinkowski(a, b, e) {
+    return (
+      (
+        Math.abs(a.x - b.x) ** e +
+        Math.abs(a.y - b.y) ** e +
+        Math.abs(a.z - b.z) ** e +
+        Math.abs(a.w - b.w) ** e
+      ) ** (1 / e)
+    );
   }
 
   /**
-   * Returns the product of A by B.
-   * @param {Vec4} a A Vector.
-   * @param {number | Vec4} b A numeric expression or a Vector
-   */
-  static multiply(a, b) {
-    return b instanceof Vec4 ?
-      new Vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w) :
-      new Vec4(a.x * b, a.y * b, a.z * b, a.w * b);
-  }
-
-  /**
-   * Returns a Vector equals to A minus B.
-   * @param {Vec4} a A Vector.
+   * Subtracts A from this vector.
+   * Returns a vector equals to A minus B.
+   * @param {Vec4} a Vector.
    * @param {number | Vec4} b A numeric expression or a Vector.
    */
   static subtract(a, b) {
@@ -610,7 +602,63 @@ export class Vec4 {
   //////////////////////
 
   /**
-   * Adds A to 'this' Vector.
+   * Returns the angle relative to the positive x-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleX() {
+    return Math.atan2(Math.sqrt(this.y ** 2 + this.z ** 2), this.x);
+  }
+
+  /**
+   * Returns the angle relative to the positive y-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleY() {
+    return Math.atan2(Math.sqrt(this.x ** 2 + this.z ** 2), this.y);
+  }
+
+  /**
+   * Returns the angle relative to the positive z-axis (in radians).
+   * Values between PI and -PI.
+   */
+  get angleZ() {
+    return Math.atan2(Math.sqrt(this.x ** 2 + this.y ** 2), this.z);
+  }
+
+  /**
+   * Resturns the magnitude of this vector.
+   */
+  get magnitude() {
+    return Math.sqrt(
+      this.x * this.x +
+      this.y * this.y +
+      this.z * this.z +
+      this.w * this.w
+    );
+  }
+
+  /**
+   * Limits the maximum length of this vector to the A value.
+   * @param {number} a A numeric expression.
+   */
+  set limit(a) {
+    if (this.magnitude > a) {
+      this.normalize();
+      this.scale(a);
+    }
+  }
+
+  /**
+   * Sets the magnitude of this vector.
+   * @param {number} a A numeric expression.
+   */
+  set magnitude(a) {
+    this.normalize();
+    this.scale(a);
+  }
+
+  /**
+   * Adds A to this vector.
    * @param {number | Vec4} a A numeric expression or a Vector.
    */
   add(a) {
@@ -628,8 +676,8 @@ export class Vec4 {
   }
 
   /**
-   * Copy the coordinates of A to 'this' Vector.
-   * @param {Vec4} a A Vector.
+   * Copy the coordinates of A to this vector.
+   * @param {Vec4} a Vector.
    */
   copy(a) {
     this.x = a.x;
@@ -639,69 +687,10 @@ export class Vec4 {
   }
 
   /**
-   * Divides 'this' Vector by A.
-   * @param {number | Vec4} a A numeric expression or a Vector.
-   */
-  divide(a) {
-    if (a instanceof Vec4) {
-      this.x = this.x / a.x;
-      this.y = this.y / a.y;
-      this.z = this.z / a.z;
-      this.w = this.w / a.w;
-    } else {
-      this.x = this.x / a;
-      this.y = this.y / a;
-      this.z = this.z / a;
-      this.w = this.w / a;
-    }
-  }
-
-  /**
-   * Returns the magnitude (size) of 'this' Vector (Pythagorean theorem).
-   */
-  getMagnitude() {
-    return Math.sqrt(
-      this.x * this.x +
-      this.y * this.y +
-      this.z * this.z +
-      this.w * this.w
-    );
-  }
-
-  /**
-   * Limits the maximum size of 'this' Vector to the A value.
-   * @param {number} a A numeric expression.
-   */
-  limit(a) {
-    if (this.getMagnitude() > a) {
-      this.normalize();
-      this.multiply(a);
-    }
-  }
-
-  /**
-   * Multiplies 'this' Vector by A.
-   * @param {number | Vec4} a A numeric expression or a Vector.
-   */
-  multiply(a) {
-    if (a instanceof Vec4) {
-      this.x = this.x * a.x;
-      this.y = this.y * a.y;
-      this.z = this.z * a.z;
-      this.w = this.w * a.w;
-    } else {
-      this.x = this.x * a;
-      this.y = this.y * a;
-      this.z = this.z * a;
-      this.w = this.w * a;
-    }
-  }
-
-  /**
-   * Sets to 1 'this' Vector's magnitude (Unit Vector).
+   * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = this.getMagnitude();
+    const MA = this.magnitude;
     this.x = this.x / MA;
     this.y = this.y / MA;
     this.z = this.z / MA;
@@ -709,16 +698,18 @@ export class Vec4 {
   }
 
   /**
-   * Sets to A 'this' Vector's magnitude.
-   * @param {number | Vec4} a A numeric expression or a Vector.
+   * Scales this vector by A.
+   * @param {number} a A numeric expression.
    */
-  setMagnitude(a) {
-    this.normalize();
-    this.multiply(a);
+  scale(a) {
+    this.x = this.x * a;
+    this.y = this.y * a;
+    this.z = this.z * a;
+    this.w = this.w * a;
   }
 
   /**
-   * Subtracts A to 'this' Vector.
+   * Subtracts A from this vector.
    * @param {number | Vec4} a A numeric expression or a Vector.
    */
   subtract(a) {
