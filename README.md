@@ -1,8 +1,8 @@
 # Vector
 
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Wikarot/Vector.js.svg)](https://github.com/leodeslf/Vector.min.js)
 [![Inline docs](http://inch-ci.org/github/Wikarot/Vector.js.svg?branch=master&style=shields)](http://inch-ci.org/github/Wikarot/Vector.js)
-[![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/Wikarot/Vector.js/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Wikarot/Vector.js.svg)](https://github.com/leodeslf/Vector.js/blob/master/LICENSE)
 
 ```txt
 

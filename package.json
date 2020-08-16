@@ -1,0 +1,22 @@
+{
+  "name": "vector.js",
+  "version": "1.1.0",
+  "description": "Vectors for JavaScript",
+  "main": "vector.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leodeslf/vector.git"
+  },
+  "keywords": [
+    "vector"
+  ],
+  "author": "Leo de S.L.F",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leodeslf/vector/issues"
+  },
+  "homepage": "https://github.com/leodeslf/vector#readme"
+}
