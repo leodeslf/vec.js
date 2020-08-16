@@ -1,8 +1,8 @@
 {
-  "name": "vector.js",
+  "name": "vec.js",
   "version": "1.1.0",
   "description": "Vectors for JavaScript",
-  "main": "vector.min.js",
+  "main": "vec.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
