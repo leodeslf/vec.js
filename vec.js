@@ -1,5 +1,5 @@
 /**
- * Vectors class and utilities.
+ * Vector class and utilities.
  */
 class Vec {
   /**

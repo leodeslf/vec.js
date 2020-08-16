@@ -1,4 +1,4 @@
-# Vector
+# Vec.js
 
 ```txt
 
@@ -53,7 +53,7 @@ Utility `Class` that brings vectors and its functionality to JavaScript.
 
 ## Author
 
-[Leo de S.L.F](https://github.com/leodeslf "GitHub profile").
+[Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile").
 
 ## License
 
