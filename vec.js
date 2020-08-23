@@ -130,16 +130,16 @@ export class Vec2 extends Vec {
   //////////////////////
 
   /**
-   * Returns the angle relative to the positive x-axis (in radians).
    * Values between PI and -PI.
+   * @returns {number} Angle relative to the positive x-axis (in radians).
    */
   get angleX() {
     return Math.atan2(this.y, this.x);
   }
 
   /**
-   * Returns the angle relative to the positive y-axis (in radians).
    * Values between PI and -PI.
+   * @returns {number} Angle relative to the positive y-axis (in radians).
    */
   get angleY() {
     return Math.atan2(this.x, this.y);
@@ -237,9 +237,9 @@ export class Vec3 extends Vec {
   ////////////////////
 
   /**
-   * Returns a vector equals to A plus B.
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
+   * @returns {Vec3} A new vector equals to A plus B.
    */
   static add(a, b) {
     return new Vec3(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -311,7 +311,7 @@ export class Vec3 extends Vec {
    * 
    * - If { p = 2 }: It'll be equivalent to Euclidian distance.
    * 
-   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.	 *
+   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
 	 * @param {Vec3} a A vector.
 	 * @param {Vec3} b A vector.
    * @param {number} e A numeric expression.
@@ -486,13 +486,11 @@ export class Vec4 extends Vec {
   }
 
   /**
-   * Returns the Chebyshev distance from A to B.
-   * 
-   * - "Also known as the Chessboard distance, it is somewhat similar
+   * "Also known as the Chessboard distance, it is somewhat similar
    * to the Manhattan distance, but with 45 degrees rotation."
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
-   * @returns {number} Manhattan distance from A to B.
+   * @returns {number} Chebyshev distance from A to B.
    */
   static distanceChebyshev(a, b) {
     return Math.max(
