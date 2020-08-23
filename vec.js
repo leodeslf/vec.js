@@ -1,32 +1,15 @@
 /**
- * Vector class and utilities.
- */
-class Vec {
-  /**
-   * @param {number} x A numeric expression.
-   * @param {number} y A numeric expression.
-   * @param {number} z A numeric expression.
-   * @param {number} w A numeric expression.
-   */
-  constructor(x, y, z, w) {
-    this.x = x;
-    this.y = y;
-    if (typeof z === 'number') this.z = z;
-    if (typeof w === 'number') this.w = w;
-  }
-}
-
-/**
  * A two-dimensional vector class.
  */
-export class Vec2 extends Vec {
+export class Vec2 {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} x A numeric expression.
    * @param {number} y A numeric expression.
    */
   constructor(x, y) {
-    super(x, y);
+    this.x = x;
+    this.y = y;
   }
 
   ////////////////////
@@ -103,7 +86,7 @@ export class Vec2 extends Vec {
    * 
    * - If { p = 2 }: It'll be equivalent to Euclidian distance.
    * 
-   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.	 *
+   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
 	 * @param {Vec2} a A vector.
 	 * @param {Vec2} b A vector.
    * @param {number} e A numeric expression.
@@ -221,7 +204,7 @@ export class Vec2 extends Vec {
 /**
  * A three-dimensional vector class.
  */
-export class Vec3 extends Vec {
+export class Vec3 {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} x A numeric expression.
@@ -229,7 +212,9 @@ export class Vec3 extends Vec {
    * @param {number} z A numeric expression.
    */
   constructor(x, y, z) {
-    super(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
   ////////////////////
@@ -447,7 +432,7 @@ export class Vec3 extends Vec {
 /**
  * A four-dimensional vector class.
  */
-export class Vec4 extends Vec {
+export class Vec4 {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} x A numeric expression.
@@ -456,7 +441,10 @@ export class Vec4 extends Vec {
    * @param {number} w A numeric expression.
    */
   constructor(x, y, z, w) {
-    super(x, y, z, w);
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
   }
 
   ////////////////////
