@@ -23,10 +23,11 @@ Utility `Class` that brings vectors and its functionality to JavaScript.
 
 ### `Static` Methods
 
-| Method / Class | `Vec2` | `Vec3` | `Vec3` |
+| Method / Class | `Vec2` | `Vec3` | `Vec4` |
 | --- | --- | --- | --- |
 | `add()` | ✔ | ✔ | ✔ |
-| `byPolarCoords()` | ✔ | - | - |
+| `fromPolarCoords()` | ✔ | - | - |
+| `fromSphericalCoords()` | - | ✔ | - |
 | `distance()` | ✔ | ✔ | ✔ |
 | `distanceChebyshev()` | ✔ | ✔ | ✔ |
 | `distanceManhattan()` | ✔ | ✔ | ✔ |
