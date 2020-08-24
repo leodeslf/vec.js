@@ -22,15 +22,16 @@ export class Vec2 {
   }
 
   /**
-   * @param {number} radius Numeric expression.
-   * @param {number} phi Numeric expression (angle from x axis measured in radians).
-   * @returns {Vec2} A new vector created from Polar Coordinates.
+   * Returns the angle between A and B.
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
+   * @returns {number} The angle between A and B (in radians).
    */
-  static fromPolarCoords(radius, phi) {
-    return new Vec2(
-      radius * Math.cos(phi),
-      radius * Math.sin(phi)
-    );
+  static angleBetween(a, b) {
+    const MAG_A = a.magnitude;
+    const MAG_B = b.magnitude;
+    if (MAG_A === 0 || MAG_B === 0) return;
+    return Math.acos(Vec2.dotProduct(a, b) / (MAG_A * MAG_B));
   }
 
   /**
@@ -109,6 +110,42 @@ export class Vec2 {
 
   /**
    * @param {Vec2} a A vector.
+   * @returns {Vec2} A new vector identical to A.
+   */
+  static fromCopy(a) {
+    return new Vec2(
+      { ...a }.x,
+      { ...a }.y);
+  }
+
+  /**
+   * @param {number} radius Numeric expression.
+   * @param {number} phi Numeric expression (angle from x axis measured in radians).
+   * @returns {Vec2} A new vector created from Polar Coordinates.
+   */
+  static fromPolarCoords(radius, phi) {
+    return new Vec2(
+      radius * Math.cos(phi),
+      radius * Math.sin(phi)
+    );
+  }
+
+  /**
+   * Orthogonal projection of A onto B.
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
+   * @returns {Vec2} The component of A projected on B (in direction of B).
+   */
+  static project(a, b) {
+    const P_MAG = a.magnitude * Math.cos(Vec2.angleBetween(a, b));
+    const P = Vec2.fromCopy(b);
+    P.normalize();
+    P.scale(P_MAG);
+    return P;
+  }
+
+  /**
+   * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
    * @returns {Vec2} A new vector equals to A minus B.
    */
@@ -181,10 +218,10 @@ export class Vec2 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = this.magnitude;
-    if (this.magnitude === 0) console.log('asd')
-    this.x = this.x / MA;
-    this.y = this.y / MA;
+    let mag = this.magnitude;
+    if (mag === 0) mag = 1;
+    this.x = this.x * mag;
+    this.y = this.y * mag;
   }
 
   /**
@@ -232,17 +269,16 @@ export class Vec3 {
   }
 
   /**
-   * @param {number} radius Numeric expression.
-   * @param {number} phi Numeric expression (angle from x axis measured in radians).
-   * @param {number} theta Numeric expression (angle from z axis measured in radians).
-   * @returns {Vec3} A new vector created from Spherical Coordinates.
+   * Returns the angle between A and B.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @returns {number} The angle between A and B (in radians).
    */
-  static fromSphericalCoords(radius, phi, theta) {
-    return new Vec3(
-      radius * Math.cos(phi) * Math.sin(theta),
-      radius * Math.sin(phi) * Math.sin(theta),
-      radius * Math.cos(theta)
-    );
+  static angleBetween(a, b) {
+    const MAG_A = a.magnitude;
+    const MAG_B = b.magnitude;
+    if (MAG_A === 0 || MAG_B === 0) return;
+    return Math.acos(Vec3.dotProduct(a, b) / (MAG_A * MAG_B));
   }
 
   /**
@@ -321,7 +357,46 @@ export class Vec3 {
     return (
       a.x * b.x +
       a.y * b.y +
-      a.z * b.w);
+      a.z * b.z);
+  }
+
+  /**
+   * @param {Vec3} a A vector.
+   * @returns {Vec3} A new vector identical to A.
+   */
+  static fromCopy(a) {
+    return new Vec3(
+      { ...a }.x,
+      { ...a }.y,
+      { ...a }.z);
+  }
+
+  /**
+   * @param {number} radius Numeric expression.
+   * @param {number} phi Numeric expression (angle from x axis measured in radians).
+   * @param {number} theta Numeric expression (angle from z axis measured in radians).
+   * @returns {Vec3} A new vector created from Spherical Coordinates.
+   */
+  static fromSphericalCoords(radius, phi, theta) {
+    return new Vec3(
+      radius * Math.cos(phi) * Math.sin(theta),
+      radius * Math.sin(phi) * Math.sin(theta),
+      radius * Math.cos(theta)
+    );
+  }
+
+  /**
+   * Orthogonal projection of A onto B.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @returns {Vec3} The component of A projected on B (in direction of B).
+   */
+  static project(a, b) {
+    const P_MAG = a.magnitude * Math.cos(Vec3.angleBetween(a, b));
+    const P = Vec3.fromCopy(b);
+    P.normalize();
+    P.scale(P_MAG);
+    return P;
   }
 
   /**
@@ -412,10 +487,11 @@ export class Vec3 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = 1 / this.magnitude;
-    this.x = this.x * MA;
-    this.y = this.y * MA;
-    this.z = this.z * MA;
+    let mag = this.magnitude;
+    if (mag === 0) mag = 1;
+    this.x = this.x * mag;
+    this.y = this.y * mag;
+    this.z = this.z * mag;
   }
 
   /**
@@ -464,6 +540,19 @@ export class Vec4 {
    */
   static add(a, b) {
     return new Vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+  }
+
+  /**
+   * Returns the angle between A and B.
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
+   * @returns {number} The angle between A and B (in radians).
+   */
+  static angleBetween(a, b) {
+    const MAG_A = a.magnitude;
+    const MAG_B = b.magnitude;
+    if (MAG_A === 0 || MAG_B === 0) return;
+    return Math.acos(Vec4.dotProduct(a, b) / (MAG_A * MAG_B));
   }
 
   /**
@@ -534,6 +623,46 @@ export class Vec4 {
       Math.abs(a.z - b.z) ** e +
       Math.abs(a.w - b.w) ** e
     ) ** (1 / e));
+  }
+
+  /**
+   * The sum of the product of each component.
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
+   * @returns {number} The dot product of these two vectors.
+   */
+  static dotProduct(a, b) {
+    return (
+      a.x * b.x +
+      a.y * b.y +
+      a.z * b.z +
+      a.w * b.w);
+  }
+
+  /**
+   * @param {Vec4} a A vector.
+   * @returns {Vec4} A new vector identical to A.
+   */
+  static fromCopy(a) {
+    return new Vec4(
+      { ...a }.x,
+      { ...a }.y,
+      { ...a }.z,
+      { ...a }.w);
+  }
+
+  /**
+   * Orthogonal projection of A onto B.
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
+   * @returns {Vec4} The component of A projected on B (in direction of B).
+   */
+  static project(a, b) {
+    const P_MAG = a.magnitude * Math.cos(Vec4.angleBetween(a, b));
+    const P = Vec4.fromCopy(b);
+    P.normalize();
+    P.scale(P_MAG);
+    return P;
   }
 
   /**
@@ -627,11 +756,12 @@ export class Vec4 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = 1 / this.magnitude;
-    this.x = this.x * MA;
-    this.y = this.y * MA;
-    this.z = this.z * MA;
-    this.w = this.w * MA;
+    let mag = this.magnitude;
+    if (mag === 0) mag = 1;
+    this.x = this.x * mag;
+    this.y = this.y * mag;
+    this.z = this.z * mag;
+    this.w = this.w * mag;
   }
 
   /**
