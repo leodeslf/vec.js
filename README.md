@@ -17,7 +17,7 @@
 
 ## About
 
-Utility `Class` that brings vectors and its functionality to JavaScript.
+Utility `class` that brings vectors and its functionality to JavaScript.
 
 ## Features
 
