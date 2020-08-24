@@ -1,5 +1,5 @@
 {
-  "name": "vec.js",
+  "name": "@leodeslf/vec.js",
   "version": "1.0.0",
   "description": "Vectors for JavaScript",
   "main": "vec.min.js",
