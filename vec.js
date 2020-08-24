@@ -12,10 +12,6 @@ export class Vec2 {
     this.y = y;
   }
 
-  ////////////////////
-  // STATIC METHODS //
-  ////////////////////
-
   /**
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
@@ -108,10 +104,6 @@ export class Vec2 {
     return new Vec2(a.x - b.x, a.y - b.y);
   }
 
-  //////////////////////
-  // INSTANCE METHODS //
-  //////////////////////
-
   /**
    * Values between PI and -PI.
    * @returns {number} Angle relative to the positive x-axis (in radians).
@@ -177,9 +169,10 @@ export class Vec2 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    const MA = 1 / this.magnitude;
-    this.x = this.x * MA;
-    this.y = this.y * MA;
+    const MA = this.magnitude;
+    if (this.magnitude === 0) console.log('asd')
+    this.x = this.x / MA;
+    this.y = this.y / MA;
   }
 
   /**
@@ -216,10 +209,6 @@ export class Vec3 {
     this.y = y;
     this.z = z;
   }
-
-  ////////////////////
-  // STATIC METHODS //
-  ////////////////////
 
   /**
    * @param {Vec3} a A vector.
@@ -318,10 +307,6 @@ export class Vec3 {
   static subtract(a, b) {
     return new Vec3(a.x - b.x, a.y - b.y, a.z - b.z);
   }
-
-  //////////////////////
-  // INSTANCE METHODS //
-  //////////////////////
 
   /**
    * Values between PI and -PI.
@@ -447,10 +432,6 @@ export class Vec4 {
     this.w = w;
   }
 
-  ////////////////////
-  // STATIC METHODS //
-  ////////////////////
-
   /**
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
@@ -538,10 +519,6 @@ export class Vec4 {
   static subtract(a, b) {
     return new Vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
   }
-
-  //////////////////////
-  // INSTANCE METHODS //
-  //////////////////////
 
   /**
    * Values between PI and -PI.
