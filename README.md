@@ -24,7 +24,7 @@ Utility `class` that brings vectors and its functionality to JavaScript.
 ### `Static` Methods
 
 | Method / Class | `Vec2` | `Vec3` | `Vec4` |
-| --- | --- | --- | --- |
+| --- | :-: | :-: | :-: |
 | `add()` | ✔ | ✔ | ✔ |
 | `angleBetween()` | ✔ | ✔ | ✔ |
 | `cross()` | - | ✔ | - |
@@ -42,7 +42,7 @@ Utility `class` that brings vectors and its functionality to JavaScript.
 ### `Instance` Methods
 
 | Method / Class | `Vec2` | `Vec3` | `Vec4` |
-| --- | --- | --- | --- |
+| --- | :-: | :-: | :-: |
 | `get angleX()` | ✔ | ✔ | ✔ |
 | `get angleY()` | ✔ | ✔ | ✔ |
 | `get angleZ()` | - | ✔ | ✔ |
