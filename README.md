@@ -26,13 +26,17 @@ Utility `class` that brings vectors and its functionality to JavaScript.
 | Method / Class | `Vec2` | `Vec3` | `Vec4` |
 | --- | --- | --- | --- |
 | `add()` | ✔ | ✔ | ✔ |
-| `fromPolarCoords()` | ✔ | - | - |
-| `fromSphericalCoords()` | - | ✔ | - |
+| `angleBetween()` | ✔ | ✔ | ✔ |
+| `cross()` | - | ✔ | - |
 | `distance()` | ✔ | ✔ | ✔ |
 | `distanceChebyshev()` | ✔ | ✔ | ✔ |
 | `distanceManhattan()` | ✔ | ✔ | ✔ |
 | `distanceMinkowski()` | ✔ | ✔ | ✔ |
-| `dotProduct()` | ✔ | ✔ | - |
+| `dot()` | ✔ | ✔ | ✔ |
+| `fromCopy()` | ✔ | ✔ | ✔ |
+| `fromPolarCoords()` | ✔ | - | - |
+| `fromSphericalCoords()` | - | ✔ | - |
+| `project()` | ✔ | ✔ | ✔ |
 | `subtract()` | ✔ | ✔ | ✔ |
 
 ### `Instance` Methods

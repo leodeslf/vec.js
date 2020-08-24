@@ -31,7 +31,7 @@ export class Vec2 {
     const MAG_A = a.magnitude;
     const MAG_B = b.magnitude;
     if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec2.dotProduct(a, b) / (MAG_A * MAG_B));
+    return Math.acos(Vec2.dot(a, b) / (MAG_A * MAG_B));
   }
 
   /**
@@ -102,7 +102,7 @@ export class Vec2 {
    * @param {Vec2} b A vector.
    * @returns {number} The dot product of these two vectors.
    */
-  static dotProduct(a, b) {
+  static dot(a, b) {
     return (
       a.x * b.x +
       a.y * b.y);
@@ -278,7 +278,20 @@ export class Vec3 {
     const MAG_A = a.magnitude;
     const MAG_B = b.magnitude;
     if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec3.dotProduct(a, b) / (MAG_A * MAG_B));
+    return Math.acos(Vec3.dot(a, b) / (MAG_A * MAG_B));
+  }
+
+  /**
+   * Gives a vector which is perpendicular to both vectors A and B.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @returns {Vec3} A new vector, the cross product of A and B.
+   */
+  static cross(a, b) {
+    return new Vec3(
+      (a.y * b.z - b.y * a.z),
+      (a.z * b.x - b.z * a.x),
+      (a.x * b.y - b.x * a.y));
   }
 
   /**
@@ -353,7 +366,7 @@ export class Vec3 {
    * @param {Vec3} b A vector.
    * @returns {number} The dot product of these two vectors.
    */
-  static dotProduct(a, b) {
+  static dot(a, b) {
     return (
       a.x * b.x +
       a.y * b.y +
@@ -552,7 +565,7 @@ export class Vec4 {
     const MAG_A = a.magnitude;
     const MAG_B = b.magnitude;
     if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec4.dotProduct(a, b) / (MAG_A * MAG_B));
+    return Math.acos(Vec4.dot(a, b) / (MAG_A * MAG_B));
   }
 
   /**
@@ -631,7 +644,7 @@ export class Vec4 {
    * @param {Vec4} b A vector.
    * @returns {number} The dot product of these two vectors.
    */
-  static dotProduct(a, b) {
+  static dot(a, b) {
     return (
       a.x * b.x +
       a.y * b.y +
