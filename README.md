@@ -32,6 +32,7 @@ Utility `class` that brings vectors and its functionality to JavaScript.
 | `distanceChebyshev()` | ✔ | ✔ | ✔ |
 | `distanceManhattan()` | ✔ | ✔ | ✔ |
 | `distanceMinkowski()` | ✔ | ✔ | ✔ |
+| `dotProduct()` | ✔ | ✔ | - |
 | `subtract()` | ✔ | ✔ | ✔ |
 
 ### `Instance` Methods

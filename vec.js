@@ -96,6 +96,18 @@ export class Vec2 {
   }
 
   /**
+   * The sum of the product of each component.
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
+   * @returns {number} The dot product of these two vectors.
+   */
+  static dotProduct(a, b) {
+    return (
+      a.x * b.x +
+      a.y * b.y);
+  }
+
+  /**
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
    * @returns {Vec2} A new vector equals to A minus B.
@@ -297,6 +309,19 @@ export class Vec3 {
       Math.abs(a.y - b.y) ** e +
       Math.abs(a.z - b.z) ** e
     ) ** (1 / e));
+  }
+
+  /**
+   * The sum of the product of each component.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @returns {number} The dot product of these two vectors.
+   */
+  static dotProduct(a, b) {
+    return (
+      a.x * b.x +
+      a.y * b.y +
+      a.z * b.w);
   }
 
   /**
