@@ -177,23 +177,23 @@ export class Vec2 {
   }
 
   /**
-   * Limits the maximum length of this vector to the A value.
-   * @param {number} a A numeric expression.
+   * Limits the maximum length of this vector.
+   * @param {number} max A numeric expression.
    */
-  set limit(a) {
-    if (this.magnitude > a) {
+  set limit(max) {
+    if (this.magnitude > max) {
       this.normalize();
-      this.scale(a);
+      this.scale(max);
     }
   }
 
   /**
    * Sets the magnitude of this vector.
-   * @param {number} a A numeric expression.
+   * @param {number} m A numeric expression.
    */
-  set magnitude(a) {
+  set magnitude(m) {
     this.normalize();
-    this.scale(a);
+    this.scale(m);
   }
 
   /**
@@ -203,6 +203,22 @@ export class Vec2 {
   add(a) {
     this.x = this.x + a.x;
     this.y = this.y + a.y;
+  }
+
+  /**
+   * Keeps the vector's magnitude between the given values, minimum
+   * and maximum (inclusive).
+   * @param {number} max A numeric expression.
+   * @param {number} min A numeric expression.
+   */
+  clamp(max, min) {
+    const M = this.magnitude;
+    if (M > max) {
+      this.magnitude = max;
+      return;
+    } else if (M < min) {
+      this.magnitude = min;
+    }
   }
 
   /**
@@ -226,11 +242,11 @@ export class Vec2 {
 
   /**
    * Scales this vector by A.
-   * @param {number} a A numeric expression.
+   * @param {number} val A numeric expression.
    */
-  scale(a) {
-    this.x = this.x * a;
-    this.y = this.y * a;
+  scale(val) {
+    this.x = this.x * val;
+    this.y = this.y * val;
   }
 
   /**
@@ -457,23 +473,23 @@ export class Vec3 {
   }
 
   /**
-   * Limits the maximum length of this vector to the A value.
-   * @param {number} a A numeric expression.
+   * Limits the maximum length of this vector.
+   * @param {number} max A numeric expression.
    */
-  set limit(a) {
-    if (this.magnitude > a) {
+  set limit(max) {
+    if (this.magnitude > max) {
       this.normalize();
-      this.scale(a);
+      this.scale(max);
     }
   }
 
   /**
    * Sets the magnitude of this vector.
-   * @param {number} a A numeric expression.
+   * @param {number} m A numeric expression.
    */
-  set magnitude(a) {
+  set magnitude(m) {
     this.normalize();
-    this.scale(a);
+    this.scale(m);
   }
 
   /**
@@ -484,6 +500,22 @@ export class Vec3 {
     this.x = this.x + a.x;
     this.y = this.y + a.y;
     this.z = this.z + a.z;
+  }
+
+  /**
+   * Keeps the vector's magnitude between the given values, minimum
+   * and maximum (inclusive).
+   * @param {number} max A numeric expression.
+   * @param {number} min A numeric expression.
+   */
+  clamp(max, min) {
+    const M = this.magnitude;
+    if (M > max) {
+      this.magnitude = max;
+      return;
+    } else if (M < min) {
+      this.magnitude = min;
+    }
   }
 
   /**
@@ -509,12 +541,12 @@ export class Vec3 {
 
   /**
    * Scales this vector by A.
-   * @param {number} a A numeric expression.
+   * @param {number} val A numeric expression.
    */
-  scale(a) {
-    this.x = this.x * a;
-    this.y = this.y * a;
-    this.z = this.z * a;
+  scale(val) {
+    this.x = this.x * val;
+    this.y = this.y * val;
+    this.z = this.z * val;
   }
 
   /**
@@ -724,23 +756,23 @@ export class Vec4 {
   }
 
   /**
-   * Limits the maximum length of this vector to the A value.
-   * @param {number} a A numeric expression.
+   * Limits the maximum length of this vector.
+   * @param {number} max A numeric expression.
    */
-  set limit(a) {
-    if (this.magnitude > a) {
+  set limit(max) {
+    if (this.magnitude > max) {
       this.normalize();
-      this.scale(a);
+      this.scale(max);
     }
   }
 
   /**
    * Sets the magnitude of this vector.
-   * @param {number} a A numeric expression.
+   * @param {number} m A numeric expression.
    */
-  set magnitude(a) {
+  set magnitude(m) {
     this.normalize();
-    this.scale(a);
+    this.scale(m);
   }
 
   /**
@@ -752,6 +784,22 @@ export class Vec4 {
     this.y = this.y + a.y;
     this.z = this.z + a.z;
     this.w = this.w + a.w;
+  }
+
+  /**
+   * Keeps the vector's magnitude between the given values, minimum
+   * and maximum (inclusive).
+   * @param {number} max A numeric expression.
+   * @param {number} min A numeric expression.
+   */
+  clamp(max, min) {
+    const M = this.magnitude;
+    if (M > max) {
+      this.magnitude = max;
+      return;
+    } else if (M < min) {
+      this.magnitude = min;
+    }
   }
 
   /**
@@ -779,13 +827,13 @@ export class Vec4 {
 
   /**
    * Scales this vector by A.
-   * @param {number} a A numeric expression.
+   * @param {number} val A numeric expression.
    */
-  scale(a) {
-    this.x = this.x * a;
-    this.y = this.y * a;
-    this.z = this.z * a;
-    this.w = this.w * a;
+  scale(val) {
+    this.x = this.x * val;
+    this.y = this.y * val;
+    this.z = this.z * val;
+    this.w = this.w * val;
   }
 
   /**
