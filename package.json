@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/leodeslf/vec.js/issues"
   },
-  "homepage": "https://github.com/leodeslf/vec.js#readme"
+  "homepage": "https://github.com/leodeslf/vec.js#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  }
 }
