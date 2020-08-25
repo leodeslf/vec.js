@@ -17,7 +17,7 @@
 
 ## About
 
-Utility `class` that brings vectors and its functionality to JavaScript.
+A `class` to create and operate with vectors in JavaScript (2D, 3D and 4D).
 
 ## Features
 
@@ -50,6 +50,7 @@ Utility `class` that brings vectors and its functionality to JavaScript.
 | `set limit()` | ✔ | ✔ | ✔ |
 | `set magnitude()` | ✔ | ✔ | ✔ |
 | `add()` | ✔ | ✔ | ✔ |
+| `clamp()` | ✔ | ✔ | ✔ |
 | `copy()` | ✔ | ✔ | ✔ |
 | `normalize()` | ✔ | ✔ | ✔ |
 | `scale()` | ✔ | ✔ | ✔ |
