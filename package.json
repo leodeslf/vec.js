@@ -1,6 +1,6 @@
 {
   "name": "@leodeslf/vec.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A class to create and operate with vectors in JavaScript (2D, 3D and 4D)",
   "main": "vec.min.js",
   "scripts": {
