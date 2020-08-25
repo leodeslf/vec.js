@@ -1,10 +1,11 @@
 {
   "name": "@leodeslf/vec.js",
   "version": "1.0.1",
-  "description": "Vectors for JavaScript",
+  "description": "A class to create and operate with vectors in JavaScript (2D, 3D and 4D)",
   "main": "vec.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "min": "curl -X POST -s --data-urlencode 'input@vec.js' https://javascript-minifier.com/raw > vec.min.js"
   },
   "repository": {
     "type": "git",
