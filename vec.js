@@ -1,3 +1,5 @@
+const ERROR_DIV_0 = "Can't divide by zero";
+
 /**
  * A two-dimensional vector class.
  */
@@ -90,6 +92,7 @@ export class Vec2 {
    * @returns {number} Minkowski distance from A to B.
 	 */
   static distanceMinkowski(a, b, e) {
+    if (e === 0) return;
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e
@@ -236,6 +239,7 @@ export class Vec2 {
   normalize() {
     let mag = this.magnitude;
     if (mag === 0) mag = 1;
+    else mag = 1 / mag;
     this.x = this.x * mag;
     this.y = this.y * mag;
   }
@@ -369,6 +373,7 @@ export class Vec3 {
    * @returns {number} Minkowski distance from A to B.
 	 */
   static distanceMinkowski(a, b, e) {
+    if (e === 0) return 0;
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
@@ -534,6 +539,7 @@ export class Vec3 {
   normalize() {
     let mag = this.magnitude;
     if (mag === 0) mag = 1;
+    else mag = 1 / mag;
     this.x = this.x * mag;
     this.y = this.y * mag;
     this.z = this.z * mag;
@@ -662,6 +668,7 @@ export class Vec4 {
    * @returns {number} Minkowski distance from A to B.
 	 */
   static distanceMinkowski(a, b, e) {
+    if (e === 0) return 0;
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
@@ -819,6 +826,7 @@ export class Vec4 {
   normalize() {
     let mag = this.magnitude;
     if (mag === 0) mag = 1;
+    else mag = 1 / mag;
     this.x = this.x * mag;
     this.y = this.y * mag;
     this.z = this.z * mag;

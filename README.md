@@ -17,7 +17,7 @@
 
 ## About
 
-A `class` to create and operate with vectors in JavaScript (2D, 3D and 4D).
+A JavaScript class to create and operate with vectors (2D, 3D and 4D).
 
 ## Features
 
