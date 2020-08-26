@@ -1,5 +1,3 @@
-const ERROR_DIV_0 = "Can't divide by zero";
-
 /**
  * A two-dimensional vector class.
  */
