@@ -1,6 +1,6 @@
 {
   "name": "@leodeslf/vec.js",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A JavaScript class to create and operate with vectors (2D, 3D and 4D)",
   "main": "vec.min.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/leodeslf/vec.js#readme",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
+    "registry": "http://registry.npmjs.org",
     "access": "public"
   }
 }
