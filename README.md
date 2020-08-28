@@ -19,6 +19,10 @@
 
 A JavaScript class to create and operate with vectors (2D, 3D and 4D).
 
+## Install
+
+`npm i @leodeslf/vec.js`
+
 ## Features
 
 ### `Static` Methods
