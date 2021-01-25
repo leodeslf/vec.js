@@ -1,4 +1,12 @@
 /**
+ * Vectors and their functionality in JavaScript.
+ * 
+ * MIT License.
+ * 
+ * Copyright (c) 2018 Leonardo de S.L.F.
+ */
+
+/* 
  * A two-dimensional vector class.
  */
 export class Vec2 {
@@ -28,10 +36,13 @@ export class Vec2 {
    * @returns {number} The angle between A and B (in radians).
    */
   static angleBetween(a, b) {
-    const MAG_A = a.magnitude;
-    const MAG_B = b.magnitude;
-    if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec2.dot(a, b) / (MAG_A * MAG_B));
+    const MA = a.magnitude;
+    const MB = b.magnitude;
+    if (MA === 0 || MB === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
+    return Math.acos(Vec2.dot(a, b) / (MA * MB));
   }
 
   /**
@@ -75,7 +86,7 @@ export class Vec2 {
       Math.abs(a.y - b.y));
   }
 
-	/**
+  /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
    * 
@@ -84,13 +95,16 @@ export class Vec2 {
    * - If { p = 2 }: It'll be equivalent to Euclidian distance.
    * 
    * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
-	 * @param {Vec2} a A vector.
-	 * @param {Vec2} b A vector.
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
    * @param {number} e A numeric expression.
    * @returns {number} Minkowski distance from A to B.
-	 */
+   */
   static distanceMinkowski(a, b, e) {
-    if (e === 0) return;
+    if (e === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e
@@ -138,10 +152,10 @@ export class Vec2 {
    * @returns {Vec2} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const P_MAG = a.magnitude * Math.cos(Vec2.angleBetween(a, b));
+    const PM = a.magnitude * Math.cos(Vec2.angleBetween(a, b));
     const P = Vec2.fromCopy(b);
     P.normalize();
-    P.scale(P_MAG);
+    P.scale(PM);
     return P;
   }
 
@@ -235,11 +249,11 @@ export class Vec2 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    let mag = this.magnitude;
-    if (mag === 0) mag = 1;
-    else mag = 1 / mag;
-    this.x = this.x * mag;
-    this.y = this.y * mag;
+    let m = this.magnitude;
+    if (m === 0) m = 1;
+    else m = 1 / m;
+    this.x = this.x * m;
+    this.y = this.y * m;
   }
 
   /**
@@ -293,10 +307,13 @@ export class Vec3 {
    * @returns {number} The angle between A and B (in radians).
    */
   static angleBetween(a, b) {
-    const MAG_A = a.magnitude;
-    const MAG_B = b.magnitude;
-    if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec3.dot(a, b) / (MAG_A * MAG_B));
+    const MA = a.magnitude;
+    const MB = b.magnitude;
+    if (MA === 0 || MB === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
+    return Math.acos(Vec3.dot(a, b) / (MA * MB));
   }
 
   /**
@@ -356,7 +373,7 @@ export class Vec3 {
       Math.abs(a.z - b.z));
   }
 
-	/**
+  /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
    * 
@@ -365,13 +382,16 @@ export class Vec3 {
    * - If { p = 2 }: It'll be equivalent to Euclidian distance.
    * 
    * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
-	 * @param {Vec3} a A vector.
-	 * @param {Vec3} b A vector.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
    * @param {number} e A numeric expression.
    * @returns {number} Minkowski distance from A to B.
-	 */
+   */
   static distanceMinkowski(a, b, e) {
-    if (e === 0) return 0;
+    if (e === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
@@ -424,10 +444,10 @@ export class Vec3 {
    * @returns {Vec3} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const P_MAG = a.magnitude * Math.cos(Vec3.angleBetween(a, b));
+    const PM = a.magnitude * Math.cos(Vec3.angleBetween(a, b));
     const P = Vec3.fromCopy(b);
     P.normalize();
-    P.scale(P_MAG);
+    P.scale(PM);
     return P;
   }
 
@@ -535,12 +555,12 @@ export class Vec3 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    let mag = this.magnitude;
-    if (mag === 0) mag = 1;
-    else mag = 1 / mag;
-    this.x = this.x * mag;
-    this.y = this.y * mag;
-    this.z = this.z * mag;
+    let m = this.magnitude;
+    if (m === 0) m = 1;
+    else m = 1 / m;
+    this.x = this.x * m;
+    this.y = this.y * m;
+    this.z = this.z * m;
   }
 
   /**
@@ -598,10 +618,13 @@ export class Vec4 {
    * @returns {number} The angle between A and B (in radians).
    */
   static angleBetween(a, b) {
-    const MAG_A = a.magnitude;
-    const MAG_B = b.magnitude;
-    if (MAG_A === 0 || MAG_B === 0) return;
-    return Math.acos(Vec4.dot(a, b) / (MAG_A * MAG_B));
+    const MA = a.magnitude;
+    const MB = b.magnitude;
+    if (MA === 0 || MB === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
+    return Math.acos(Vec4.dot(a, b) / (MA * MB));
   }
 
   /**
@@ -651,7 +674,7 @@ export class Vec4 {
       Math.abs(a.w - b.w));
   }
 
-	/**
+  /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
    * 
@@ -660,13 +683,16 @@ export class Vec4 {
    * - If { p = 2 }: It'll be equivalent to Euclidian distance.
    * 
    * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
-	 * @param {Vec4} a A vector.
-	 * @param {Vec4} b A vector.
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
    * @param {number} e A numeric expression.
    * @returns {number} Minkowski distance from A to B.
-	 */
+   */
   static distanceMinkowski(a, b, e) {
-    if (e === 0) return 0;
+    if (e === 0) {
+      console.error("Cannot divide by zero.");
+      return NaN;
+    }
     return ((
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
@@ -708,10 +734,10 @@ export class Vec4 {
    * @returns {Vec4} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const P_MAG = a.magnitude * Math.cos(Vec4.angleBetween(a, b));
+    const PM = a.magnitude * Math.cos(Vec4.angleBetween(a, b));
     const P = Vec4.fromCopy(b);
     P.normalize();
-    P.scale(P_MAG);
+    P.scale(PM);
     return P;
   }
 
@@ -822,13 +848,13 @@ export class Vec4 {
    * Sets the magnitude of this vector to 1 (Unit Vector).
    */
   normalize() {
-    let mag = this.magnitude;
-    if (mag === 0) mag = 1;
-    else mag = 1 / mag;
-    this.x = this.x * mag;
-    this.y = this.y * mag;
-    this.z = this.z * mag;
-    this.w = this.w * mag;
+    let m = this.magnitude;
+    if (m === 0) m = 1;
+    else m = 1 / m;
+    this.x = this.x * m;
+    this.y = this.y * m;
+    this.z = this.z * m;
+    this.w = this.w * m;
   }
 
   /**
