@@ -2,7 +2,6 @@
  * Vectors and their functionality in JavaScript.
  * 
  * MIT License.
- * 
  * Copyright (c) 2018 Leonardo de S.L.F.
  */
 
