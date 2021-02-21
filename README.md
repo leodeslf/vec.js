@@ -23,42 +23,51 @@ Vectors and their functionality in JavaScript.
 
 `npm i @leodeslf/vec.js`
 
+## Import
+
+```JavaScript
+import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
+```
+
 ## Features
 
-### `Static` Methods
+### Static methods
 
-| Method / Class | `Vec2` | `Vec3` | `Vec4` |
-| --- | :-: | :-: | :-: |
-| `add()` | ✔ | ✔ | ✔ |
-| `angleBetween()` | ✔ | ✔ | ✔ |
-| `cross()` | - | ✔ | - |
-| `distance()` | ✔ | ✔ | ✔ |
-| `distanceChebyshev()` | ✔ | ✔ | ✔ |
-| `distanceManhattan()` | ✔ | ✔ | ✔ |
-| `distanceMinkowski()` | ✔ | ✔ | ✔ |
-| `dot()` | ✔ | ✔ | ✔ |
-| `fromCopy()` | ✔ | ✔ | ✔ |
-| `fromPolarCoords()` | ✔ | - | - |
-| `fromSphericalCoords()` | - | ✔ | - |
-| `project()` | ✔ | ✔ | ✔ |
-| `subtract()` | ✔ | ✔ | ✔ |
+|| `Vec2` | `Vec3` | `Vec4`
+--- | :-: | :-: | :-:
+`add()` | ✔ | ✔ | ✔
+`angleBetween()` | ✔ | ✔ | ✔
+`cross()` | - | ✔ | -
+`distance()` | ✔ | ✔ | ✔
+`distanceChebyshev()` | ✔ | ✔ | ✔
+`distanceManhattan()` | ✔ | ✔ | ✔
+`distanceMinkowski()` | ✔ | ✔ | ✔
+`dot()` | ✔ | ✔ | ✔
+`fromCopy()` | ✔ | ✔ | ✔
+`fromPolarCoords()` | ✔ | - | -
+`fromSphericalCoords()` | - | ✔ | -
+`project()` | ✔ | ✔ | ✔
+`subtract()` | ✔ | ✔ | ✔
 
-### `Instance` Methods
+### Instance methods
 
-| Method / Class | `Vec2` | `Vec3` | `Vec4` |
-| --- | :-: | :-: | :-: |
-| `get angleX()` | ✔ | ✔ | ✔ |
-| `get angleY()` | ✔ | ✔ | ✔ |
-| `get angleZ()` | - | ✔ | ✔ |
-| `get magnitude()` | ✔ | ✔ | ✔ |
-| `set limit()` | ✔ | ✔ | ✔ |
-| `set magnitude()` | ✔ | ✔ | ✔ |
-| `add()` | ✔ | ✔ | ✔ |
-| `clamp()` | ✔ | ✔ | ✔ |
-| `copy()` | ✔ | ✔ | ✔ |
-| `normalize()` | ✔ | ✔ | ✔ |
-| `scale()` | ✔ | ✔ | ✔ |
-| `subtract()` | ✔ | ✔ | ✔ |
+|| `Vec2` | `Vec3` | `Vec4`
+--- | :-: | :-: | :-:
+`get angleX()` | ✔ | ✔ | ✔
+`get angleY()` | ✔ | ✔ | ✔
+`get angleZ()` | - | ✔ | ✔
+`get magnitude()` | ✔ | ✔ | ✔
+`set limit()` | ✔ | ✔ | ✔
+`set magnitude()` | ✔ | ✔ | ✔
+`add()` | ✔ | ✔ | ✔
+`clamp()` | ✔ | ✔ | ✔
+`copy()` | ✔ | ✔ | ✔
+`normalize()` | ✔ | ✔ | ✔
+`rotateAxisX()` | - | ✔ | -
+`rotateAxisY()` | - | ✔ | -
+`rotateAxisZ()` | ✔ | ✔ | -
+`scale()` | ✔ | ✔ | ✔
+`subtract()` | ✔ | ✔ | ✔
 
 *See in-line docs for more info.*
 
