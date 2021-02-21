@@ -2,7 +2,7 @@
   "name": "@leodeslf/vec.js",
   "version": "1.1.6",
   "description": "Vectors and their functionality in JavaScript",
-  "main": "vec.min.js",
+  "main": "vec.js",
   "scripts": {
     "build": "terser --comments false vec.js > vec.min.js"
   },
