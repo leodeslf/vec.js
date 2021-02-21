@@ -3,9 +3,10 @@
  * 
  * MIT License.
  * Copyright (c) 2018 Leonardo de S.L.F.
+ * http://leodeslf.com/
  */
 
-/* 
+/**
  * A two-dimensional vector class.
  */
 export class Vec2 {
@@ -15,8 +16,8 @@ export class Vec2 {
    * @param {number} y A numeric expression.
    */
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this.x = x | 0;
+    this.y = y | 0;
   }
 
   /**
@@ -25,7 +26,10 @@ export class Vec2 {
    * @returns {Vec2} A new vector equals to A plus B.
    */
   static add(a, b) {
-    return new Vec2(a.x + b.x, a.y + b.y);
+    return new Vec2(
+      a.x + b.x,
+      a.y + b.y
+    );
   }
 
   /**
@@ -50,9 +54,10 @@ export class Vec2 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const S = (a.x - b.x);
-    const T = (a.y - b.y);
-    return Math.sqrt((S * S) + (T * T));
+    return Math.sqrt(
+      (a.x - b.x) ** 2 +
+      (a.y - b.y) ** 2
+    );
   }
 
   /**
@@ -65,7 +70,8 @@ export class Vec2 {
   static distanceChebyshev(a, b) {
     return Math.max(
       Math.abs(a.x - b.x),
-      Math.abs(a.y - b.y));
+      Math.abs(a.y - b.y)
+    );
   }
 
   /**
@@ -82,7 +88,8 @@ export class Vec2 {
   static distanceManhattan(a, b) {
     return Math.sqrt(
       Math.abs(a.x - b.x) +
-      Math.abs(a.y - b.y));
+      Math.abs(a.y - b.y)
+    );
   }
 
   /**
@@ -104,10 +111,10 @@ export class Vec2 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return ((
+    return (
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e
-    ) ** (1 / e));
+    ) ** (1 / e);
   }
 
   /**
@@ -119,7 +126,8 @@ export class Vec2 {
   static dot(a, b) {
     return (
       a.x * b.x +
-      a.y * b.y);
+      a.y * b.y
+    );
   }
 
   /**
@@ -129,12 +137,13 @@ export class Vec2 {
   static fromCopy(a) {
     return new Vec2(
       { ...a }.x,
-      { ...a }.y);
+      { ...a }.y
+    );
   }
 
   /**
-   * @param {number} radius Numeric expression.
-   * @param {number} phi Numeric expression (angle from x axis measured in radians).
+   * @param {number} radius A numeric expression.
+   * @param {number} phi A numeric expression (angle from x-axis measured in radians).
    * @returns {Vec2} A new vector created from Polar Coordinates.
    */
   static fromPolarCoords(radius, phi) {
@@ -164,30 +173,42 @@ export class Vec2 {
    * @returns {Vec2} A new vector equals to A minus B.
    */
   static subtract(a, b) {
-    return new Vec2(a.x - b.x, a.y - b.y);
+    return new Vec2(
+      a.x - b.x,
+      a.y - b.y
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive x-axis (in radians).
+   * Angle relative to the positive x-axis.
+   * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(this.y, this.x);
+    return Math.atan2(
+      this.y,
+      this.x
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive y-axis (in radians).
+   * Angle relative to the positive y-axis.
+   * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(this.x, this.y);
+    return Math.atan2(
+      this.x,
+      this.y
+    );
   }
 
   /**
    * @returns {number} The magnitude of this vector.
    */
   get magnitude() {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
+    return Math.sqrt(
+      this.x ** 2 +
+      this.y ** 2
+    );
   }
 
   /**
@@ -227,12 +248,8 @@ export class Vec2 {
    */
   clamp(max, min) {
     const M = this.magnitude;
-    if (M > max) {
-      this.magnitude = max;
-      return;
-    } else if (M < min) {
-      this.magnitude = min;
-    }
+    if (M > max) this.magnitude = max;
+    else if (M < min) this.magnitude = min;
   }
 
   /**
@@ -253,6 +270,15 @@ export class Vec2 {
     else m = 1 / m;
     this.x = this.x * m;
     this.y = this.y * m;
+  }
+
+  /**
+   * Rotates this vector on z-axis by phi.
+   * @param {number} phi A numeric expression (angle in radians).
+   */
+  rotateAxisZ(phi) {
+    this.x = this.x * Math.cos(phi) - this.y * Math.sin(phi);
+    this.y = this.x * Math.sin(phi) + this.y * Math.cos(phi);
   }
 
   /**
@@ -285,9 +311,9 @@ export class Vec3 {
    * @param {number} z A numeric expression.
    */
   constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.x = x | 0;
+    this.y = y | 0;
+    this.z = z | 0;
   }
 
   /**
@@ -296,7 +322,11 @@ export class Vec3 {
    * @returns {Vec3} A new vector equals to A plus B.
    */
   static add(a, b) {
-    return new Vec3(a.x + b.x, a.y + b.y, a.z + b.z);
+    return new Vec3(
+      a.x + b.x,
+      a.y + b.y,
+      a.z + b.z
+    );
   }
 
   /**
@@ -325,7 +355,8 @@ export class Vec3 {
     return new Vec3(
       (a.y * b.z - b.y * a.z),
       (a.z * b.x - b.z * a.x),
-      (a.x * b.y - b.x * a.y));
+      (a.x * b.y - b.x * a.y)
+    );
   }
 
   /**
@@ -334,10 +365,11 @@ export class Vec3 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const S = (a.x - b.x);
-    const T = (a.y - b.y);
-    const P = (a.z - b.z);
-    return Math.sqrt((S * S) + (T * T) + (P * P));
+    return Math.sqrt(
+      (a.x - b.x) ** 2 +
+      (a.y - b.y) ** 2 +
+      (a.z - b.z) ** 2
+    );
   }
 
   /**
@@ -351,7 +383,8 @@ export class Vec3 {
     return Math.max(
       Math.abs(a.x - b.x),
       Math.abs(a.y - b.y),
-      Math.abs(a.z - b.z));
+      Math.abs(a.z - b.z)
+    );
   }
 
   /**
@@ -369,7 +402,8 @@ export class Vec3 {
     return Math.sqrt(
       Math.abs(a.x - b.x) +
       Math.abs(a.y - b.y) +
-      Math.abs(a.z - b.z));
+      Math.abs(a.z - b.z)
+    );
   }
 
   /**
@@ -391,11 +425,11 @@ export class Vec3 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return ((
+    return (
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
       Math.abs(a.z - b.z) ** e
-    ) ** (1 / e));
+    ) ** (1 / e);
   }
 
   /**
@@ -408,7 +442,8 @@ export class Vec3 {
     return (
       a.x * b.x +
       a.y * b.y +
-      a.z * b.z);
+      a.z * b.z
+    );
   }
 
   /**
@@ -419,13 +454,14 @@ export class Vec3 {
     return new Vec3(
       { ...a }.x,
       { ...a }.y,
-      { ...a }.z);
+      { ...a }.z
+    );
   }
 
   /**
-   * @param {number} radius Numeric expression.
-   * @param {number} phi Numeric expression (angle from x axis measured in radians).
-   * @param {number} theta Numeric expression (angle from z axis measured in radians).
+   * @param {number} radius A numeric expression.
+   * @param {number} phi A numeric expression (angle from x-axis measured in radians).
+   * @param {number} theta A numeric expression (angle from z-axis measured in radians).
    * @returns {Vec3} A new vector created from Spherical Coordinates.
    */
   static fromSphericalCoords(radius, phi, theta) {
@@ -456,31 +492,50 @@ export class Vec3 {
    * @returns {Vec2} A new vector equals to A minus B.
    */
   static subtract(a, b) {
-    return new Vec3(a.x - b.x, a.y - b.y, a.z - b.z);
+    return new Vec3(
+      a.x - b.x,
+      a.y - b.y,
+      a.z - b.z
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive x-axis (in radians).
+   * Angle relative to the positive x-axis.
+   * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(Math.sqrt(this.y ** 2 + this.z ** 2), this.x);
+    return Math.atan2(
+      Math.sqrt(
+        this.y ** 2 +
+        this.z ** 2
+      ), this.x
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive y-axis (in radians).
+   * Angle relative to the positive y-axis.
+   * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(Math.sqrt(this.x ** 2 + this.z ** 2), this.y);
+    return Math.atan2(
+      Math.sqrt(
+        this.x ** 2 +
+        this.z ** 2
+      ), this.y
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive z-axis (in radians).
+   * Angle relative to the positive z-axis.
+   * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.atan2(Math.sqrt(this.x ** 2 + this.y ** 2), this.z);
+    return Math.atan2(
+      Math.sqrt(
+        this.x ** 2 +
+        this.y ** 2
+      ), this.z
+    );
   }
 
   /**
@@ -488,9 +543,9 @@ export class Vec3 {
    */
   get magnitude() {
     return Math.sqrt(
-      this.x * this.x +
-      this.y * this.y +
-      this.z * this.z
+      this.x ** 2 +
+      this.y ** 2 +
+      this.z ** 2
     );
   }
 
@@ -532,12 +587,8 @@ export class Vec3 {
    */
   clamp(max, min) {
     const M = this.magnitude;
-    if (M > max) {
-      this.magnitude = max;
-      return;
-    } else if (M < min) {
-      this.magnitude = min;
-    }
+    if (M > max) this.magnitude = max;
+    else if (M < min) this.magnitude = min;
   }
 
   /**
@@ -560,6 +611,33 @@ export class Vec3 {
     this.x = this.x * m;
     this.y = this.y * m;
     this.z = this.z * m;
+  }
+
+  /**
+   * Rotates x-axis by phi.
+   * @param {number} phi A numeric expression (angle in radians).
+   */
+  rotateAxisX(phi) {
+    this.y = this.y * Math.cos(phi) - this.z * Math.sin(phi);
+    this.z = this.y * Math.sin(phi) + this.z * Math.cos(phi);
+  }
+
+  /**
+   * Rotates y-axis by phi.
+   * @param {number} phi A numeric expression (angle in radians).
+   */
+  rotateAxisY(phi) {
+    this.x = this.x * Math.cos(phi) + this.z * Math.sin(phi);
+    this.z = -this.x * Math.sin(phi) + this.z * Math.cos(phi);
+  }
+
+  /**
+   * Rotates z-axis by phi.
+   * @param {number} phi A numeric expression (angle in radians).
+   */
+  rotateAxisZ(phi) {
+    this.x = this.x * Math.cos(phi) - this.y * Math.sin(phi);
+    this.y = this.x * Math.sin(phi) + this.y * Math.cos(phi);
   }
 
   /**
@@ -595,10 +673,10 @@ export class Vec4 {
    * @param {number} w A numeric expression.
    */
   constructor(x, y, z, w) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.w = w;
+    this.x = x | 0;
+    this.y = y | 0;
+    this.z = z | 0;
+    this.w = w | 0;
   }
 
   /**
@@ -607,7 +685,12 @@ export class Vec4 {
    * @returns {Vec4} A new vector equals to A plus B.
    */
   static add(a, b) {
-    return new Vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+    return new Vec4(
+      a.x + b.x,
+      a.y + b.y,
+      a.z + b.z,
+      a.w + b.w
+    );
   }
 
   /**
@@ -632,11 +715,12 @@ export class Vec4 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const S = (a.x - b.x);
-    const T = (a.y - b.y);
-    const P = (a.z - b.z);
-    const Q = (a.w - b.w);
-    return Math.sqrt((S * S) + (T * T) + (P * P) + (Q * Q));
+    return Math.sqrt(
+      (a.x - b.x) ** 2 +
+      (a.y - b.y) ** 2 +
+      (a.z - b.z) ** 2 +
+      (a.w - b.w) ** 2
+    );
   }
 
   /**
@@ -651,7 +735,8 @@ export class Vec4 {
       Math.abs(a.x - b.x),
       Math.abs(a.y - b.y),
       Math.abs(a.z - b.z),
-      Math.abs(a.w - b.w));
+      Math.abs(a.w - b.w)
+    );
   }
 
   /**
@@ -670,7 +755,8 @@ export class Vec4 {
       Math.abs(a.x - b.x) +
       Math.abs(a.y - b.y) +
       Math.abs(a.z - b.z) +
-      Math.abs(a.w - b.w));
+      Math.abs(a.w - b.w)
+    );
   }
 
   /**
@@ -692,12 +778,12 @@ export class Vec4 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return ((
+    return (
       Math.abs(a.x - b.x) ** e +
       Math.abs(a.y - b.y) ** e +
       Math.abs(a.z - b.z) ** e +
       Math.abs(a.w - b.w) ** e
-    ) ** (1 / e));
+    ) ** (1 / e);
   }
 
   /**
@@ -711,7 +797,8 @@ export class Vec4 {
       a.x * b.x +
       a.y * b.y +
       a.z * b.z +
-      a.w * b.w);
+      a.w * b.w
+    );
   }
 
   /**
@@ -723,7 +810,8 @@ export class Vec4 {
       { ...a }.x,
       { ...a }.y,
       { ...a }.z,
-      { ...a }.w);
+      { ...a }.w
+    );
   }
 
   /**
@@ -746,31 +834,51 @@ export class Vec4 {
    * @returns {Vec2} A new vector equals to A minus B.
    */
   static subtract(a, b) {
-    return new Vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+    return new Vec4(
+      a.x - b.x,
+      a.y - b.y,
+      a.z - b.z,
+      a.w - b.w
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive x-axis (in radians).
+   * Angle relative to the positive x-axis.
+   * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(Math.sqrt(this.y ** 2 + this.z ** 2), this.x);
+    return Math.atan2(
+      Math.sqrt(
+        this.y ** 2 +
+        this.z ** 2
+      ), this.x
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive y-axis (in radians).
+   * Angle relative to the positive y-axis.
+   * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(Math.sqrt(this.x ** 2 + this.z ** 2), this.y);
+    return Math.atan2(
+      Math.sqrt(
+        this.x ** 2 +
+        this.z ** 2
+      ), this.y
+    );
   }
 
   /**
-   * Values between PI and -PI.
-   * @returns {number} Angle relative to the positive z-axis (in radians).
+   * Angle relative to the positive z-axis.
+   * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.atan2(Math.sqrt(this.x ** 2 + this.y ** 2), this.z);
+    return Math.atan2(
+      Math.sqrt(
+        this.x ** 2 +
+        this.y ** 2
+      ), this.z
+    );
   }
 
   /**
@@ -778,10 +886,10 @@ export class Vec4 {
    */
   get magnitude() {
     return Math.sqrt(
-      this.x * this.x +
-      this.y * this.y +
-      this.z * this.z +
-      this.w * this.w
+      this.x ** 2 +
+      this.y ** 2 +
+      this.z ** 2 +
+      this.w ** 2
     );
   }
 
@@ -824,12 +932,8 @@ export class Vec4 {
    */
   clamp(max, min) {
     const M = this.magnitude;
-    if (M > max) {
-      this.magnitude = max;
-      return;
-    } else if (M < min) {
-      this.magnitude = min;
-    }
+    if (M > max) this.magnitude = max;
+    else if (M < min) this.magnitude = min;
   }
 
   /**
