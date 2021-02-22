@@ -44,6 +44,7 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 `distanceMinkowski()` | ✔ | ✔ | ✔
 `dot()` | ✔ | ✔ | ✔
 `fromCopy()` | ✔ | ✔ | ✔
+`fromCylindricalCoords()` | - | ✔ | -
 `fromPolarCoords()` | ✔ | - | -
 `fromSphericalCoords()` | - | ✔ | -
 `project()` | ✔ | ✔ | ✔
@@ -70,6 +71,48 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 `subtract()` | ✔ | ✔ | ✔
 
 *See in-line docs for more info.*
+
+### Shortcut
+
+We can refer (getting an array) and define all the components at once with `xy`, `xyz`, and `xyzw` for `Vec2`, `Vec3` and `Vec4` respectively.
+
+Then, i.e.:
+
+```javascript
+const vec3D = new Vec3(x, y, z);
+const vec4D = new Vec4(...vec3D.xyz, time);
+
+// It's not possible to do straight with `...vec3D`,
+// as we are passing { key: value } instead of value.
+```
+
+#### Alias
+
+As an alias for shortcuts, for readable reasons, it's also possible to refer and define the components of `Vec3` and `Vec4` as `rgb` and `rgba` respectively (also one by one as `r`, `g`, `b`, `a`).
+
+Then, i.e.:
+
+```javascript
+let vec = new Vec4(1, 1, 1, 1);
+vec.scale(255);
+let color = `rgba(${vec.rgb}, ${vec.a / 255})`;
+```
+
+#### Shortcuts & Alias
+
+For both, `get` and `set` methods.
+
+|| `Vec2` | `Vec3` | `Vec4`
+--- | :-: | :-: | :-:
+`r` | - | ✔ | ✔
+`g` | - | ✔ | ✔
+`b` | - | ✔ | ✔
+`a` | - | - | ✔
+`rgb` | - | ✔ | -
+`rgba` | - | - | ✔
+`xy` | ✔ | - | -
+`xyz` | - | ✔ | -
+`xyzw` | - | - | ✔
 
 ## Author
 
