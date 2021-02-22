@@ -53,7 +53,7 @@ export class Vec2 {
    * @returns {Vec2} A new vector identical to A.
    */
   static clone(a) {
-    return new Vec3(...a.xy);
+    return new Vec2(...a.xy);
   }
 
   /**
@@ -584,7 +584,7 @@ export class Vec3 {
   /**
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
-   * @returns {Vec2} A new vector equals to A minus B.
+   * @returns {Vec3} A new vector equals to A minus B.
    */
   static subtract(a, b) {
     return new Vec3(
@@ -906,7 +906,7 @@ export class Vec4 {
    * @returns {Vec4} A new vector identical to A.
    */
   static clone(a) {
-    return new Vec3(...a.xyzw);
+    return new Vec4(...a.xyzw);
   }
 
   /**
@@ -1051,7 +1051,7 @@ export class Vec4 {
   /**
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
-   * @returns {Vec2} A new vector equals to A minus B.
+   * @returns {Vec4} A new vector equals to A minus B.
    */
   static subtract(a, b) {
     return new Vec4(
