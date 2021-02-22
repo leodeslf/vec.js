@@ -7,35 +7,17 @@
  */
 
 /**
- * An n-dimensional vector class.
- */
-class Vec {
-  /**
-   * Creates an n-dimensional vector pointing to X, Y, Z and W.
-   * @param {number} x A numeric expression.
-   * @param {number} y A numeric expression.
-   * @param {number?} z A numeric expression.
-   * @param {number?} w A numeric expression.
-   */
-  constructor(x, y, z, w) {
-    this.x = x || 0;
-    this.y = y || 0;
-    if (z !== undefined) this.z = z;
-    if (w !== undefined) this.w = w;
-  }
-}
-
-/**
  * A two-dimensional vector class.
  */
-export class Vec2 extends Vec {
+export class Vec2 {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} x A numeric expression.
    * @param {number} y A numeric expression.
    */
   constructor(x, y) {
-    super(x, y);
+    this.x = x || 0;
+    this.y = y || 0;
   }
 
   /**
@@ -80,9 +62,11 @@ export class Vec2 extends Vec {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
+    const abx = (a.x - b.x);
+    const aby = (a.y - b.y);
     return Math.sqrt(
-      (a.x - b.x) ** 2 +
-      (a.y - b.y) ** 2
+      abx * abx +
+      aby * aby
     );
   }
 
@@ -240,8 +224,8 @@ export class Vec2 extends Vec {
    */
   get magnitude() {
     return Math.sqrt(
-      this.x ** 2 +
-      this.y ** 2
+      this.x * this.x +
+      this.y * this.y
     );
   }
 
@@ -318,8 +302,7 @@ export class Vec2 extends Vec {
    * @returns {Vec2} This vector.
    */
   copy(a) {
-    this.x = { ...a }.x;
-    this.y = { ...a }.y;
+    this.xy = a.xy;
     return this;
   }
 
@@ -375,7 +358,7 @@ export class Vec2 extends Vec {
 /**
  * A three-dimensional vector class.
  */
-export class Vec3 extends Vec {
+export class Vec3 {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} x A numeric expression.
@@ -383,7 +366,9 @@ export class Vec3 extends Vec {
    * @param {number} z A numeric expression.
    */
   constructor(x, y, z) {
-    super(x, y, z || 0);
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
   }
 
   /**
@@ -443,10 +428,13 @@ export class Vec3 extends Vec {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
+    const abx = (a.x - b.x);
+    const aby = (a.y - b.y);
+    const abz = (a.z - b.z);
     return Math.sqrt(
-      (a.x - b.x) ** 2 +
-      (a.y - b.y) ** 2 +
-      (a.z - b.z) ** 2
+      abx * abx +
+      aby * aby +
+      abz * abz
     );
   }
 
@@ -651,9 +639,9 @@ export class Vec3 extends Vec {
    */
   get magnitude() {
     return Math.sqrt(
-      this.x ** 2 +
-      this.y ** 2 +
-      this.z ** 2
+      this.x * this.x +
+      this.y * this.y +
+      this.z * this.z
     );
   }
 
@@ -783,9 +771,7 @@ export class Vec3 extends Vec {
    * @returns {Vec3} This vector.
    */
   copy(a) {
-    this.x = { ...a }.x;
-    this.y = { ...a }.y;
-    this.z = { ...a }.z;
+    this.xyz = a.xyz;
     return this;
   }
 
@@ -870,7 +856,7 @@ export class Vec3 extends Vec {
 /**
  * A four-dimensional vector class.
  */
-export class Vec4 extends Vec {
+export class Vec4 {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} x A numeric expression.
@@ -879,7 +865,10 @@ export class Vec4 extends Vec {
    * @param {number} w A numeric expression.
    */
   constructor(x, y, z, w) {
-    super(x, y, z || 0, w || 0);
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
+    this.w = w || 0;
   }
 
   /**
@@ -926,11 +915,15 @@ export class Vec4 extends Vec {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
+    const abx = (a.x - b.x);
+    const aby = (a.y - b.y);
+    const abz = (a.z - b.z);
+    const abw = (a.w - b.w);
     return Math.sqrt(
-      (a.x - b.x) ** 2 +
-      (a.y - b.y) ** 2 +
-      (a.z - b.z) ** 2 +
-      (a.w - b.w) ** 2
+      abx * abx +
+      aby * aby +
+      abz * abz +
+      abw * abw
     );
   }
 
@@ -1122,10 +1115,10 @@ export class Vec4 extends Vec {
    */
   get magnitude() {
     return Math.sqrt(
-      this.x ** 2 +
-      this.y ** 2 +
-      this.z ** 2 +
-      this.w ** 2
+      this.x * this.x +
+      this.y * this.y +
+      this.z * this.z +
+      this.w * this.w
     );
   }
 
@@ -1266,10 +1259,7 @@ export class Vec4 extends Vec {
    * @returns {Vec4} This vector.
    */
   copy(a) {
-    this.x = { ...a }.x;
-    this.y = { ...a }.y;
-    this.z = { ...a }.z;
-    this.w = { ...a }.w;
+    this.xyzw = a.xyzw;
     return this;
   }
 
