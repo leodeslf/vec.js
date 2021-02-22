@@ -157,6 +157,19 @@ export class Vec2 extends Vec {
   }
 
   /**
+   * Returns true if vectors A and B are equal (identical components).
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
+   * @returns {boolean} The deep comparison result.
+   */
+  static equal(a, b) {
+    return (
+      a.x === b.x &&
+      a.y === b.y
+    );
+  }
+
+  /**
    * @param {Vec2} a A vector.
    * @returns {Vec2} A new vector identical to A.
    * @deprecated
@@ -508,6 +521,20 @@ export class Vec3 extends Vec {
       a.x * b.x +
       a.y * b.y +
       a.z * b.z
+    );
+  }
+
+  /**
+   * Returns true if vectors A and B are equal (identical components).
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @returns {boolean} The deep comparison result.
+   */
+  static equal(a, b) {
+    return (
+      a.x === b.x &&
+      a.y === b.y &&
+      a.z === b.z
     );
   }
 
@@ -982,6 +1009,21 @@ export class Vec4 extends Vec {
       a.y * b.y +
       a.z * b.z +
       a.w * b.w
+    );
+  }
+
+  /**
+   * Returns true if vectors A and B are equal (identical components).
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
+   * @returns {boolean} The deep comparison result.
+   */
+  static equal(a, b) {
+    return (
+      a.x === b.x &&
+      a.y === b.y &&
+      a.z === b.z &&
+      a.w === b.w
     );
   }
 
