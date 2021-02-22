@@ -7,17 +7,28 @@
  */
 
 /**
+ * An n-dimensional vector class.
+ */
+class Vec {
+  constructor(x, y, z, w) {
+    this.x = x || 0;
+    this.y = y || 0;
+    if (z !== undefined) this.z = z;
+    if (w !== undefined) this.w = w;
+  }
+}
+
+/**
  * A two-dimensional vector class.
  */
-export class Vec2 {
+export class Vec2 extends Vec {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} x A numeric expression.
    * @param {number} y A numeric expression.
    */
   constructor(x, y) {
-    this.x = x | 0;
-    this.y = y | 0;
+    super(x, y);
   }
 
   /**
@@ -143,7 +154,7 @@ export class Vec2 {
 
   /**
    * @param {number} radius A numeric expression.
-   * @param {number} phi A numeric expression (angle from x-axis measured in radians).
+   * @param {number} phi A numeric expression (angle from positive x-axis in radians).
    * @returns {Vec2} A new vector created from Polar Coordinates.
    */
   static fromPolarCoords(radius, phi) {
@@ -212,32 +223,55 @@ export class Vec2 {
   }
 
   /**
+   * A short hand for an iterable array or values.
+   * @returns {number[]} An array of numeric expressions.
+   */
+  get xy() {
+    return [this.x, this.y];
+  }
+
+  /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @returns {Vec2} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
+   * @returns {Vec2} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
+    return this;
+  }
+
+  /**
+   * Sets all the components.
+   * @returns {Vec2} This vector.
+   */
+  set xy(x, y) {
+    this.x = x;
+    this.y = y;
   }
 
   /**
    * Adds A to this vector.
    * @param {Vec2} a A vector.
+   * @returns {Vec2} This vector.
    */
   add(a) {
     this.x = this.x + a.x;
     this.y = this.y + a.y;
+    return this;
   }
 
   /**
@@ -245,24 +279,29 @@ export class Vec2 {
    * and maximum (inclusive).
    * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @returns {Vec2} This vector.
    */
   clamp(max, min) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
+    return this;
   }
 
   /**
    * Copy the coordinates of A to this vector.
    * @param {Vec2} a A vector.
+   * @returns {Vec2} This vector.
    */
   copy(a) {
     this.x = { ...a }.x;
     this.y = { ...a }.y;
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector to 1 (Unit Vector).
+   * @returns {Vec2} This vector.
    */
   normalize() {
     let m = this.magnitude;
@@ -270,40 +309,49 @@ export class Vec2 {
     else m = 1 / m;
     this.x = this.x * m;
     this.y = this.y * m;
+    return this;
   }
 
   /**
    * Rotates this vector on z-axis by phi.
    * @param {number} phi A numeric expression (angle in radians).
+   * @returns {Vec2} This vector.
    */
   rotateAxisZ(phi) {
-    this.x = this.x * Math.cos(phi) - this.y * Math.sin(phi);
-    this.y = this.x * Math.sin(phi) + this.y * Math.cos(phi);
+    [this.x, this.y] = [
+      this.x * Math.cos(phi) - this.y * Math.sin(phi),
+      this.x * Math.sin(phi) + this.y * Math.cos(phi)
+    ];
+    return this;
   }
 
   /**
    * Scales this vector by A.
    * @param {number} val A numeric expression.
+   * @returns {Vec2} This vector.
    */
   scale(val) {
     this.x = this.x * val;
     this.y = this.y * val;
+    return this;
   }
 
   /**
    * Subtracts A from this vector.
    * @param {Vec2} a A vector.
+   * @returns {Vec2} This vector.
    */
   subtract(a) {
     this.x = this.x - a.x;
     this.y = this.y - a.y;
+    return this;
   }
 }
 
 /**
  * A three-dimensional vector class.
  */
-export class Vec3 {
+export class Vec3 extends Vec {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} x A numeric expression.
@@ -311,9 +359,7 @@ export class Vec3 {
    * @param {number} z A numeric expression.
    */
   constructor(x, y, z) {
-    this.x = x | 0;
-    this.y = y | 0;
-    this.z = z | 0;
+    super(x, y, z || 0);
   }
 
   /**
@@ -460,14 +506,28 @@ export class Vec3 {
 
   /**
    * @param {number} radius A numeric expression.
-   * @param {number} phi A numeric expression (angle from x-axis measured in radians).
-   * @param {number} theta A numeric expression (angle from z-axis measured in radians).
+   * Rotates  phi A by numeric expression (angle from positive x-axis in radians).
+   * @param {number} z A numeric expression.
+   * @returns {Vec3} A new vector created from Cylindrical Coordinates.
+   */
+  static fromCylindricalCoords(radius, phi, z) {
+    return new Vec3(
+      radius * Math.cos(phi),
+      radius * Math.sin(phi),
+      z
+    );
+  }
+
+  /**
+   * @param {number} radius A numeric expression.
+   * Rotates  phi A by numeric expression (angle from positive x-axis in radians).
+   * Rotates  theta A by numeric expression (angle from positive z-axis in radians).
    * @returns {Vec3} A new vector created from Spherical Coordinates.
    */
   static fromSphericalCoords(radius, phi, theta) {
     return new Vec3(
-      radius * Math.cos(phi) * Math.sin(theta),
-      radius * Math.sin(phi) * Math.sin(theta),
+      radius * Math.sin(theta) * Math.cos(phi),
+      radius * Math.sin(theta) * Math.sin(phi),
       radius * Math.cos(theta)
     );
   }
@@ -500,42 +560,49 @@ export class Vec3 {
   }
 
   /**
-   * Angle relative to the positive x-axis.
+   * Rotates to the by from positive x-axis.
    * @returns {number} Value in radians.
    */
   get angleX() {
     return Math.atan2(
-      Math.sqrt(
-        this.y ** 2 +
-        this.z ** 2
-      ), this.x
+      this.y, this.x
     );
   }
 
   /**
-   * Angle relative to the positive y-axis.
+   * Rotates to the by positive y-axis.
    * @returns {number} Value in radians.
    */
   get angleY() {
     return Math.atan2(
-      Math.sqrt(
-        this.x ** 2 +
-        this.z ** 2
-      ), this.y
+      this.x, this.y
     );
   }
 
   /**
-   * Angle relative to the positive z-axis.
+   * Rotates to the by positive z-axis.
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.atan2(
-      Math.sqrt(
-        this.x ** 2 +
-        this.y ** 2
-      ), this.z
+    return Math.acos(
+      this.z / this.magnitude
     );
+  }
+
+  /**
+   * Alias for z component.
+   * @returns {number} A numeric expression.
+   */
+  get b() {
+    return this.z;
+  }
+
+  /**
+ * Alias for y component.
+ * @returns {number} A numeric expression.
+ */
+  get g() {
+    return this.y;
   }
 
   /**
@@ -550,33 +617,107 @@ export class Vec3 {
   }
 
   /**
+   * Alias for x component.
+   * @returns {number} A numeric expression.
+   */
+  get r() {
+    return this.x;
+  }
+
+  /**
+   * A short hand for an iterable array or values.
+   * @returns {number[]} An array of numeric expressions.
+   */
+  get rgb() {
+    return [this.x, this.y, this.z];
+  }
+
+  /**
+   * A short hand for an iterable array or values.
+   * @returns {number[]} An array of numeric expressions.
+   */
+  get xyz() {
+    return [this.x, this.y, this.z];
+  }
+
+  /**
+   * Alias for z component.
+   * @param {number} b A numeric expression.
+   */
+  set b(b) {
+    this.z = b;
+  }
+
+  /**
+ * Alias for y component.
+ * @param {number} g A numeric expression.
+ */
+  set g(g) {
+    this.y = g;
+  }
+
+  /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @returns {Vec3} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
+   * @returns {Vec3} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
+    return this;
+  }
+
+  /**
+   * Alias for x component.
+   * @param {number} r A numeric expression.
+   */
+  set r(r) {
+    this.x = r;
+  }
+
+  /**
+   * Sets all the components.
+   * @returns {Vec3} This vector.
+   */
+  set rgb(r, g, b) {
+    this.x = r;
+    this.y = g;
+    this.z = b;
+  }
+
+  /**
+   * Sets all the components.
+   * @returns {Vec3} This vector.
+   */
+  set xyz(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
   /**
    * Adds A to this vector.
    * @param {Vec3} a A vector.
+   * @returns {Vec3} This vector.
    */
   add(a) {
     this.x = this.x + a.x;
     this.y = this.y + a.y;
     this.z = this.z + a.z;
+    return this;
   }
 
   /**
@@ -584,25 +725,30 @@ export class Vec3 {
    * and maximum (inclusive).
    * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @returns {Vec3} This vector.
    */
   clamp(max, min) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
+    return this;
   }
 
   /**
    * Copy the coordinates of A to this vector.
    * @param {Vec3} a A vector.
+   * @returns {Vec3} This vector.
    */
   copy(a) {
     this.x = { ...a }.x;
     this.y = { ...a }.y;
     this.z = { ...a }.z;
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector to 1 (Unit Vector).
+   * @returns {Vec3} This vector.
    */
   normalize() {
     let m = this.magnitude;
@@ -611,60 +757,77 @@ export class Vec3 {
     this.x = this.x * m;
     this.y = this.y * m;
     this.z = this.z * m;
+    return this;
   }
 
   /**
    * Rotates x-axis by phi.
    * @param {number} phi A numeric expression (angle in radians).
+   * @returns {Vec3} This vector.
    */
   rotateAxisX(phi) {
-    this.y = this.y * Math.cos(phi) - this.z * Math.sin(phi);
-    this.z = this.y * Math.sin(phi) + this.z * Math.cos(phi);
+    [this.y, this.z] = [
+      this.z * Math.cos(phi) - this.z * Math.sin(phi),
+      this.z * Math.sin(phi) + this.z * Math.cos(phi)
+    ];
+    return this;
   }
 
   /**
    * Rotates y-axis by phi.
    * @param {number} phi A numeric expression (angle in radians).
+   * @returns {Vec3} This vector.
    */
   rotateAxisY(phi) {
-    this.x = this.x * Math.cos(phi) + this.z * Math.sin(phi);
-    this.z = -this.x * Math.sin(phi) + this.z * Math.cos(phi);
+    [this.x, this.z] = [
+      this.x * Math.cos(phi) - this.z * Math.sin(phi),
+      -this.x * Math.sin(phi) + this.z * Math.cos(phi)
+    ];
+    return this;
   }
 
   /**
    * Rotates z-axis by phi.
    * @param {number} phi A numeric expression (angle in radians).
+   * @returns {Vec3} This vector.
    */
   rotateAxisZ(phi) {
-    this.x = this.x * Math.cos(phi) - this.y * Math.sin(phi);
-    this.y = this.x * Math.sin(phi) + this.y * Math.cos(phi);
+    [this.x, this.y] = [
+      this.x * Math.cos(phi) - this.y * Math.sin(phi),
+      this.x * Math.sin(phi) + this.y * Math.cos(phi)
+    ];
+    return this;
   }
 
   /**
    * Scales this vector by A.
    * @param {number} val A numeric expression.
+   * @returns {Vec3} This vector.
    */
   scale(val) {
     this.x = this.x * val;
     this.y = this.y * val;
     this.z = this.z * val;
+    return this;
   }
 
   /**
    * Subtracts A from this vector.
    * @param {Vec3} a A vector.
+   * @returns {Vec3} This vector.
    */
   subtract(a) {
     this.x = this.x - a.x;
     this.y = this.y - a.y;
     this.z = this.z - a.z;
+    return this;
   }
 }
 
 /**
  * A four-dimensional vector class.
  */
-export class Vec4 {
+export class Vec4 extends Vec {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} x A numeric expression.
@@ -673,10 +836,7 @@ export class Vec4 {
    * @param {number} w A numeric expression.
    */
   constructor(x, y, z, w) {
-    this.x = x | 0;
-    this.y = y | 0;
-    this.z = z | 0;
-    this.w = w | 0;
+    super(x, y, z || 0, w || 0);
   }
 
   /**
@@ -843,15 +1003,20 @@ export class Vec4 {
   }
 
   /**
+   * Alias for w component.
+   * @returns {number} A numeric expression.
+   */
+  get a() {
+    return this.w;
+  }
+
+  /**
    * Angle relative to the positive x-axis.
    * @returns {number} Value in radians.
    */
   get angleX() {
     return Math.atan2(
-      Math.sqrt(
-        this.y ** 2 +
-        this.z ** 2
-      ), this.x
+      this.y, this.x
     );
   }
 
@@ -861,10 +1026,7 @@ export class Vec4 {
    */
   get angleY() {
     return Math.atan2(
-      Math.sqrt(
-        this.x ** 2 +
-        this.z ** 2
-      ), this.y
+      this.x, this.y
     );
   }
 
@@ -873,12 +1035,25 @@ export class Vec4 {
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.atan2(
-      Math.sqrt(
-        this.x ** 2 +
-        this.y ** 2
-      ), this.z
+    return Math.acos(
+      this.z / this.magnitude
     );
+  }
+
+  /**
+   * Alias for z component.
+   * @returns {number} A numeric expression.
+   */
+  get b() {
+    return this.z;
+  }
+
+  /**
+ * Alias for y component.
+ * @returns {number} A numeric expression.
+ */
+  get g() {
+    return this.y;
   }
 
   /**
@@ -894,34 +1069,118 @@ export class Vec4 {
   }
 
   /**
+   * Alias for x component.
+   * @returns {number} A numeric expression.
+   */
+  get r() {
+    return this.x;
+  }
+
+  /**
+   * A short hand for an iterable array or values.
+   * @returns {number[]} An array of numeric expressions.
+   */
+  get rgba() {
+    return [this.x, this.y, this.z, this.w];
+  }
+
+  /**
+   * A short hand for an iterable array or values.
+   * @returns {number[]} An array of numeric expressions.
+   */
+  get xyzw() {
+    return [this.x, this.y, this.z, this.w];
+  }
+
+  /**
+   * Alias for w component.
+   * @param {number} a A numeric expression.
+   */
+  set a(a) {
+    this.w = a;
+  }
+
+  /**
+   * Alias for z component.
+   * @param {number} b A numeric expression.
+   */
+  set b(b) {
+    this.z = b;
+  }
+
+  /**
+ * Alias for y component.
+ * @param {number} g A numeric expression.
+ */
+  set g(g) {
+    this.y = g;
+  }
+
+  /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @returns {Vec4} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
+   * @returns {Vec4} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
+    return this;
+  }
+
+  /**
+   * Alias for x component.
+   * @param {number} r A numeric expression.
+   */
+  set r(r) {
+    this.x = r;
+  }
+
+  /**
+   * Sets all the components.
+   * @returns {Vec4} This vector.
+   */
+  set rgba(r, g, b, a) {
+    this.x = r;
+    this.y = g;
+    this.z = b;
+    this.w = a;
+  }
+
+  /**
+   * Sets all the components.
+   * @returns {Vec4} This vector.
+   */
+  set xyzw(x, y, z, w) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
   }
 
   /**
    * Adds A to this vector.
    * @param {Vec4} a A vector.
+   * @returns {Vec4} This vector.
    */
   add(a) {
     this.x = this.x + a.x;
     this.y = this.y + a.y;
     this.z = this.z + a.z;
     this.w = this.w + a.w;
+    return this;
   }
 
   /**
@@ -929,26 +1188,31 @@ export class Vec4 {
    * and maximum (inclusive).
    * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @returns {Vec4} This vector.
    */
   clamp(max, min) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
+    return this;
   }
 
   /**
    * Copy the coordinates of A to this vector.
    * @param {Vec4} a A vector.
+   * @returns {Vec4} This vector.
    */
   copy(a) {
     this.x = { ...a }.x;
     this.y = { ...a }.y;
     this.z = { ...a }.z;
     this.w = { ...a }.w;
+    return this;
   }
 
   /**
    * Sets the magnitude of this vector to 1 (Unit Vector).
+   * @returns {Vec4} This vector.
    */
   normalize() {
     let m = this.magnitude;
@@ -958,27 +1222,32 @@ export class Vec4 {
     this.y = this.y * m;
     this.z = this.z * m;
     this.w = this.w * m;
+    return this;
   }
 
   /**
    * Scales this vector by A.
    * @param {number} val A numeric expression.
+   * @returns {Vec4} This vector.
    */
   scale(val) {
     this.x = this.x * val;
     this.y = this.y * val;
     this.z = this.z * val;
     this.w = this.w * val;
+    return this;
   }
 
   /**
    * Subtracts A from this vector.
    * @param {Vec4} a A vector.
+   * @returns {Vec4} This vector.
    */
   subtract(a) {
     this.x = this.x - a.x;
     this.y = this.y - a.y;
     this.z = this.z - a.z;
     this.w = this.w - a.w;
+    return this;
   }
 }
