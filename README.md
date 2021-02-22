@@ -37,12 +37,14 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 --- | :-: | :-: | :-:
 `add()` | ✔ | ✔ | ✔
 `angleBetween()` | ✔ | ✔ | ✔
+`clone()` | ✔ | ✔ | ✔
 `cross()` | - | ✔ | -
 `distance()` | ✔ | ✔ | ✔
 `distanceChebyshev()` | ✔ | ✔ | ✔
 `distanceManhattan()` | ✔ | ✔ | ✔
 `distanceMinkowski()` | ✔ | ✔ | ✔
 `dot()` | ✔ | ✔ | ✔
+`equal()` | ✔ | ✔ | ✔
 `fromCopy()` | ✔ | ✔ | ✔
 `fromCylindricalCoords()` | - | ✔ | -
 `fromPolarCoords()` | ✔ | - | -
