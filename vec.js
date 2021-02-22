@@ -10,6 +10,13 @@
  * An n-dimensional vector class.
  */
 class Vec {
+  /**
+   * Creates an n-dimensional vector pointing to X, Y, Z and W.
+   * @param {number} x A numeric expression.
+   * @param {number} y A numeric expression.
+   * @param {number?} z A numeric expression.
+   * @param {number?} w A numeric expression.
+   */
   constructor(x, y, z, w) {
     this.x = x || 0;
     this.y = y || 0;
@@ -47,7 +54,7 @@ export class Vec2 extends Vec {
    * Returns the angle between A and B.
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
-   * @returns {number} The angle between A and B (in radians).
+   * @returns {number} Value in radians.
    */
   static angleBetween(a, b) {
     const MA = a.magnitude;
@@ -57,6 +64,14 @@ export class Vec2 extends Vec {
       return NaN;
     }
     return Math.acos(Vec2.dot(a, b) / (MA * MB));
+  }
+
+  /**
+   * @param {Vec2} a A vector.
+   * @returns {Vec2} A new vector identical to A.
+   */
+  static clone(a) {
+    return new Vec3(...a.xy);
   }
 
   /**
@@ -144,6 +159,7 @@ export class Vec2 extends Vec {
   /**
    * @param {Vec2} a A vector.
    * @returns {Vec2} A new vector identical to A.
+   * @deprecated
    */
   static fromCopy(a) {
     return new Vec2(
@@ -154,7 +170,7 @@ export class Vec2 extends Vec {
 
   /**
    * @param {number} radius A numeric expression.
-   * @param {number} phi A numeric expression (angle from positive x-axis in radians).
+   * @param {number} phi Angle from positive x-axis in radians.
    * @returns {Vec2} A new vector created from Polar Coordinates.
    */
   static fromPolarCoords(radius, phi) {
@@ -172,7 +188,7 @@ export class Vec2 extends Vec {
    */
   static project(a, b) {
     const PM = a.magnitude * Math.cos(Vec2.angleBetween(a, b));
-    const P = Vec2.fromCopy(b);
+    const P = Vec2.clone(b);
     P.normalize();
     P.scale(PM);
     return P;
@@ -195,10 +211,7 @@ export class Vec2 extends Vec {
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(
-      this.y,
-      this.x
-    );
+    return Math.atan2(this.y, this.x);
   }
 
   /**
@@ -206,10 +219,7 @@ export class Vec2 extends Vec {
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(
-      this.x,
-      this.y
-    );
+    return Math.atan2(this.x, this.y);
   }
 
   /**
@@ -258,9 +268,10 @@ export class Vec2 extends Vec {
    * Sets all the components.
    * @returns {Vec2} This vector.
    */
-  set xy(x, y) {
-    this.x = x;
-    this.y = y;
+  set xy(xy) {
+    this.x = xy[0];
+    this.y = xy[1];
+    return this;
   }
 
   /**
@@ -314,7 +325,7 @@ export class Vec2 extends Vec {
 
   /**
    * Rotates this vector on z-axis by phi.
-   * @param {number} phi A numeric expression (angle in radians).
+   * @param {number} phi Angle in radians.
    * @returns {Vec2} This vector.
    */
   rotateAxisZ(phi) {
@@ -379,7 +390,7 @@ export class Vec3 extends Vec {
    * Returns the angle between A and B.
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
-   * @returns {number} The angle between A and B (in radians).
+   * @returns {number} Value in radians.
    */
   static angleBetween(a, b) {
     const MA = a.magnitude;
@@ -389,6 +400,14 @@ export class Vec3 extends Vec {
       return NaN;
     }
     return Math.acos(Vec3.dot(a, b) / (MA * MB));
+  }
+
+  /**
+   * @param {Vec3} a A vector.
+   * @returns {Vec3} A new vector identical to A.
+   */
+  static clone(a) {
+    return new Vec3(...a.xyz);
   }
 
   /**
@@ -495,6 +514,7 @@ export class Vec3 extends Vec {
   /**
    * @param {Vec3} a A vector.
    * @returns {Vec3} A new vector identical to A.
+   * @deprecated
    */
   static fromCopy(a) {
     return new Vec3(
@@ -506,7 +526,7 @@ export class Vec3 extends Vec {
 
   /**
    * @param {number} radius A numeric expression.
-   * Rotates  phi A by numeric expression (angle from positive x-axis in radians).
+   * @param {number} phi Angle from positive x-axis in radians.
    * @param {number} z A numeric expression.
    * @returns {Vec3} A new vector created from Cylindrical Coordinates.
    */
@@ -520,8 +540,8 @@ export class Vec3 extends Vec {
 
   /**
    * @param {number} radius A numeric expression.
-   * Rotates  phi A by numeric expression (angle from positive x-axis in radians).
-   * Rotates  theta A by numeric expression (angle from positive z-axis in radians).
+   * @param {number} phi Angle from positive x-axis in radians.
+   * @param {number} theta Angle from positive z-axis in radians.
    * @returns {Vec3} A new vector created from Spherical Coordinates.
    */
   static fromSphericalCoords(radius, phi, theta) {
@@ -540,7 +560,7 @@ export class Vec3 extends Vec {
    */
   static project(a, b) {
     const PM = a.magnitude * Math.cos(Vec3.angleBetween(a, b));
-    const P = Vec3.fromCopy(b);
+    const P = Vec3.clone(b);
     P.normalize();
     P.scale(PM);
     return P;
@@ -560,33 +580,27 @@ export class Vec3 extends Vec {
   }
 
   /**
-   * Rotates to the by from positive x-axis.
+   * Angle relative to the positive x-axis.
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(
-      this.y, this.x
-    );
+    return Math.atan2(this.y, this.x);
   }
 
   /**
-   * Rotates to the by positive y-axis.
+   * Angle relative to the positive y-axis.
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(
-      this.x, this.y
-    );
+    return Math.atan2(this.x, this.y);
   }
 
   /**
-   * Rotates to the by positive z-axis.
+   * Angle relative to the positive z-axis.
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.acos(
-      this.z / this.magnitude
-    );
+    return Math.acos(this.z / this.magnitude);
   }
 
   /**
@@ -598,9 +612,9 @@ export class Vec3 extends Vec {
   }
 
   /**
- * Alias for y component.
- * @returns {number} A numeric expression.
- */
+   * Alias for y component.
+   * @returns {number} A numeric expression.
+   */
   get g() {
     return this.y;
   }
@@ -649,9 +663,9 @@ export class Vec3 extends Vec {
   }
 
   /**
- * Alias for y component.
- * @param {number} g A numeric expression.
- */
+   * Alias for y component.
+   * @param {number} g A numeric expression.
+   */
   set g(g) {
     this.y = g;
   }
@@ -692,20 +706,22 @@ export class Vec3 extends Vec {
    * Sets all the components.
    * @returns {Vec3} This vector.
    */
-  set rgb(r, g, b) {
-    this.x = r;
-    this.y = g;
-    this.z = b;
+  set rgb(rgb) {
+    this.x = rgb[0];
+    this.y = rgb[1];
+    this.z = rgb[2];
+    return this;
   }
 
   /**
    * Sets all the components.
    * @returns {Vec3} This vector.
    */
-  set xyz(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  set xyz(xyz) {
+    this.x = xyz[0];
+    this.y = xyz[1];
+    this.z = xyz[2];
+    return this;
   }
 
   /**
@@ -762,7 +778,7 @@ export class Vec3 extends Vec {
 
   /**
    * Rotates x-axis by phi.
-   * @param {number} phi A numeric expression (angle in radians).
+   * @param {number} phi Angle in radians.
    * @returns {Vec3} This vector.
    */
   rotateAxisX(phi) {
@@ -775,7 +791,7 @@ export class Vec3 extends Vec {
 
   /**
    * Rotates y-axis by phi.
-   * @param {number} phi A numeric expression (angle in radians).
+   * @param {number} phi Angle in radians.
    * @returns {Vec3} This vector.
    */
   rotateAxisY(phi) {
@@ -788,7 +804,7 @@ export class Vec3 extends Vec {
 
   /**
    * Rotates z-axis by phi.
-   * @param {number} phi A numeric expression (angle in radians).
+   * @param {number} phi Angle in radians.
    * @returns {Vec3} This vector.
    */
   rotateAxisZ(phi) {
@@ -857,7 +873,7 @@ export class Vec4 extends Vec {
    * Returns the angle between A and B.
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
-   * @returns {number} The angle between A and B (in radians).
+   * @returns {number} Value in radians.
    */
   static angleBetween(a, b) {
     const MA = a.magnitude;
@@ -867,6 +883,14 @@ export class Vec4 extends Vec {
       return NaN;
     }
     return Math.acos(Vec4.dot(a, b) / (MA * MB));
+  }
+
+  /**
+   * @param {Vec4} a A vector.
+   * @returns {Vec4} A new vector identical to A.
+   */
+  static clone(a) {
+    return new Vec3(...a.xyzw);
   }
 
   /**
@@ -964,6 +988,7 @@ export class Vec4 extends Vec {
   /**
    * @param {Vec4} a A vector.
    * @returns {Vec4} A new vector identical to A.
+   * @deprecated
    */
   static fromCopy(a) {
     return new Vec4(
@@ -982,7 +1007,7 @@ export class Vec4 extends Vec {
    */
   static project(a, b) {
     const PM = a.magnitude * Math.cos(Vec4.angleBetween(a, b));
-    const P = Vec4.fromCopy(b);
+    const P = Vec4.clone(b);
     P.normalize();
     P.scale(PM);
     return P;
@@ -1015,9 +1040,7 @@ export class Vec4 extends Vec {
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(
-      this.y, this.x
-    );
+    return Math.atan2(this.y, this.x);
   }
 
   /**
@@ -1025,9 +1048,7 @@ export class Vec4 extends Vec {
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(
-      this.x, this.y
-    );
+    return Math.atan2(this.x, this.y);
   }
 
   /**
@@ -1035,9 +1056,7 @@ export class Vec4 extends Vec {
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.acos(
-      this.z / this.magnitude
-    );
+    return Math.acos(this.z / this.magnitude);
   }
 
   /**
@@ -1049,9 +1068,9 @@ export class Vec4 extends Vec {
   }
 
   /**
- * Alias for y component.
- * @returns {number} A numeric expression.
- */
+   * Alias for y component.
+   * @returns {number} A numeric expression.
+   */
   get g() {
     return this.y;
   }
@@ -1109,9 +1128,9 @@ export class Vec4 extends Vec {
   }
 
   /**
- * Alias for y component.
- * @param {number} g A numeric expression.
- */
+   * Alias for y component.
+   * @param {number} g A numeric expression.
+   */
   set g(g) {
     this.y = g;
   }
@@ -1152,22 +1171,24 @@ export class Vec4 extends Vec {
    * Sets all the components.
    * @returns {Vec4} This vector.
    */
-  set rgba(r, g, b, a) {
-    this.x = r;
-    this.y = g;
-    this.z = b;
-    this.w = a;
+  set rgba(rgba) {
+    this.x = rgba[0];
+    this.y = rgba[1];
+    this.z = rgba[2];
+    this.w = rgba[3];
+    return this;
   }
 
   /**
    * Sets all the components.
    * @returns {Vec4} This vector.
    */
-  set xyzw(x, y, z, w) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.w = w;
+  set xyzw(xyzw) {
+    this.x = xyzw[0];
+    this.y = xyzw[1];
+    this.z = xyzw[2];
+    this.w = xyzw[3];
+    return this;
   }
 
   /**
