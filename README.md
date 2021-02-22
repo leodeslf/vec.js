@@ -45,7 +45,7 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 `distanceMinkowski()` | ✔ | ✔ | ✔
 `dot()` | ✔ | ✔ | ✔
 `equal()` | ✔ | ✔ | ✔
-`fromCopy()` | ✔ | ✔ | ✔
+~~`fromCopy()`~~ (use `clone`) | ✔ | ✔ | ✔
 `fromCylindricalCoords()` | - | ✔ | -
 `fromPolarCoords()` | ✔ | - | -
 `fromSphericalCoords()` | - | ✔ | -
