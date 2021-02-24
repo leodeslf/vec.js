@@ -12,8 +12,8 @@
 export class Vec2 {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
-   * @param {number} x A numeric expression.
-   * @param {number} y A numeric expression.
+   * @param {number} [x = 0] A numeric expression.
+   * @param {number} [y = 0] A numeric expression.
    */
   constructor(x, y) {
     this.x = x || 0;
@@ -192,6 +192,21 @@ export class Vec2 {
   }
 
   /**
+   * Returns a new vector with a random magnitude and direction.
+   * @param {number} min Minumim magnitude value (inclusive).
+   * @param {number} max Maximum magnitude value (exclusive).
+   * @returns {Vec2} A new vector.
+   */
+  static random(min, max) {
+    const r = min + Math.random() * (max - min);
+    const phi = Math.random() * Math.PI * 2;
+    return new Vec2(
+      r * Math.cos(phi),
+      r * Math.sin(phi)
+    );
+  }
+
+  /**
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
    * @returns {Vec2} A new vector equals to A minus B.
@@ -240,35 +255,30 @@ export class Vec2 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
-   * @returns {Vec2} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
-    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
-   * @returns {Vec2} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
-    return this;
   }
 
   /**
    * Sets all the components.
-   * @returns {Vec2} This vector.
+   * @param {number[]} xy An array with the values.
    */
   set xy(xy) {
     this.x = xy[0];
     this.y = xy[1];
-    return this;
   }
 
   /**
@@ -361,9 +371,9 @@ export class Vec2 {
 export class Vec3 {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
-   * @param {number} x A numeric expression.
-   * @param {number} y A numeric expression.
-   * @param {number} z A numeric expression.
+   * @param {number} [x = 0] A numeric expression.
+   * @param {number} [y = 0] A numeric expression.
+   * @param {number} [z = 0] A numeric expression.
    */
   constructor(x, y, z) {
     this.x = x || 0;
@@ -582,6 +592,23 @@ export class Vec3 {
   }
 
   /**
+   * Returns a new vector with a random magnitude and direction.
+   * @param {number} min Minumim magnitude value (inclusive).
+   * @param {number} max Maximum magnitude value (exclusive).
+   * @returns {Vec3} A new vector.
+   */
+  static random(min, max) {
+    const r = min + Math.random() * (max - min);
+    const phi = Math.random() * Math.PI * 2;
+    const theta = Math.random() * Math.PI;
+    return new Vec3(
+      r * Math.sin(theta) * Math.cos(phi),
+      r * Math.sin(theta) * Math.sin(phi),
+      r * Math.cos(theta)
+    );
+  }
+
+  /**
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
    * @returns {Vec3} A new vector equals to A minus B.
@@ -688,25 +715,21 @@ export class Vec3 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
-   * @returns {Vec3} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
-    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
-   * @returns {Vec3} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
-    return this;
   }
 
   /**
@@ -719,24 +742,22 @@ export class Vec3 {
 
   /**
    * Sets all the components.
-   * @returns {Vec3} This vector.
+   * @param {number[]} rgb An array with the values.
    */
   set rgb(rgb) {
     this.x = rgb[0];
     this.y = rgb[1];
     this.z = rgb[2];
-    return this;
   }
 
   /**
    * Sets all the components.
-   * @returns {Vec3} This vector.
+   * @param {number[]} xyz An array with the values.
    */
   set xyz(xyz) {
     this.x = xyz[0];
     this.y = xyz[1];
     this.z = xyz[2];
-    return this;
   }
 
   /**
@@ -859,10 +880,10 @@ export class Vec3 {
 export class Vec4 {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
-   * @param {number} x A numeric expression.
-   * @param {number} y A numeric expression.
-   * @param {number} z A numeric expression.
-   * @param {number} w A numeric expression.
+   * @param {number} [x = 0] A numeric expression.
+   * @param {number} [y = 0] A numeric expression.
+   * @param {number} [z = 0] A numeric expression.
+   * @param {number} [w = 0] A numeric expression.
    */
   constructor(x, y, z, w) {
     this.x = x || 0;
@@ -1049,6 +1070,27 @@ export class Vec4 {
   }
 
   /**
+   * Returns a new vector with a random magnitude and direction.
+   * @param {number} [max = 1] Maximum magnitude value (exclusive).
+   * @param {number} [min = 0] Minumim magnitude value (inclusive).
+   * @returns {Vec4} A new vector.
+   */
+  static random(max, min) {
+    const a = -.5 + Math.random();
+    const b = -.5 + Math.random();
+    const c = -.5 + Math.random();
+    const d = -.5 + Math.random();
+    const v = new Vec4(
+      a,
+      b,
+      c * Math.sqrt((1 - a * a - b * b) / (c * c + d * d)),
+      d * Math.sqrt((1 - a * a - b * b) / (c * c + d * d)),
+    );
+    v.magnitude = min + Math.random() * (max - min);
+    return v;
+  }
+
+  /**
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
    * @returns {Vec4} A new vector equals to A minus B.
@@ -1173,25 +1215,21 @@ export class Vec4 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
-   * @returns {Vec4} This vector.
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
       this.scale(max);
     }
-    return this;
   }
 
   /**
    * Sets the magnitude of this vector.
    * @param {number} m A numeric expression.
-   * @returns {Vec4} This vector.
    */
   set magnitude(m) {
     this.normalize();
     this.scale(m);
-    return this;
   }
 
   /**
@@ -1204,26 +1242,24 @@ export class Vec4 {
 
   /**
    * Sets all the components.
-   * @returns {Vec4} This vector.
+   * @param {number[]} rgba An array with the values.
    */
   set rgba(rgba) {
     this.x = rgba[0];
     this.y = rgba[1];
     this.z = rgba[2];
     this.w = rgba[3];
-    return this;
   }
 
   /**
    * Sets all the components.
-   * @returns {Vec4} This vector.
+   * @param {number[]} xyzw An array with the values.
    */
   set xyzw(xyzw) {
     this.x = xyzw[0];
     this.y = xyzw[1];
     this.z = xyzw[2];
     this.w = xyzw[3];
-    return this;
   }
 
   /**
