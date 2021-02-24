@@ -295,11 +295,11 @@ export class Vec2 {
   /**
    * Keeps the vector's magnitude between the given values, minimum
    * and maximum (inclusive).
-   * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @param {number} max A numeric expression.
    * @returns {Vec2} This vector.
    */
-  clamp(max, min) {
+  clamp(min, max) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
@@ -775,11 +775,11 @@ export class Vec3 {
   /**
    * Keeps the vector's magnitude between the given values, minimum
    * and maximum (inclusive).
-   * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @param {number} max A numeric expression.
    * @returns {Vec3} This vector.
    */
-  clamp(max, min) {
+  clamp(min, max) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
@@ -1278,11 +1278,11 @@ export class Vec4 {
   /**
    * Keeps the vector's magnitude between the given values, minimum
    * and maximum (inclusive).
-   * @param {number} max A numeric expression.
    * @param {number} min A numeric expression.
+   * @param {number} max A numeric expression.
    * @returns {Vec4} This vector.
    */
-  clamp(max, min) {
+  clamp(min, max) {
     const M = this.magnitude;
     if (M > max) this.magnitude = max;
     else if (M < min) this.magnitude = min;
