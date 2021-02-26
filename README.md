@@ -50,6 +50,7 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 `fromPolarCoords()` | ✔ | - | -
 `fromSphericalCoords()` | - | ✔ | -
 `project()` | ✔ | ✔ | ✔
+`random()` | ✔ | ✔ | ✔
 `subtract()` | ✔ | ✔ | ✔
 
 ### Instance methods
@@ -95,9 +96,9 @@ As an alias for shortcuts, for readable reasons, it's also possible to refer and
 Then, i.e.:
 
 ```javascript
-let vec = new Vec4(1, 1, 1, 1);
-vec.scale(255);
-let color = `rgba(${vec.rgb}, ${vec.a / 255})`;
+const vec = new Vec4();
+vec.normalize().scale(255);
+const color = `rgba(${vec.rgb}, ${vec.a / 255})`;
 ```
 
 #### Shortcuts & Alias
