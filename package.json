@@ -1,6 +1,6 @@
 {
   "name": "@leodeslf/vec.js",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Vectors and their functionality in JavaScript",
   "main": "vec.js",
   "scripts": {
