@@ -15,9 +15,9 @@ export class Vec2 {
    * @param {number} [x = 0] A numeric expression.
    * @param {number} [y = 0] A numeric expression.
    */
-  constructor(x, y) {
-    this.x = x || 0;
-    this.y = y || 0;
+  constructor(x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
   }
 
   /**
@@ -192,12 +192,13 @@ export class Vec2 {
   }
 
   /**
-   * Returns a new vector with a random magnitude and direction.
-   * @param {number} min Minumim magnitude value (inclusive).
-   * @param {number} max Maximum magnitude value (exclusive).
+   * Returns a new vector with a random magnitude (between max and min) and
+   * a uniformly distributed direction.
+   * @param {number} [min = 0] Minumim magnitude value (inclusive).
+   * @param {number} [max = 1] Maximum magnitude value (exclusive).
    * @returns {Vec2} A new vector.
    */
-  static random(min, max) {
+  static random(min = 0, max = 1) {
     const r = min + Math.random() * (max - min);
     const phi = Math.random() * Math.PI * 2;
     return new Vec2(
@@ -245,8 +246,8 @@ export class Vec2 {
   }
 
   /**
-   * A short hand for an iterable array or values.
-   * @returns {number[]} An array of numeric expressions.
+   * A shortcut for an iterable array or values.
+   * @returns {number[]} An array of numbers.
    */
   get xy() {
     return [this.x, this.y];
@@ -274,7 +275,7 @@ export class Vec2 {
 
   /**
    * Sets all the components.
-   * @param {number[]} xy An array with the values.
+   * @param {number[]} xy An array of numbers.
    */
   set xy(xy) {
     this.x = xy[0];
@@ -375,10 +376,10 @@ export class Vec3 {
    * @param {number} [y = 0] A numeric expression.
    * @param {number} [z = 0] A numeric expression.
    */
-  constructor(x, y, z) {
-    this.x = x || 0;
-    this.y = y || 0;
-    this.z = z || 0;
+  constructor(x = 0, y = 0, z = 0) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
   /**
@@ -592,12 +593,13 @@ export class Vec3 {
   }
 
   /**
-   * Returns a new vector with a random magnitude and direction.
-   * @param {number} min Minumim magnitude value (inclusive).
-   * @param {number} max Maximum magnitude value (exclusive).
+   * Returns a new vector with a random magnitude (between max and min) and
+   * a uniformly distributed direction.
+   * @param {number} [min = 0] Minumim magnitude value (inclusive).
+   * @param {number} [max = 1] Maximum magnitude value (exclusive).
    * @returns {Vec3} A new vector.
    */
-  static random(min, max) {
+  static random(min = 0, max = 1) {
     const r = min + Math.random() * (max - min);
     const phi = Math.random() * Math.PI * 2;
     const theta = Math.random() * Math.PI;
@@ -681,16 +683,16 @@ export class Vec3 {
   }
 
   /**
-   * A short hand for an iterable array or values.
-   * @returns {number[]} An array of numeric expressions.
+   * A shortcut for an iterable array or values.
+   * @returns {number[]} An array of numbers.
    */
   get rgb() {
     return [this.x, this.y, this.z];
   }
 
   /**
-   * A short hand for an iterable array or values.
-   * @returns {number[]} An array of numeric expressions.
+   * A shortcut for an iterable array or values.
+   * @returns {number[]} An array of numbers.
    */
   get xyz() {
     return [this.x, this.y, this.z];
@@ -742,7 +744,7 @@ export class Vec3 {
 
   /**
    * Sets all the components.
-   * @param {number[]} rgb An array with the values.
+   * @param {number[]} rgb An array of numbers.
    */
   set rgb(rgb) {
     this.x = rgb[0];
@@ -752,7 +754,7 @@ export class Vec3 {
 
   /**
    * Sets all the components.
-   * @param {number[]} xyz An array with the values.
+   * @param {number[]} xyz An array of numbers.
    */
   set xyz(xyz) {
     this.x = xyz[0];
@@ -885,11 +887,11 @@ export class Vec4 {
    * @param {number} [z = 0] A numeric expression.
    * @param {number} [w = 0] A numeric expression.
    */
-  constructor(x, y, z, w) {
-    this.x = x || 0;
-    this.y = y || 0;
-    this.z = z || 0;
-    this.w = w || 0;
+  constructor(x = 0, y = 0, z = 0, w = 0) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
   }
 
   /**
@@ -1070,22 +1072,19 @@ export class Vec4 {
   }
 
   /**
-   * Returns a new vector with a random magnitude and direction.
-   * @param {number} [max = 1] Maximum magnitude value (exclusive).
+   * Returns a new vector with a random magnitude (between max and min) and
+   * a uniformly distributed direction.
    * @param {number} [min = 0] Minumim magnitude value (inclusive).
+   * @param {number} [max = 1] Maximum magnitude value (exclusive).
    * @returns {Vec4} A new vector.
    */
-  static random(max, min) {
+  static random(min = 0, max = 1) {
     const a = -.5 + Math.random();
     const b = -.5 + Math.random();
     const c = -.5 + Math.random();
     const d = -.5 + Math.random();
-    const v = new Vec4(
-      a,
-      b,
-      c * Math.sqrt((1 - a * a - b * b) / (c * c + d * d)),
-      d * Math.sqrt((1 - a * a - b * b) / (c * c + d * d)),
-    );
+    const factor = Math.sqrt((1 - a * a - b * b) / (c * c + d * d));
+    const v = new Vec4(a, b, c * factor, d * factor);
     v.magnitude = min + Math.random() * (max - min);
     return v;
   }
@@ -1173,16 +1172,16 @@ export class Vec4 {
   }
 
   /**
-   * A short hand for an iterable array or values.
-   * @returns {number[]} An array of numeric expressions.
+   * A shortcut for an iterable array or values.
+   * @returns {number[]} An array of numbers.
    */
   get rgba() {
     return [this.x, this.y, this.z, this.w];
   }
 
   /**
-   * A short hand for an iterable array or values.
-   * @returns {number[]} An array of numeric expressions.
+   * A shortcut for an iterable array or values.
+   * @returns {number[]} An array of numbers.
    */
   get xyzw() {
     return [this.x, this.y, this.z, this.w];
@@ -1242,7 +1241,7 @@ export class Vec4 {
 
   /**
    * Sets all the components.
-   * @param {number[]} rgba An array with the values.
+   * @param {number[]} rgba An array of numbers.
    */
   set rgba(rgba) {
     this.x = rgba[0];
@@ -1253,7 +1252,7 @@ export class Vec4 {
 
   /**
    * Sets all the components.
-   * @param {number[]} xyzw An array with the values.
+   * @param {number[]} xyzw An array of numbers.
    */
   set xyzw(xyzw) {
     this.x = xyzw[0];
