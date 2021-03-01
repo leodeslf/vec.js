@@ -49,6 +49,7 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 `fromCylindricalCoords()` | - | ✔ | -
 `fromPolarCoords()` | ✔ | - | -
 `fromSphericalCoords()` | - | ✔ | -
+`lerp()` | ✔ | ✔ | ✔
 `project()` | ✔ | ✔ | ✔
 `random()` | ✔ | ✔ | ✔
 `subtract()` | ✔ | ✔ | ✔
@@ -57,15 +58,18 @@ import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
 
 || `Vec2` | `Vec3` | `Vec4`
 --- | :-: | :-: | :-:
+`get angleW()` | - | - | ✔
 `get angleX()` | ✔ | ✔ | ✔
 `get angleY()` | ✔ | ✔ | ✔
 `get angleZ()` | - | ✔ | ✔
 `get magnitude()` | ✔ | ✔ | ✔
-`set limit()` | ✔ | ✔ | ✔
+~~`set limit()`~~ | ✔ | ✔ | ✔
 `set magnitude()` | ✔ | ✔ | ✔
 `add()` | ✔ | ✔ | ✔
 `clamp()` | ✔ | ✔ | ✔
 `copy()` | ✔ | ✔ | ✔
+`limitMaxMagnitude()` | ✔ | ✔ | ✔
+`limitMinMagnitude()` | ✔ | ✔ | ✔
 `normalize()` | ✔ | ✔ | ✔
 `rotateAxisX()` | - | ✔ | -
 `rotateAxisY()` | - | ✔ | -
