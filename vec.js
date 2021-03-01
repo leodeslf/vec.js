@@ -9,7 +9,7 @@
 /**
  * A two-dimensional vector class.
  */
-export class Vec2 {
+class Vec2 {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} [x = 0] A numeric expression.
@@ -45,7 +45,10 @@ export class Vec2 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return Math.acos(Vec2.dot(a, b) / (MA * MB));
+    return Math.acos((
+      a.x * b.x +
+      a.y * b.y
+    ) / (MA * MB));
   }
 
   /**
@@ -53,7 +56,10 @@ export class Vec2 {
    * @returns {Vec2} A new vector identical to A.
    */
   static clone(a) {
-    return new Vec2(...a.xy);
+    return new Vec2(
+      a.x,
+      a.y
+    );
   }
 
   /**
@@ -62,11 +68,11 @@ export class Vec2 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const abx = (a.x - b.x);
-    const aby = (a.y - b.y);
+    const ABX = (a.x - b.x);
+    const ABY = (a.y - b.y);
     return Math.sqrt(
-      abx * abx +
-      aby * aby
+      ABX * ABX +
+      ABY * ABY
     );
   }
 
@@ -105,12 +111,9 @@ export class Vec2 {
   /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
-   * 
-   * - If { p = 1 }: It'll be equivalent to Manhattan distance.
-   * 
-   * - If { p = 2 }: It'll be equivalent to Euclidian distance.
-   * 
-   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+   * - When powers to 1: It'll be equivalent to Manhattan distance.
+   * - When powers to 2: It'll be equivalent to Euclidian distance.
+   * - When powers to infinite: It'll be equivalent to Chebyshev distance.
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
    * @param {number} e A numeric expression.
@@ -160,20 +163,40 @@ export class Vec2 {
    */
   static fromCopy(a) {
     return new Vec2(
-      { ...a }.x,
-      { ...a }.y
+      a.x,
+      a.y
     );
   }
 
   /**
-   * @param {number} radius A numeric expression.
+   * @param {number} r A numeric expression.
    * @param {number} phi Angle from positive x-axis in radians.
    * @returns {Vec2} A new vector created from Polar Coordinates.
    */
-  static fromPolarCoords(radius, phi) {
+  static fromPolarCoords(r, phi) {
     return new Vec2(
-      radius * Math.cos(phi),
-      radius * Math.sin(phi)
+      r * Math.cos(phi),
+      r * Math.sin(phi)
+    );
+  }
+
+  /**
+   * Linearly interpolates between a and b. Parameter t is clamped to the
+   * range of [0, 1].
+   * - Returns a when t = 0.
+   * - Returns b when t = 1.
+   * - Returns the point midway between a and b when t = 0.5.
+   * @param {Vec2} a A vector.
+   * @param {Vec2} b A vector.
+   * @param {number} t The interpolant aka. alpha.
+   * @returns {Vec2} Linear interpolation between a and b.
+   */
+  static lerp(a, b, t) {
+    if (t > 1) t = 1;
+    else if (t < 0) t = 0;
+    return new Vec2(
+      a.x + (b.x - a.x) * t,
+      a.y + (b.y - a.y) * t
     );
   }
 
@@ -184,11 +207,9 @@ export class Vec2 {
    * @returns {Vec2} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const PM = a.magnitude * Math.cos(Vec2.angleBetween(a, b));
-    const P = Vec2.clone(b);
-    P.normalize();
-    P.scale(PM);
-    return P;
+    return Vec2.clone(b)
+      .normalize()
+      .scale(a.magnitude * Math.cos(Vec2.angleBetween(a, b)));
   }
 
   /**
@@ -199,11 +220,11 @@ export class Vec2 {
    * @returns {Vec2} A new vector.
    */
   static random(min = 0, max = 1) {
-    const r = min + Math.random() * (max - min);
-    const phi = Math.random() * Math.PI * 2;
+    const R = min + Math.random() * (max - min);
+    const PHI = Math.random() * Math.PI * 2;
     return new Vec2(
-      r * Math.cos(phi),
-      r * Math.sin(phi)
+      R * Math.cos(PHI),
+      R * Math.sin(PHI)
     );
   }
 
@@ -220,19 +241,25 @@ export class Vec2 {
   }
 
   /**
-   * Angle relative to the positive x-axis.
+   * Angle relative to the positive x-axis, signed, interval (-PI, PI].
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(this.y, this.x);
+    return Math.atan2(
+      this.y,
+      this.x
+    );
   }
 
   /**
-   * Angle relative to the positive y-axis.
+   * Angle relative to the positive y-axis, signed, interval (-PI, PI].
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(this.x, this.y);
+    return Math.atan2(
+      this.x,
+      this.y
+    );
   }
 
   /**
@@ -260,7 +287,8 @@ export class Vec2 {
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.scale(max);
+      this.x = this.x * max;
+      this.y = this.y * max;
     }
   }
 
@@ -270,7 +298,8 @@ export class Vec2 {
    */
   set magnitude(m) {
     this.normalize();
-    this.scale(m);
+    this.x = this.x * m;
+    this.y = this.y * m;
   }
 
   /**
@@ -313,7 +342,38 @@ export class Vec2 {
    * @returns {Vec2} This vector.
    */
   copy(a) {
-    this.xy = a.xy;
+    this.x = a.x;
+    this.y = a.y;
+    return this;
+  }
+
+  /**
+   * Limits the maximim length of this vector.
+   * @param {number} max A numeric expression.
+   * @returns {Vec2} This vector.
+   */
+  limitMaxMagnitude(max) {
+    const M = this.magnitude;
+    if (M > max && M > 0) {
+      this.normalize();
+      this.x = this.x * max;
+      this.y = this.y * max;
+    }
+    return this;
+  }
+
+  /**
+   * Limits the minimim length of this vector.
+   * @param {number} min A numeric expression.
+   * @returns {Vec2} This vector.
+   */
+  limitMinMagnitude(min) {
+    const M = this.magnitude;
+    if (M < min && M > 0) {
+      this.normalize();
+      this.x = this.x * min;
+      this.y = this.y * min;
+    }
     return this;
   }
 
@@ -323,7 +383,7 @@ export class Vec2 {
    */
   normalize() {
     let m = this.magnitude;
-    if (m === 0) m = 1;
+    if (m === 0) return this;
     else m = 1 / m;
     this.x = this.x * m;
     this.y = this.y * m;
@@ -344,13 +404,13 @@ export class Vec2 {
   }
 
   /**
-   * Scales this vector by A.
-   * @param {number} val A numeric expression.
+   * Scales this vector by a given factor.
+   * @param {number} f A numeric expression.
    * @returns {Vec2} This vector.
    */
-  scale(val) {
-    this.x = this.x * val;
-    this.y = this.y * val;
+  scale(f) {
+    this.x = this.x * f;
+    this.y = this.y * f;
     return this;
   }
 
@@ -369,7 +429,7 @@ export class Vec2 {
 /**
  * A three-dimensional vector class.
  */
-export class Vec3 {
+class Vec3 {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} [x = 0] A numeric expression.
@@ -408,7 +468,11 @@ export class Vec3 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return Math.acos(Vec3.dot(a, b) / (MA * MB));
+    return Math.acos((
+      a.x * b.x +
+      a.y * b.y +
+      a.z * b.z
+    ) / (MA * MB));
   }
 
   /**
@@ -416,7 +480,11 @@ export class Vec3 {
    * @returns {Vec3} A new vector identical to A.
    */
   static clone(a) {
-    return new Vec3(...a.xyz);
+    return new Vec3(
+      a.x,
+      a.y,
+      a.z
+    );
   }
 
   /**
@@ -439,13 +507,13 @@ export class Vec3 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const abx = (a.x - b.x);
-    const aby = (a.y - b.y);
-    const abz = (a.z - b.z);
+    const ABX = (a.x - b.x);
+    const ABY = (a.y - b.y);
+    const ABZ = (a.z - b.z);
     return Math.sqrt(
-      abx * abx +
-      aby * aby +
-      abz * abz
+      ABX * ABX +
+      ABY * ABY +
+      ABZ * ABZ
     );
   }
 
@@ -486,12 +554,9 @@ export class Vec3 {
   /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
-   * 
-   * - If { p = 1 }: It'll be equivalent to Manhattan distance.
-   * 
-   * - If { p = 2 }: It'll be equivalent to Euclidian distance.
-   * 
-   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+   * - When powers to 1: It'll be equivalent to Manhattan distance.
+   * - When powers to 2: It'll be equivalent to Euclidian distance.
+   * - When powers to infinite: It'll be equivalent to Chebyshev distance.
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
    * @param {number} e A numeric expression.
@@ -544,37 +609,58 @@ export class Vec3 {
    */
   static fromCopy(a) {
     return new Vec3(
-      { ...a }.x,
-      { ...a }.y,
-      { ...a }.z
+      a.x,
+      a.y,
+      a.z
     );
   }
 
   /**
-   * @param {number} radius A numeric expression.
+   * @param {number} r A numeric expression.
    * @param {number} phi Angle from positive x-axis in radians.
    * @param {number} z A numeric expression.
    * @returns {Vec3} A new vector created from Cylindrical Coordinates.
    */
-  static fromCylindricalCoords(radius, phi, z) {
+  static fromCylindricalCoords(r, phi, z) {
     return new Vec3(
-      radius * Math.cos(phi),
-      radius * Math.sin(phi),
+      r * Math.cos(phi),
+      r * Math.sin(phi),
       z
     );
   }
 
   /**
-   * @param {number} radius A numeric expression.
+   * @param {number} r A numeric expression.
    * @param {number} phi Angle from positive x-axis in radians.
    * @param {number} theta Angle from positive z-axis in radians.
    * @returns {Vec3} A new vector created from Spherical Coordinates.
    */
-  static fromSphericalCoords(radius, phi, theta) {
+  static fromSphericalCoords(r, phi, theta) {
     return new Vec3(
-      radius * Math.sin(theta) * Math.cos(phi),
-      radius * Math.sin(theta) * Math.sin(phi),
-      radius * Math.cos(theta)
+      r * Math.sin(theta) * Math.cos(phi),
+      r * Math.sin(theta) * Math.sin(phi),
+      r * Math.cos(theta)
+    );
+  }
+
+  /**
+   * Linearly interpolates between a and b. Parameter t is clamped to the
+   * range of [0, 1].
+   * - Returns a when t = 0.
+   * - Returns b when t = 1.
+   * - Returns the point midway between a and b when t = 0.5.
+   * @param {Vec3} a A vector.
+   * @param {Vec3} b A vector.
+   * @param {number} t The interpolant aka. alpha.
+   * @returns {Vec3} Linear interpolation between a and b.
+   */
+  static lerp(a, b, t) {
+    if (t > 1) t = 1;
+    else if (t < 0) t = 0;
+    return new Vec3(
+      a.x + (b.x - a.x) * t,
+      a.y + (b.y - a.y) * t,
+      a.z + (b.z - a.z) * t
     );
   }
 
@@ -585,11 +671,9 @@ export class Vec3 {
    * @returns {Vec3} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const PM = a.magnitude * Math.cos(Vec3.angleBetween(a, b));
-    const P = Vec3.clone(b);
-    P.normalize();
-    P.scale(PM);
-    return P;
+    return Vec3.clone(b)
+      .normalize()
+      .scale(a.magnitude * Math.cos(Vec3.angleBetween(a, b)));
   }
 
   /**
@@ -600,13 +684,13 @@ export class Vec3 {
    * @returns {Vec3} A new vector.
    */
   static random(min = 0, max = 1) {
-    const r = min + Math.random() * (max - min);
-    const phi = Math.random() * Math.PI * 2;
-    const theta = Math.random() * Math.PI;
+    const R = min + Math.random() * (max - min);
+    const PHI = Math.random() * Math.PI * 2;
+    const THETA = Math.random() * Math.PI;
     return new Vec3(
-      r * Math.sin(theta) * Math.cos(phi),
-      r * Math.sin(theta) * Math.sin(phi),
-      r * Math.cos(theta)
+      R * Math.sin(THETA) * Math.cos(PHI),
+      R * Math.sin(THETA) * Math.sin(PHI),
+      R * Math.cos(THETA)
     );
   }
 
@@ -624,27 +708,36 @@ export class Vec3 {
   }
 
   /**
-   * Angle relative to the positive x-axis.
+   * Angle relative to the x-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(this.y, this.x);
+    return Math.atan2(Math.sqrt(
+      this.y * this.y +
+      this.z * this.z
+    ), this.x);
   }
 
   /**
-   * Angle relative to the positive y-axis.
+   * Angle relative to the y-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(this.x, this.y);
+    return Math.atan2(Math.sqrt(
+      this.z * this.z +
+      this.x * this.x
+    ), this.y);
   }
 
   /**
-   * Angle relative to the positive z-axis.
+   * Angle relative to the z-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.acos(this.z / this.magnitude);
+    return Math.atan2(Math.sqrt(
+      this.x * this.x +
+      this.y * this.y
+    ), this.z);
   }
 
   /**
@@ -721,7 +814,9 @@ export class Vec3 {
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.scale(max);
+      this.x = this.x * max;
+      this.y = this.y * max;
+      this.z = this.z * max;
     }
   }
 
@@ -731,7 +826,9 @@ export class Vec3 {
    */
   set magnitude(m) {
     this.normalize();
-    this.scale(m);
+    this.x = this.x * m;
+    this.y = this.y * m;
+    this.z = this.z * m;
   }
 
   /**
@@ -794,7 +891,41 @@ export class Vec3 {
    * @returns {Vec3} This vector.
    */
   copy(a) {
-    this.xyz = a.xyz;
+    this.x = a.x;
+    this.y = a.y;
+    this.z = a.z;
+    return this;
+  }
+
+  /**
+   * Limits the maximim length of this vector.
+   * @param {number} max A numeric expression.
+   * @returns {Vec3} This vector.
+   */
+  limitMaxMagnitude(max) {
+    const M = this.magnitude;
+    if (M > max && M > 0) {
+      this.normalize();
+      this.x = this.x * max;
+      this.y = this.y * max;
+      this.z = this.z * max;
+    }
+    return this;
+  }
+
+  /**
+   * Limits the minimim length of this vector.
+   * @param {number} min A numeric expression.
+   * @returns {Vec3} This vector.
+   */
+  limitMinMagnitude(min) {
+    const M = this.magnitude;
+    if (M < min && M > 0) {
+      this.normalize();
+      this.x = this.x * min;
+      this.y = this.y * min;
+      this.z = this.z * min;
+    }
     return this;
   }
 
@@ -804,7 +935,7 @@ export class Vec3 {
    */
   normalize() {
     let m = this.magnitude;
-    if (m === 0) m = 1;
+    if (m === 0) return this;
     else m = 1 / m;
     this.x = this.x * m;
     this.y = this.y * m;
@@ -852,14 +983,14 @@ export class Vec3 {
   }
 
   /**
-   * Scales this vector by A.
-   * @param {number} val A numeric expression.
+   * Scales this vector by a given factor.
+   * @param {number} f A numeric expression.
    * @returns {Vec3} This vector.
    */
-  scale(val) {
-    this.x = this.x * val;
-    this.y = this.y * val;
-    this.z = this.z * val;
+  scale(f) {
+    this.x = this.x * f;
+    this.y = this.y * f;
+    this.z = this.z * f;
     return this;
   }
 
@@ -879,7 +1010,7 @@ export class Vec3 {
 /**
  * A four-dimensional vector class.
  */
-export class Vec4 {
+class Vec4 {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} [x = 0] A numeric expression.
@@ -921,7 +1052,12 @@ export class Vec4 {
       console.error("Cannot divide by zero.");
       return NaN;
     }
-    return Math.acos(Vec4.dot(a, b) / (MA * MB));
+    return Math.acos((
+      a.x * b.x +
+      a.y * b.y +
+      a.z * b.z +
+      a.w * b.w
+    ) / (MA * MB));
   }
 
   /**
@@ -929,7 +1065,12 @@ export class Vec4 {
    * @returns {Vec4} A new vector identical to A.
    */
   static clone(a) {
-    return new Vec4(...a.xyzw);
+    return new Vec4(
+      a.x,
+      a.y,
+      a.z,
+      a.w
+    );
   }
 
   /**
@@ -938,15 +1079,15 @@ export class Vec4 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const abx = (a.x - b.x);
-    const aby = (a.y - b.y);
-    const abz = (a.z - b.z);
-    const abw = (a.w - b.w);
+    const ABX = (a.x - b.x);
+    const ABY = (a.y - b.y);
+    const ABZ = (a.z - b.z);
+    const ABW = (a.w - b.w);
     return Math.sqrt(
-      abx * abx +
-      aby * aby +
-      abz * abz +
-      abw * abw
+      ABX * ABX +
+      ABY * ABY +
+      ABZ * ABZ +
+      ABW * ABW
     );
   }
 
@@ -989,12 +1130,9 @@ export class Vec4 {
   /**
    * It takes an exponent parameter (e), and the results can be similar
    * or even equivalent to Chebyshev, Euclidian and Manhattan metrics.
-   * 
-   * - If { p = 1 }: It'll be equivalent to Manhattan distance.
-   * 
-   * - If { p = 2 }: It'll be equivalent to Euclidian distance.
-   * 
-   * - If { p = infinite }: It'll be equivalent to Chebyshev distance.
+   * - When powers to 1: It'll be equivalent to Manhattan distance.
+   * - When powers to 2: It'll be equivalent to Euclidian distance.
+   * - When powers to infinite: It'll be equivalent to Chebyshev distance.
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
    * @param {number} e A numeric expression.
@@ -1050,10 +1188,32 @@ export class Vec4 {
    */
   static fromCopy(a) {
     return new Vec4(
-      { ...a }.x,
-      { ...a }.y,
-      { ...a }.z,
-      { ...a }.w
+      a.x,
+      a.y,
+      a.z,
+      a.w
+    );
+  }
+
+  /**
+   * Linearly interpolates between a and b. Parameter t is clamped to the
+   * range of [0, 1].
+   * - Returns a when t = 0.
+   * - Returns b when t = 1.
+   * - Returns the point midway between a and b when t = 0.5.
+   * @param {Vec4} a A vector.
+   * @param {Vec4} b A vector.
+   * @param {number} t The interpolant aka. alpha.
+   * @returns {Vec4} Linear interpolation between a and b.
+   */
+  static lerp(a, b, t) {
+    if (t > 1) t = 1;
+    else if (t < 0) t = 0;
+    return new Vec4(
+      a.x + (b.x - a.x) * t,
+      a.y + (b.y - a.y) * t,
+      a.z + (b.z - a.z) * t,
+      a.w + (b.w - a.w) * t
     );
   }
 
@@ -1064,11 +1224,9 @@ export class Vec4 {
    * @returns {Vec4} The component of A projected on B (in direction of B).
    */
   static project(a, b) {
-    const PM = a.magnitude * Math.cos(Vec4.angleBetween(a, b));
-    const P = Vec4.clone(b);
-    P.normalize();
-    P.scale(PM);
-    return P;
+    return Vec4.clone(b)
+      .normalize()
+      .scale(a.magnitude * Math.cos(Vec4.angleBetween(a, b)));
   }
 
   /**
@@ -1079,14 +1237,14 @@ export class Vec4 {
    * @returns {Vec4} A new vector.
    */
   static random(min = 0, max = 1) {
-    const a = -.5 + Math.random();
-    const b = -.5 + Math.random();
-    const c = -.5 + Math.random();
-    const d = -.5 + Math.random();
-    const factor = Math.sqrt((1 - a * a - b * b) / (c * c + d * d));
-    const v = new Vec4(a, b, c * factor, d * factor);
-    v.magnitude = min + Math.random() * (max - min);
-    return v;
+    const A = -.5 + Math.random();
+    const B = -.5 + Math.random();
+    const C = -.5 + Math.random();
+    const D = -.5 + Math.random();
+    const SQRT = Math.sqrt((1 - A * A - B * B) / (C * C + D * D));
+    const V = new Vec4(A, B, C * SQRT, D * SQRT);
+    V.magnitude = min + Math.random() * (max - min);
+    return V;
   }
 
   /**
@@ -1112,27 +1270,51 @@ export class Vec4 {
   }
 
   /**
-   * Angle relative to the positive x-axis.
+   * Angle relative to the w-axis, unsigned, interval [0, PI].
+   * @returns {number} Value in radians.
+   */
+  get angleW() {
+    return Math.atan2(Math.sqrt(
+      this.x * this.x +
+      this.y * this.y +
+      this.z * this.z
+    ), this.w);
+  }
+
+  /**
+   * Angle relative to the x-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleX() {
-    return Math.atan2(this.y, this.x);
+    return Math.atan2(Math.sqrt(
+      this.y * this.y +
+      this.z * this.z +
+      this.w * this.w
+    ), this.x);
   }
 
   /**
-   * Angle relative to the positive y-axis.
+   * Angle relative to the y-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleY() {
-    return Math.atan2(this.x, this.y);
+    return Math.atan2(Math.sqrt(
+      this.z * this.z +
+      this.w * this.w +
+      this.x * this.x
+    ), this.y);
   }
 
   /**
-   * Angle relative to the positive z-axis.
+   * Angle relative to the z-axis, unsigned, interval [0, PI].
    * @returns {number} Value in radians.
    */
   get angleZ() {
-    return Math.acos(this.z / this.magnitude);
+    return Math.atan2(Math.sqrt(
+      this.w * this.w +
+      this.x * this.x +
+      this.y * this.y
+    ), this.z);
   }
 
   /**
@@ -1218,7 +1400,10 @@ export class Vec4 {
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.scale(max);
+      this.x = this.x * max;
+      this.y = this.y * max;
+      this.z = this.z * max;
+      this.w = this.w * max;
     }
   }
 
@@ -1228,7 +1413,10 @@ export class Vec4 {
    */
   set magnitude(m) {
     this.normalize();
-    this.scale(m);
+    this.x = this.x * m;
+    this.y = this.y * m;
+    this.z = this.z * m;
+    this.w = this.w * m;
   }
 
   /**
@@ -1294,7 +1482,44 @@ export class Vec4 {
    * @returns {Vec4} This vector.
    */
   copy(a) {
-    this.xyzw = a.xyzw;
+    this.x = a.x;
+    this.y = a.y;
+    this.z = a.z;
+    this.w = a.w;
+    return this;
+  }
+
+  /**
+   * Limits the maximim length of this vector.
+   * @param {number} max A numeric expression.
+   * @returns {Vec4} This vector.
+   */
+  limitMaxMagnitude(max) {
+    const M = this.magnitude;
+    if (M > max && M > 0) {
+      this.normalize();
+      this.x = this.x * max;
+      this.y = this.y * max;
+      this.z = this.z * max;
+      this.w = this.w * max;
+    }
+    return this;
+  }
+
+  /**
+   * Limits the minimim length of this vector.
+   * @param {number} min A numeric expression.
+   * @returns {Vec4} This vector.
+   */
+  limitMinMagnitude(min) {
+    const M = this.magnitude;
+    if (M < min && M > 0) {
+      this.normalize();
+      this.x = this.x * min;
+      this.y = this.y * min;
+      this.z = this.z * min;
+      this.w = this.w * min;
+    }
     return this;
   }
 
@@ -1304,7 +1529,7 @@ export class Vec4 {
    */
   normalize() {
     let m = this.magnitude;
-    if (m === 0) m = 1;
+    if (m === 0) return this;
     else m = 1 / m;
     this.x = this.x * m;
     this.y = this.y * m;
@@ -1314,15 +1539,15 @@ export class Vec4 {
   }
 
   /**
-   * Scales this vector by A.
-   * @param {number} val A numeric expression.
+   * Scales this vector by a given factor.
+   * @param {number} f A numeric expression.
    * @returns {Vec4} This vector.
    */
-  scale(val) {
-    this.x = this.x * val;
-    this.y = this.y * val;
-    this.z = this.z * val;
-    this.w = this.w * val;
+  scale(f) {
+    this.x = this.x * f;
+    this.y = this.y * f;
+    this.z = this.z * f;
+    this.w = this.w * f;
     return this;
   }
 
