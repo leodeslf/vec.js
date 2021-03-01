@@ -9,7 +9,7 @@
 /**
  * A two-dimensional vector class.
  */
-class Vec2 {
+export class Vec2 {
   /**
    * Creates a two-dimensional vector pointing to X and Y.
    * @param {number} [x = 0] A numeric expression.
@@ -429,7 +429,7 @@ class Vec2 {
 /**
  * A three-dimensional vector class.
  */
-class Vec3 {
+export class Vec3 {
   /**
    * Creates a three-dimensional vector pointing to X, Y and Z.
    * @param {number} [x = 0] A numeric expression.
@@ -1010,7 +1010,7 @@ class Vec3 {
 /**
  * A four-dimensional vector class.
  */
-class Vec4 {
+export class Vec4 {
   /**
    * Creates a four-dimensional vector pointing to X, Y, Z and W.
    * @param {number} [x = 0] A numeric expression.
