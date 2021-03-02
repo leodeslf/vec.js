@@ -33,22 +33,16 @@ export class Vec2 {
   }
 
   /**
-   * Returns the angle between A and B.
+   * Returns the angle between A and B, interval (-PI, PI].
    * @param {Vec2} a A vector.
    * @param {Vec2} b A vector.
    * @returns {number} Value in radians.
    */
   static angleBetween(a, b) {
-    const MA = a.magnitude;
-    const MB = b.magnitude;
-    if (MA === 0 || MB === 0) {
-      console.error("Cannot divide by zero.");
-      return NaN;
-    }
-    return Math.acos((
-      a.x * b.x +
-      a.y * b.y
-    ) / (MA * MB));
+    return Math.atan2(
+      b.y * a.x - b.x * a.y,
+      b.x * a.x + b.y * a.y
+    )
   }
 
   /**
@@ -283,12 +277,13 @@ export class Vec2 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @deprecated
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
+      this.x *= max;
+      this.y *= max;
     }
   }
 
@@ -298,8 +293,8 @@ export class Vec2 {
    */
   set magnitude(m) {
     this.normalize();
-    this.x = this.x * m;
-    this.y = this.y * m;
+    this.x *= m;
+    this.y *= m;
   }
 
   /**
@@ -317,8 +312,8 @@ export class Vec2 {
    * @returns {Vec2} This vector.
    */
   add(a) {
-    this.x = this.x + a.x;
-    this.y = this.y + a.y;
+    this.x += a.x;
+    this.y += a.y;
     return this;
   }
 
@@ -356,8 +351,8 @@ export class Vec2 {
     const M = this.magnitude;
     if (M > max && M > 0) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
+      this.x *= max;
+      this.y *= max;
     }
     return this;
   }
@@ -371,8 +366,8 @@ export class Vec2 {
     const M = this.magnitude;
     if (M < min && M > 0) {
       this.normalize();
-      this.x = this.x * min;
-      this.y = this.y * min;
+      this.x *= min;
+      this.y *= min;
     }
     return this;
   }
@@ -385,8 +380,8 @@ export class Vec2 {
     let m = this.magnitude;
     if (m === 0) return this;
     else m = 1 / m;
-    this.x = this.x * m;
-    this.y = this.y * m;
+    this.x *= m;
+    this.y *= m;
     return this;
   }
 
@@ -397,7 +392,7 @@ export class Vec2 {
    */
   rotateAxisZ(phi) {
     [this.x, this.y] = [
-      this.x * Math.cos(phi) - this.y * Math.sin(phi),
+      this.x * Math.cos(phi) + this.y * -Math.sin(phi),
       this.x * Math.sin(phi) + this.y * Math.cos(phi)
     ];
     return this;
@@ -409,8 +404,8 @@ export class Vec2 {
    * @returns {Vec2} This vector.
    */
   scale(f) {
-    this.x = this.x * f;
-    this.y = this.y * f;
+    this.x *= f;
+    this.y *= f;
     return this;
   }
 
@@ -420,8 +415,8 @@ export class Vec2 {
    * @returns {Vec2} This vector.
    */
   subtract(a) {
-    this.x = this.x - a.x;
-    this.y = this.y - a.y;
+    this.x -= a.x;
+    this.y -= a.y;
     return this;
   }
 }
@@ -456,7 +451,7 @@ export class Vec3 {
   }
 
   /**
-   * Returns the angle between A and B.
+   * Returns the angle between A and B, interval [0, PI].
    * @param {Vec3} a A vector.
    * @param {Vec3} b A vector.
    * @returns {number} Value in radians.
@@ -495,9 +490,9 @@ export class Vec3 {
    */
   static cross(a, b) {
     return new Vec3(
-      (a.y * b.z - b.y * a.z),
-      (a.z * b.x - b.z * a.x),
-      (a.x * b.y - b.x * a.y)
+      (a.y * b.z - a.z * b.y),
+      (a.z * b.x - a.x * b.z),
+      (a.x * b.y - a.y * b.x)
     );
   }
 
@@ -810,13 +805,14 @@ export class Vec3 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @deprecated
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
-      this.z = this.z * max;
+      this.x *= max;
+      this.y *= max;
+      this.z *= max;
     }
   }
 
@@ -826,9 +822,9 @@ export class Vec3 {
    */
   set magnitude(m) {
     this.normalize();
-    this.x = this.x * m;
-    this.y = this.y * m;
-    this.z = this.z * m;
+    this.x *= m;
+    this.y *= m;
+    this.z *= m;
   }
 
   /**
@@ -865,9 +861,9 @@ export class Vec3 {
    * @returns {Vec3} This vector.
    */
   add(a) {
-    this.x = this.x + a.x;
-    this.y = this.y + a.y;
-    this.z = this.z + a.z;
+    this.x += a.x;
+    this.y += a.y;
+    this.z += a.z;
     return this;
   }
 
@@ -906,9 +902,9 @@ export class Vec3 {
     const M = this.magnitude;
     if (M > max && M > 0) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
-      this.z = this.z * max;
+      this.x *= max;
+      this.y *= max;
+      this.z *= max;
     }
     return this;
   }
@@ -922,9 +918,9 @@ export class Vec3 {
     const M = this.magnitude;
     if (M < min && M > 0) {
       this.normalize();
-      this.x = this.x * min;
-      this.y = this.y * min;
-      this.z = this.z * min;
+      this.x *= min;
+      this.y *= min;
+      this.z *= min;
     }
     return this;
   }
@@ -937,9 +933,9 @@ export class Vec3 {
     let m = this.magnitude;
     if (m === 0) return this;
     else m = 1 / m;
-    this.x = this.x * m;
-    this.y = this.y * m;
-    this.z = this.z * m;
+    this.x *= m;
+    this.y *= m;
+    this.z *= m;
     return this;
   }
 
@@ -950,8 +946,8 @@ export class Vec3 {
    */
   rotateAxisX(phi) {
     [this.y, this.z] = [
-      this.z * Math.cos(phi) - this.z * Math.sin(phi),
-      this.z * Math.sin(phi) + this.z * Math.cos(phi)
+      this.y * Math.cos(phi) + this.z * -Math.sin(phi),
+      this.y * Math.sin(phi) + this.z * Math.cos(phi)
     ];
     return this;
   }
@@ -963,8 +959,8 @@ export class Vec3 {
    */
   rotateAxisY(phi) {
     [this.x, this.z] = [
-      this.x * Math.cos(phi) - this.z * Math.sin(phi),
-      -this.x * Math.sin(phi) + this.z * Math.cos(phi)
+      this.x * Math.cos(phi) + this.z * Math.sin(phi),
+      this.x * -Math.sin(phi) + this.z * Math.cos(phi)
     ];
     return this;
   }
@@ -976,7 +972,7 @@ export class Vec3 {
    */
   rotateAxisZ(phi) {
     [this.x, this.y] = [
-      this.x * Math.cos(phi) - this.y * Math.sin(phi),
+      this.x * Math.cos(phi) + this.y * -Math.sin(phi),
       this.x * Math.sin(phi) + this.y * Math.cos(phi)
     ];
     return this;
@@ -988,9 +984,9 @@ export class Vec3 {
    * @returns {Vec3} This vector.
    */
   scale(f) {
-    this.x = this.x * f;
-    this.y = this.y * f;
-    this.z = this.z * f;
+    this.x *= f;
+    this.y *= f;
+    this.z *= f;
     return this;
   }
 
@@ -1000,9 +996,9 @@ export class Vec3 {
    * @returns {Vec3} This vector.
    */
   subtract(a) {
-    this.x = this.x - a.x;
-    this.y = this.y - a.y;
-    this.z = this.z - a.z;
+    this.x -= a.x;
+    this.y -= a.y;
+    this.z -= a.z;
     return this;
   }
 }
@@ -1040,7 +1036,7 @@ export class Vec4 {
   }
 
   /**
-   * Returns the angle between A and B.
+   * Returns the angle between A and B, interval [0, PI].
    * @param {Vec4} a A vector.
    * @param {Vec4} b A vector.
    * @returns {number} Value in radians.
@@ -1396,14 +1392,15 @@ export class Vec4 {
   /**
    * Limits the maximum length of this vector.
    * @param {number} max A numeric expression.
+   * @deprecated
    */
   set limit(max) {
     if (this.magnitude > max) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
-      this.z = this.z * max;
-      this.w = this.w * max;
+      this.x *= max;
+      this.y *= max;
+      this.z *= max;
+      this.w *= max;
     }
   }
 
@@ -1413,10 +1410,10 @@ export class Vec4 {
    */
   set magnitude(m) {
     this.normalize();
-    this.x = this.x * m;
-    this.y = this.y * m;
-    this.z = this.z * m;
-    this.w = this.w * m;
+    this.x *= m;
+    this.y *= m;
+    this.z *= m;
+    this.w *= m;
   }
 
   /**
@@ -1455,10 +1452,10 @@ export class Vec4 {
    * @returns {Vec4} This vector.
    */
   add(a) {
-    this.x = this.x + a.x;
-    this.y = this.y + a.y;
-    this.z = this.z + a.z;
-    this.w = this.w + a.w;
+    this.x += a.x;
+    this.y += a.y;
+    this.z += a.z;
+    this.w += a.w;
     return this;
   }
 
@@ -1498,10 +1495,10 @@ export class Vec4 {
     const M = this.magnitude;
     if (M > max && M > 0) {
       this.normalize();
-      this.x = this.x * max;
-      this.y = this.y * max;
-      this.z = this.z * max;
-      this.w = this.w * max;
+      this.x *= max;
+      this.y *= max;
+      this.z *= max;
+      this.w *= max;
     }
     return this;
   }
@@ -1515,10 +1512,10 @@ export class Vec4 {
     const M = this.magnitude;
     if (M < min && M > 0) {
       this.normalize();
-      this.x = this.x * min;
-      this.y = this.y * min;
-      this.z = this.z * min;
-      this.w = this.w * min;
+      this.x *= min;
+      this.y *= min;
+      this.z *= min;
+      this.w *= min;
     }
     return this;
   }
@@ -1531,10 +1528,10 @@ export class Vec4 {
     let m = this.magnitude;
     if (m === 0) return this;
     else m = 1 / m;
-    this.x = this.x * m;
-    this.y = this.y * m;
-    this.z = this.z * m;
-    this.w = this.w * m;
+    this.x *= m;
+    this.y *= m;
+    this.z *= m;
+    this.w *= m;
     return this;
   }
 
@@ -1544,10 +1541,10 @@ export class Vec4 {
    * @returns {Vec4} This vector.
    */
   scale(f) {
-    this.x = this.x * f;
-    this.y = this.y * f;
-    this.z = this.z * f;
-    this.w = this.w * f;
+    this.x *= f;
+    this.y *= f;
+    this.z *= f;
+    this.w *= f;
     return this;
   }
 
@@ -1557,10 +1554,10 @@ export class Vec4 {
    * @returns {Vec4} This vector.
    */
   subtract(a) {
-    this.x = this.x - a.x;
-    this.y = this.y - a.y;
-    this.z = this.z - a.z;
-    this.w = this.w - a.w;
+    this.x -= a.x;
+    this.y -= a.y;
+    this.z -= a.z;
+    this.w -= a.w;
     return this;
   }
 }
