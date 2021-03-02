@@ -21,8 +21,8 @@
 * [Features](#features)
   * [Static methods](#static-methods)
   * [Instance methods](#instance-methods)
-    * [Getters & Setters](#getters-and-setters)
-    * [Shortcuts & Aliases](#shortcuts-and-aliases)
+    * [Getters & Setters](#getters-&-setters)
+    * [Shortcuts & Aliases](#shortcuts-&-aliases)
       * [Shortcuts](#shortcuts)
       * [Aliases](#aliases)
 * [Install](#install)
@@ -34,7 +34,7 @@
 
 *Vectors and their functionality in JavaScript*.
 
-Inspired by GLSL, vec.js is a library to create and operate on 2, 3, and 4D vectors. We can: add, scale, interpolate, rotate; get data: angle between vectors & axis, distances, and more.
+Inspired by GLSL, vec.js is a library to create and operate with 2, 3, and 4D vectors. We can: add, scale, interpolate, rotate; get data: angle between vectors & axis, distances, and more.
 
 ## Features
 
