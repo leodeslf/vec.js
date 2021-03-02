@@ -21,8 +21,8 @@
 * [Features](#features)
   * [Static methods](#static-methods)
   * [Instance methods](#instance-methods)
-    * [Getters & Setters](#getters-&-setters)
-    * [Shortcuts & Aliases](#shortcuts-&-aliases)
+    * [Getters & Setters](#getters-and-setters)
+    * [Shortcuts & Aliases](#shortcuts-and-aliases)
       * [Shortcuts](#shortcuts)
       * [Aliases](#aliases)
 * [Install](#install)
@@ -79,7 +79,7 @@ They all return `this` (modified vector).
 `scale()` | ✔ | ✔ | ✔
 `subtract()` | ✔ | ✔ | ✔
 
-#### Getters & Setters
+#### Getters and Setters
 
 || `Vec2` | `Vec3` | `Vec4`
 --- | :-: | :-: | :-:
@@ -90,7 +90,7 @@ They all return `this` (modified vector).
 `get/set magnitude()` | ✔ | ✔ | ✔
 ~~`set limit()`~~ (use `limitMaxMagnitude`) | ✔ | ✔ | ✔
 
-#### Shortcuts & Aliases
+#### Shortcuts and Aliases
 
 || `Vec2` | `Vec3` | `Vec4`
 --- | :-: | :-: | :-:
