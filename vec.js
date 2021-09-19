@@ -1,5 +1,5 @@
 /**
- * Vectors and their functionality in JavaScript.
+ * A vector library for JavaScript.
  * 
  * MIT License.
  * Copyright (c) 2018 Leonardo de S.L.F.

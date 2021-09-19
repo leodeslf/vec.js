@@ -32,7 +32,7 @@
 
 ## About
 
-*Vectors and their functionality in JavaScript*.
+*A vector library for JavaScript*.
 
 Inspired by GLSL, vec.js is a library to create and operate with 2, 3, and 4D vectors. We can: add, scale, interpolate, rotate; get data: angle between vectors & axis, distances, and more.
 
