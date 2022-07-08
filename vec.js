@@ -62,8 +62,8 @@ export class Vec2 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const ABX = (a.x - b.x);
-    const ABY = (a.y - b.y);
+    const ABX = a.x - b.x;
+    const ABY = a.y - b.y;
     return Math.sqrt(
       ABX * ABX +
       ABY * ABY
@@ -502,9 +502,9 @@ export class Vec3 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const ABX = (a.x - b.x);
-    const ABY = (a.y - b.y);
-    const ABZ = (a.z - b.z);
+    const ABX = a.x - b.x;
+    const ABY = a.y - b.y;
+    const ABZ = a.z - b.z;
     return Math.sqrt(
       ABX * ABX +
       ABY * ABY +
@@ -1075,10 +1075,10 @@ export class Vec4 {
    * @returns {number} The (Euclidian) distance from A to B.
    */
   static distance(a, b) {
-    const ABX = (a.x - b.x);
-    const ABY = (a.y - b.y);
-    const ABZ = (a.z - b.z);
-    const ABW = (a.w - b.w);
+    const ABX = a.x - b.x;
+    const ABY = a.y - b.y;
+    const ABZ = a.z - b.z;
+    const ABW = a.w - b.w;
     return Math.sqrt(
       ABX * ABX +
       ABY * ABY +
