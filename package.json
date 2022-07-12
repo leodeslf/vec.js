@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/leodeslf/vec.js#readme",
   "publishConfig": {
-    "registry": "http://registry.npmjs.org",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "type": "module"
