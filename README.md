@@ -18,132 +18,177 @@
 ## Table of contents
 
 * [About](#about)
-* [Features](#features)
-  * [Static methods](#static-methods)
-  * [Instance methods](#instance-methods)
-    * [Getters and Setters](#getters-and-setters)
-    * [Shortcuts and Aliases](#shortcuts-and-aliases)
+* [Getting Started](#getting-started)
+  * [Installation](#installation)
+  * [CDNs](#cdns)
+  * [API](#api)
+    * [Linear Algebra](#linear-algebra)
+    * [Copying & Creating](#copying--creating)
+    * [Boolean Conditions](#boolean-conditions)
+    * [Magnitude Manipulation](#magnitude-manipulation)
+    * [Miscellaneous](#miscellaneous)
+    * [Getters & Setters](#getters--setters)
       * [Shortcuts](#shortcuts)
-      * [Aliases](#aliases)
-* [Install](#install)
-* [Import](#import)
+* [Data Type Flexibility](#data-type-flexibility)
 * [Author](#author)
 * [License](#license)
 
 ## About
 
-*A vector library for JavaScript*.
+>JavaScript vector library.
 
-Inspired by GLSL, vec.js is a library to create and operate with 2, 3, and 4D vectors. We can: add, scale, interpolate, rotate; get data: angle between vectors & axis, distances, and more.
+Inspired by [GLSL](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) and thought to hit the *highest possible performance* in JavaScript, vec.js makes it possible to **create and operate with vectors**.
 
-## Features
+## Getting Started
 
-### Static methods
+### Installation
 
-|| `Vec2` | `Vec3` | `Vec4`
---- | :-: | :-: | :-:
-`add()` | ✔ | ✔ | ✔
-`angleBetween()` | ✔ | ✔ | ✔
-`clone()` | ✔ | ✔ | ✔
-`cross()` | - | ✔ | -
-`distance()` | ✔ | ✔ | ✔
-`distanceChebyshev()` | ✔ | ✔ | ✔
-`distanceManhattan()` | ✔ | ✔ | ✔
-`distanceMinkowski()` | ✔ | ✔ | ✔
-`dot()` | ✔ | ✔ | ✔
-`equal()` | ✔ | ✔ | ✔
-~~`fromCopy()`~~ (use `clone`) | ✔ | ✔ | ✔
-`fromCylindricalCoords()` | - | ✔ | -
-`fromPolarCoords()` | ✔ | - | -
-`fromSphericalCoords()` | - | ✔ | -
-`lerp()` | ✔ | ✔ | ✔
-`project()` | ✔ | ✔ | ✔
-`random()` | ✔ | ✔ | ✔
-`subtract()` | ✔ | ✔ | ✔
-
-### Instance methods
-
-They all return `this` (modified vector).
-
-|| `Vec2` | `Vec3` | `Vec4`
---- | :-: | :-: | :-:
-`add()` | ✔ | ✔ | ✔
-`clamp()` | ✔ | ✔ | ✔
-`copy()` | ✔ | ✔ | ✔
-`limitMaxMagnitude()` | ✔ | ✔ | ✔
-`limitMinMagnitude()` | ✔ | ✔ | ✔
-`normalize()` | ✔ | ✔ | ✔
-`rotateAxisX()` | - | ✔ | -
-`rotateAxisY()` | - | ✔ | -
-`rotateAxisZ()` | ✔ | ✔ | -
-`scale()` | ✔ | ✔ | ✔
-`subtract()` | ✔ | ✔ | ✔
-
-#### Getters and Setters
-
-|| `Vec2` | `Vec3` | `Vec4`
---- | :-: | :-: | :-:
-`get angleX()` | ✔ | ✔ | ✔
-`get angleY()` | ✔ | ✔ | ✔
-`get angleZ()` | - | ✔ | ✔
-`get angleW()` | - | - | ✔
-`get/set magnitude()` | ✔ | ✔ | ✔
-~~`set limit()`~~ (use `limitMaxMagnitude`) | ✔ | ✔ | ✔
-
-#### Shortcuts and Aliases
-
-|| `Vec2` | `Vec3` | `Vec4`
---- | :-: | :-: | :-:
-`get/set r()` | - | ✔ | ✔
-`get/set g()` | - | ✔ | ✔
-`get/set b()` | - | ✔ | ✔
-`get/set a()` | - | - | ✔
-`get/set rgb()` | - | ✔ | -
-`get/set rgba()` | - | - | ✔
-`get/set xy()` | ✔ | - | -
-`get/set xyz()` | - | ✔ | -
-`get/set xyzw()` | - | - | ✔
-
-##### Shortcuts
-
-We can (with arrays) refer and define all the components at once with `xy`, `xyz`, and `xyzw` for `Vec2`, `Vec3` and `Vec4` respectively.
-
-Then, i.e.:
-
-```javascript
-const vectorA = new Vec3(3, 6, 9);
-const vectorB = new Vec4(...vectorA.xyz, 0);
-
-// It's not possible to do straight with `...vectorA`,
-// as we are passing { key: value } instead of value.
-```
-
-##### Aliases
-
-It's also possible to refer and define the components of `Vec3` and `Vec4` as `rgb` and `rgba` respectively (also one by one as `r`, `g`, `b`, `a`).
-
-Then, i.e.:
-
-```javascript
-const vector = new Vec3(255, 255, 255);
-const color = `rgba(${vector.rgb}, 0.5)`;
-```
-
-## Install
-
-```shell
+```bash
 npm i @leodeslf/vec.js
 ```
 
-## Import
+```bash
+pnpm i @leodeslf/vec.js
+```
+
+```bash
+yarn add @leodeslf/vec.js
+```
+
+### CDNs
+
+```bash
+https://unpkg.com/@leodeslf/vec.js@2.0.0/vec.js
+```
+
+```bash
+https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@2.0.0/vec.js
+```
+
+### API
+
+Most methods are available as both instance and `static` members.
 
 ```javascript
-import { Vec2, Vec3, Vec4 } from '@leodeslf/vec.js';
+// E.g.:
+import { Vec2 } from '@leodeslf/vec.js';
+
+const v = new Vec2(1, 1);
+const w = Vec2.random();
+
+v
+  .add(w)
+  .normalize()
+  .negate();
+```
+
+#### Linear Algebra
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`add`|✓|✓|✓
+`angleBetween`|✓|✓|✓
+`cross`|-|✓|-
+`distance`|✓|✓|✓
+`distanceChebyshev`|✓|✓|✓
+`distanceManhattan`|✓|✓|✓
+`distanceMinkowski`|✓|✓|✓
+`distanceSq`|✓|✓|✓
+`dot`|✓|✓|✓
+`lerp`|✓|✓|✓
+`negate`|✓|✓|✓
+`normalize`|✓|✓|✓
+`project`|✓|✓|✓
+`rotateX`|-|✓|⋅
+`rotateY`|-|✓|-
+`rotateZ`|✓|✓|-
+`scale`|✓|✓|✓
+`subtract`|✓|✓|✓
+
+#### Copying & Creating
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`clone`|✓|✓|✓
+`copy`|✓|✓|✓
+`fromCylindricalCoords`|-|✓|-
+`fromPolarCoords`|✓|-|-
+`fromSphericalCoords`|-|✓|-
+`random`|✓|✓|✓
+
+#### Boolean Conditions
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`satisfyEquality`|✓|✓|✓
+`satisfyOpposition`|✓|✓|✓
+`isInfinite`|✓|✓|✓
+`isNaN`|✓|✓|✓
+`isZero`|✓|✓|✓
+
+#### Magnitude Manipulation
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`limitMax`|✓|✓|✓
+`limitMin`|✓|✓|✓
+`clamp`|✓|✓|✓
+`zero`|✓|✓|✓
+
+#### Miscellaneous
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`lookAt`|✓|✓|✓
+`turnLeft`|✓|-|-
+`turnRight`|✓|-|-
+
+#### Getters & Setters
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`angleW`|-|-|✓*
+`angleX`|✓|✓\*|✓*
+`angleY`|✓|✓\*|✓*
+`angleZ`|-|✓\*|✓*
+`magnitude`|✓|✓|✓
+`magnitudeSq`|✓\*|✓\*|✓*
+`w`|-|-|✓
+`x`|✓|✓|✓
+`y`|✓|✓|✓
+`z`|-|✓|✓
+
+*No `set` member.
+
+##### Shortcuts
+
+Use them to `get` and `set` components as arrays.
+
+Name|`Vec2`|`Vec3`|`Vec4`
+:--|:-:|:-:|:-:
+`xy`|✓|-|-
+`xyz`|-|✓|-
+`xyzw`|-|-|✓
+
+## Data Type Flexibility
+
+**Vec.js** uses [`Number()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) to *coerce* valid data types into [numbers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates#numbers).
+
+```javascript
+// E.g.:
+const v = new Vec4(
+  '0b1000', // = 8 (binary)
+  '0x8',    // = 8 (hexadecimal)
+  true,     // = 1
+  null      // = 0 (default)
+);
+
+console.debug(...v.xyzw); // 8 8 1 0
 ```
 
 ## Author
 
-[Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile").
+Copyright (c) [Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile"), 2018-present.
 
 ## License
 
