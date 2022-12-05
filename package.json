@@ -25,13 +25,19 @@
   },
   "type": "module",
   "devDependencies": {
+    "c8": "^7.12.0",
     "chai": "^4.3.7",
     "mocha": "^10.1.0"
   },
   "scripts": {
-    "test": "mocha vec.test.js"
+    "test": "c8 --clean true mocha vec.test.js"
   },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "vec.js"
+    }
   }
 }
