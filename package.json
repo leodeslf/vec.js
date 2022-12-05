@@ -1,16 +1,17 @@
 {
   "name": "@leodeslf/vec.js",
   "version": "1.6.8",
-  "description": "A vector library for JavaScript",
-  "main": "vec.js",
+  "description": "JavaScript vector library",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leodeslf/vec.js.git"
   },
   "keywords": [
+    "javascript",
+    "math",
     "geometry",
-    "vec",
-    "vector"
+    "vector",
+    "linear-algebra"
   ],
   "author": "Leonardo de S.L.F",
   "license": "MIT",
@@ -22,5 +23,12 @@
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0"
+  },
+  "scripts": {
+    "test": "mocha vec.test.js"
+  }
 }
