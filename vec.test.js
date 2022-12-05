@@ -3,8 +3,8 @@ import { assert } from 'chai';
 
 const { EPSILON, MAX_VALUE } = Number;
 const { PI } = Math;
-const DEG_45 = PI * .25;
-const DEG_90 = PI * .5;
+const DEG_45 = PI * 0.25;
+const DEG_90 = PI * 0.5;
 const DEG_120 = PI * (1 / 3 * 2);
 
 describe('@leodeslf/vec.js', () => {
@@ -71,9 +71,9 @@ describe('@leodeslf/vec.js', () => {
       assert.approximately(a.magnitude, 1, EPSILON);
     });
     it('a vector can [look at] another vector', () => {
-      const a = new Vec2(-.5, 0);
+      const a = new Vec2(-0.5, 0);
       const b = new Vec2(1, 0);
-      assert.deepStrictEqual(a.lookAt(b).xy, [.5, 0]);
+      assert.deepStrictEqual(a.lookAt(b).xy, [0.5, 0]);
     });
     it('a vector can [turn left] (90 deg)', () => {
       const a = new Vec2(1, 1);
@@ -168,9 +168,9 @@ describe('@leodeslf/vec.js', () => {
       assert.approximately(a.magnitude, 1, EPSILON);
     });
     it('a vector can [look at] another vector', () => {
-      const a = new Vec3(0, -.5, 0);
+      const a = new Vec3(0, -0.5, 0);
       const b = new Vec3(0, 1, 0);
-      assert.deepStrictEqual(a.lookAt(b).xyz, [0, .5, 0]);
+      assert.deepStrictEqual(a.lookAt(b).xyz, [0, 0.5, 0]);
     });
     it('find the [angle between] two vectors', () => {
       const a = new Vec3(0, 1, 0);
@@ -412,7 +412,7 @@ describe('@leodeslf/vec.js', () => {
     it('find the [linear interpolation] between two vectors', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(-1, -2, -3, -4);
-      assert.deepStrictEqual(Vec4.lerp(a, b, .5).xyzw, [0, 0, 0, 0]);
+      assert.deepStrictEqual(Vec4.lerp(a, b, 0.5).xyzw, [0, 0, 0, 0]);
     });
     it('[negate] a vector', () => {
       const a = new Vec4(1, 2, 3, 4);
@@ -432,8 +432,8 @@ describe('@leodeslf/vec.js', () => {
     });
     it('[scale] a vector', () => {
       const a = new Vec4(1, 2, 3, 4);
-      assert.deepStrictEqual(Vec4.scale(a, .5).xyzw, [.5, 1, 1.5, 2]);
-      assert.deepStrictEqual(a.scale(.5).xyzw, [.5, 1, 1.5, 2]);
+      assert.deepStrictEqual(Vec4.scale(a, 0.5).xyzw, [0.5, 1, 1.5, 2]);
+      assert.deepStrictEqual(a.scale(0.5).xyzw, [0.5, 1, 1.5, 2]);
     });
     it('[subtract] two vectors', () => {
       const a = new Vec4(1, 2, 3, 4);
