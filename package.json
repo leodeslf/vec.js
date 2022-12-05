@@ -30,5 +30,8 @@
   },
   "scripts": {
     "test": "mocha vec.test.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
