@@ -1,5 +1,7 @@
 # Vec.js
 
+[![Featured on Openbase](https://badges.openbase.com/js/featured/@leodeslf/vec.js.svg?token=JIbWVH7cDRpwy1PaBpiN+rjd1gsDe4L6ol+L8TrRt+A=)](https://openbase.com/js/@leodeslf/vec.js?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c27616072df469686fd1c8c2a6dcd72)](https://www.codacy.com/gh/leodeslf/vec.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=leodeslf/vec.js&amp;utm_campaign=Badge_Grade) ![version](https://img.shields.io/npm/v/@leodeslf/vec.js?color=3af) ![license](https://img.shields.io/npm/l/@leodeslf/vec.js?color=3af)
+
 ```txt
 
             .                 .
@@ -88,7 +90,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
 `add`|✓|✓|✓
 `angleBetween`|✓|✓|✓
-`cross`|-|✓|-
+`cross`||✓|
 `distance`|✓|✓|✓
 `distanceChebyshev`|✓|✓|✓
 `distanceManhattan`|✓|✓|✓
@@ -99,9 +101,9 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `negate`|✓|✓|✓
 `normalize`|✓|✓|✓
 `project`|✓|✓|✓
-`rotateX`|-|✓|⋅
-`rotateY`|-|✓|-
-`rotateZ`|✓|✓|-
+`rotateX`||✓|
+`rotateY`||✓|
+`rotateZ`|✓|✓|
 `scale`|✓|✓|✓
 `subtract`|✓|✓|✓
 
@@ -111,9 +113,9 @@ Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
 `clone`|✓|✓|✓
 `copy`|✓|✓|✓
-`fromCylindricalCoords`|-|✓|-
-`fromPolarCoords`|✓|-|-
-`fromSphericalCoords`|-|✓|-
+`fromCylindricalCoords`||✓|
+`fromPolarCoords`|✓||
+`fromSphericalCoords`||✓|
 `random`|✓|✓|✓
 
 #### Boolean Conditions
@@ -140,23 +142,23 @@ Name|`Vec2`|`Vec3`|`Vec4`
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
 `lookAt`|✓|✓|✓
-`turnLeft`|✓|-|-
-`turnRight`|✓|-|-
+`turnLeft`|✓||
+`turnRight`|✓||
 
 #### Getters & Setters
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
-`angleW`|-|-|✓*
+`angleW`|||✓*
 `angleX`|✓|✓\*|✓*
 `angleY`|✓|✓\*|✓*
-`angleZ`|-|✓\*|✓*
+`angleZ`||✓\*|✓*
 `magnitude`|✓|✓|✓
 `magnitudeSq`|✓\*|✓\*|✓*
-`w`|-|-|✓
+`w`|||✓
 `x`|✓|✓|✓
 `y`|✓|✓|✓
-`z`|-|✓|✓
+`z`||✓|✓
 
 *No `set` member.
 
@@ -166,9 +168,9 @@ Use them to `get` and `set` components as arrays.
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
-`xy`|✓|-|-
-`xyz`|-|✓|-
-`xyzw`|-|-|✓
+`xy`|✓||
+`xyz`||✓|
+`xyzw`|||✓
 
 ## Data Type Flexibility
 
