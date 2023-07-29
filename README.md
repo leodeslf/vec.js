@@ -1,6 +1,6 @@
 # Vec.js
 
-[![Featured on Openbase](https://badges.openbase.com/js/featured/@leodeslf/vec.js.svg?token=JIbWVH7cDRpwy1PaBpiN+rjd1gsDe4L6ol+L8TrRt+A=)](https://openbase.com/js/@leodeslf/vec.js?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c27616072df469686fd1c8c2a6dcd72)](https://www.codacy.com/gh/leodeslf/vec.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=leodeslf/vec.js&amp;utm_campaign=Badge_Grade) ![version](https://img.shields.io/npm/v/@leodeslf/vec.js?color=3af) ![license](https://img.shields.io/npm/l/@leodeslf/vec.js?color=3af)
+![version](https://img.shields.io/npm/v/@leodeslf/vec.js?color=3af) ![license](https://img.shields.io/npm/l/@leodeslf/vec.js?color=3af)
 
 ```txt
 
@@ -60,11 +60,11 @@ yarn add @leodeslf/vec.js
 ### CDNs
 
 ```bash
-https://unpkg.com/@leodeslf/vec.js@2.0.0/vec.js
+https://unpkg.com/@leodeslf/vec.js@2.0.1
 ```
 
 ```bash
-https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@2.0.0/vec.js
+https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@2.0.1
 ```
 
 ### API
