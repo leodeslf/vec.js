@@ -120,10 +120,10 @@ class Vec2 {
    * - Chebyshev distance when `p` = Infinite.
    * @param {Vec2} v A vector.
    * @param {Vec2} w A vector.
-   * @param {!(number|string|true)} p Any number-coercible value greater than 0.
+   * @param {(number|string|true)} [p=1] Any number-coercible value greater than 0.
    * @returns {number} Minkowski distance.
    */
-  static distanceMinkowski(v, w, p) {
+  static distanceMinkowski(v, w, p = 1) {
     p = Number(p);
     return (
       abs(v.#x - w.#x) ** p +
@@ -957,10 +957,10 @@ class Vec3 {
    * - Chebyshev distance when `p` = Infinite.
    * @param {Vec3} v A vector.
    * @param {Vec3} w A vector.
-   * @param {!(number|string|true)} p Any number-coercible value greater than 0.
+   * @param {(number|string|true)} [p=1] Any number-coercible value greater than 0.
    * @returns {number} Minkowski distance.
    */
-  static distanceMinkowski(v, w, p) {
+  static distanceMinkowski(v, w, p = 1) {
     p = Number(p);
     return (
       abs(v.#x - w.#x) ** p +
@@ -1991,10 +1991,10 @@ class Vec4 {
    * - Chebyshev distance when `p` = Infinite.
    * @param {Vec4} v A vector.
    * @param {Vec4} w A vector.
-   * @param {!(number|string|true)} p Any number-coercible value greater than 0.
+   * @param {(number|string|true)} [p=1] Any number-coercible value greater than 0.
    * @returns {number} Minkowski distance.
    */
-  static distanceMinkowski(v, w, p) {
+  static distanceMinkowski(v, w, p = 1) {
     p = Number(p);
     return (
       abs(v.#x - w.#x) ** p +
