@@ -1,4 +1,4 @@
-import { Vec2, Vec3, Vec4 } from './vec.js';
+import { Vec2, Vec3, Vec4 } from './index.js';
 import { assert } from 'chai';
 
 const { EPSILON, MAX_VALUE } = Number;
@@ -310,7 +310,7 @@ describe('@leodeslf/vec.js', () => {
       const a = new Vec4(1, 2, 3, 4);
       assert.strictEqual(a.zero().magnitude, 0);
     });
-    it('two vectors [satify equality]', () => {
+    it('two vectors [satisfy equality]', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(1, 2, 3, 4);
       const c = new Vec4(4, 3, 2, 1);
@@ -319,7 +319,7 @@ describe('@leodeslf/vec.js', () => {
       assert.strictEqual(Vec4.satisfyEquality(a, c), false);
       assert.strictEqual(a.satisfyEquality(c), false);
     });
-    it('two vectors [satify opposition]', () => {
+    it('two vectors [satisfy opposition]', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(-1, -2, -3, -4);
       const c = new Vec4(1, 2, 3, 4);
