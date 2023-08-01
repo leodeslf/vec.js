@@ -441,5 +441,9 @@ describe('@leodeslf/vec.js', () => {
       assert.deepStrictEqual(Vec4.subtract(a, b).xyzw, [0, 0, 0, 0]);
       assert.deepStrictEqual(a.subtract(b).xyzw, [0, 0, 0, 0]);
     });
+    it('can be [iterated]', () => {
+      const a = new Vec4(1, 2, 3, 4);
+      assert.deepStrictEqual([...a], [1, 2, 3, 4]);
+    });
   });
 });

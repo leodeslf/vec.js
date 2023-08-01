@@ -2,7 +2,7 @@
  * Inspired by GLSL and thought to hit the *highest possible performance* in
  * JavaScript, vec.js makes it possible to **create and operate with vectors**.
  * @summary JavaScript vector library.
- * @version 2.0.0
+ * @version 2.0.3
  * @copyright Copyright (c) Leonardo de S.L.F, 2018-present.
  * @author Leonardo de S.L.F
  * @license MIT
@@ -710,7 +710,7 @@ class Vec2 {
 
   /**
    * Randomizes the direction of this vector keeping its `magnitude`.
-   * @returns {Vec2} This vector.
+   * @returns {this} This vector.
    */
   random() {
     const phi = random() * PI * 2;
@@ -811,7 +811,7 @@ class Vec2 {
 
   /**
    * Transforms this vector into a zero vector (i.e.: `magnitude` = 0).
-   * @returns {Vec2} This vector.
+   * @returns {this} This vector.
    */
   zero() {
     this.#x = 0;
@@ -1729,7 +1729,7 @@ class Vec3 {
 
   /**
    * Randomizes the direction of this vector keeping its `magnitude`.
-   * @returns {Vec3} This vector.
+   * @returns {this} This vector.
    */
   random() {
     let x1;
@@ -1853,7 +1853,7 @@ class Vec3 {
 
   /**
    * Transforms this vector into a zero vector (i.e.: `magnitude` = 0).
-   * @returns {Vec3} This vector.
+   * @returns {this} This vector.
    */
   zero() {
     this.#x = 0;
@@ -2795,7 +2795,7 @@ class Vec4 {
 
   /**
    * Randomizes the direction of this vector keeping its `magnitude`.
-   * @returns {Vec4} This vector.
+   * @returns {this} This vector.
    */
   random() {
     let x1;
@@ -2877,7 +2877,7 @@ class Vec4 {
 
   /**
    * Transforms this vector into a zero vector (i.e.: `magnitude` = 0).
-   * @returns {Vec4} This vector.
+   * @returns {this} This vector.
    */
   zero() {
     this.#x = 0;
