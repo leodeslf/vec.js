@@ -8,7 +8,8 @@
   "description": "JavaScript vector library",
   "devDependencies": {
     "chai": "^4.3.7",
-    "mocha": "^10.1.0"
+    "mocha": "^10.1.0",
+    "terser": "^5.19.2"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -37,5 +38,6 @@
     "minify": "terser ./index.js --compress --mangle --output ./index.min.js"
   },
   "type": "module",
+  "types": "./index.d.ts",
   "unpkg": "./index.min.js"
 }
