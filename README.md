@@ -20,18 +20,16 @@
 ## Table of contents
 
 * [About](#about)
-* [Getting Started](#getting-started)
-  * [Installation](#installation)
-  * [CDNs](#cdns)
-  * [API](#api)
-    * [Linear Algebra](#linear-algebra)
-    * [Copying & Creating](#copying--creating)
-    * [Boolean Conditions](#boolean-conditions)
-    * [Magnitude Manipulation](#magnitude-manipulation)
-    * [Miscellaneous](#miscellaneous)
-    * [Getters & Setters](#getters--setters)
-      * [Shortcuts](#shortcuts)
-* [Data Type Flexibility](#data-type-flexibility)
+* [Installation](#installation)
+* [CDNs](#cdns)
+* [Usage](#usage)
+  * [Linear Algebra](#linear-algebra)
+  * [Copying & Creating](#copying--creating)
+  * [Boolean Conditions](#boolean-conditions)
+  * [Magnitude Manipulation](#magnitude-manipulation)
+  * [Miscellaneous](#miscellaneous)
+  * [Getters & Setters](#getters--setters)
+    * [Shortcuts](#shortcuts)
 * [Author](#author)
 * [License](#license)
 
@@ -39,11 +37,9 @@
 
 >JavaScript vector library.
 
-Inspired by [GLSL](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) and thought to hit the *highest possible performance* in JavaScript, vec.js makes it possible to **create and operate with vectors**.
+A set of classes that provide functionality related to basic **linear-algebra**, **geometry**, and more, for **2, 3, and 4-dimensional vectors**.
 
-## Getting Started
-
-### Installation
+## Installation
 
 ```bash
 npm i @leodeslf/vec.js
@@ -57,7 +53,7 @@ pnpm i @leodeslf/vec.js
 yarn add @leodeslf/vec.js
 ```
 
-### CDNs
+## CDNs
 
 ```bash
 https://unpkg.com/@leodeslf/vec.js@2.0.3
@@ -67,24 +63,21 @@ https://unpkg.com/@leodeslf/vec.js@2.0.3
 https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@2.0.3
 ```
 
-### API
+## Usage
 
-Most methods are available as both instance and `static` members.
+Most methods are available as both *instance* and `static` members. The ones that modify the current vector return `this`, thus we can *chain method calls*. Other than e.g.: `vector.x`, `vector.y`, and `vector.xy` (as an array), vectors are iterable, so it's possible to iterate trough their components using `for-of` or spread operator (e.g.: `...vector`).
 
 ```javascript
 // E.g.:
 import { Vec2 } from '@leodeslf/vec.js';
 
-const v = new Vec2(1, 1);
-const w = Vec2.random();
-
-v
-  .add(w)
-  .normalize()
-  .negate();
+const position = new Vec2(1, 1.8);
+const target = new Vec2(1, 10);
+const distance = position.distance(target); // 8.2
+const direction = Vec2.subtract(target, position).normalize(); // { x: 0, y: 1 }
 ```
 
-#### Linear Algebra
+### Linear Algebra
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -107,7 +100,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `scale`|✓|✓|✓
 `subtract`|✓|✓|✓
 
-#### Copying & Creating
+### Copying & Creating
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -118,7 +111,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `fromSphericalCoords`||✓|
 `random`|✓|✓|✓
 
-#### Boolean Conditions
+### Boolean Conditions
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -128,7 +121,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `isNaN`|✓|✓|✓
 `isZero`|✓|✓|✓
 
-#### Magnitude Manipulation
+### Magnitude Manipulation
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -137,7 +130,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `clamp`|✓|✓|✓
 `zero`|✓|✓|✓
 
-#### Miscellaneous
+### Miscellaneous
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -145,7 +138,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `turnLeft`|✓||
 `turnRight`|✓||
 
-#### Getters & Setters
+### Getters & Setters
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
@@ -155,38 +148,22 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `angleZ`||✓\*|✓*
 `magnitude`|✓|✓|✓
 `magnitudeSq`|✓\*|✓\*|✓*
-`w`|||✓
-`x`|✓|✓|✓
-`y`|✓|✓|✓
-`z`||✓|✓
+`w` (alias `a`)|||✓
+`x` (alias `r`)|✓|✓|✓
+`y` (alias `g`)|✓|✓|✓
+`z` (alias `b`)||✓|✓
 
 *No `set` member.
 
-##### Shortcuts
+#### Shortcuts
 
 Use them to `get` and `set` components as arrays.
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
 `xy`|✓||
-`xyz`||✓|
-`xyzw`|||✓
-
-## Data Type Flexibility
-
-**Vec.js** uses [`Number()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) to *coerce* valid data types into [numbers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates#numbers).
-
-```javascript
-// E.g.:
-const v = new Vec4(
-  '0b1000', // = 8 (binary)
-  '0x8',    // = 8 (hexadecimal)
-  true,     // = 1
-  null      // = 0 (default)
-);
-
-console.debug(...v.xyzw); // 8 8 1 0
-```
+`xyz` (alias `rgb`)||✓|
+`xyzw` (alias `rgba`)|||✓
 
 ## Author
 
