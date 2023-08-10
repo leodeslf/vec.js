@@ -148,22 +148,22 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `angleZ`||✓\*|✓*
 `magnitude`|✓|✓|✓
 `magnitudeSq`|✓\*|✓\*|✓*
-`w` (alias `a`)|||✓
-`x` (alias `r`)|✓|✓|✓
-`y` (alias `g`)|✓|✓|✓
-`z` (alias `b`)||✓|✓
+`a` (alias for `w`)|||✓
+`r` (alias for `x`)|✓|✓|✓
+`g` (alias for `y`)|✓|✓|✓
+`b` (alias for `z`)||✓|✓
 
-*No `set` member.
+*read only.
 
 #### Shortcuts
 
-Use them to `get` and `set` components as arrays.
+Use them to `get`/`set` components as/from arrays.
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
 `xy`|✓||
-`xyz` (alias `rgb`)||✓|
-`xyzw` (alias `rgba`)|||✓
+`xyz` (or alias `rgb`)||✓|
+`xyzw` (or alias `rgba`)|||✓
 
 ## Author
 
