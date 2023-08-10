@@ -1,5 +1,15 @@
 declare interface Vec2Base {
   /**
+   * Value of the `x` component of this vector.
+   */
+  x: number;
+
+  /**
+   * Value of the `y` component of this vector.
+   */
+  y: number;
+
+  /**
    * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
    * interval [0, 2PI).
    * @returns Value in radians.
@@ -24,33 +34,11 @@ declare interface Vec2Base {
   get magnitudeSq(): number;
 
   /**
-   * @returns The `x` component of this vector.
-   */
-  get x(): number;
-
-  /**
-   * @returns The `y` component of this vector.
-   */
-  get y(): number;
-
-  /**
    * Set the `magnitude` of this vector to the given value. Fails to perform if
    * the current magnitude is zero.
    * @param m A numeric value.
    */
   set magnitude(m: number);
-
-  /**
-   * Set the `x` component of this vector.
-   * @param x A numeric value.
-   */
-  set x(x: number);
-
-  /**
-   * Set the `y` component of this vector.
-   * @param y A numeric value.
-   */
-  set y(y: number);
 
   /**
    * Adds vector `v` to this vector.
@@ -478,6 +466,11 @@ declare interface Vec2Constructor extends Vec2ConstructorBase {
 
 declare interface Vec3Base extends Vec2Base {
   /**
+   * Value of the `z` component of this vector.
+   */
+  z: number;
+
+  /**
    * Angle relative to the positive x-axis towards the point defined by (y,
    * z). Interval [0, PI].
    * @returns Value in radians.
@@ -517,11 +510,6 @@ declare interface Vec3Base extends Vec2Base {
   get r(): number;
 
   /**
-   * @returns The `z` component of this vector.
-   */
-  get z(): number;
-
-  /**
    * Alias to set the `z` component of this vector.
    * @param b A numeric value.
    */
@@ -538,12 +526,6 @@ declare interface Vec3Base extends Vec2Base {
    * @param r A numeric value.
    */
   set r(r: number);
-
-  /**
-   * Set the `z` component of this vector.
-   * @param z A numeric value.
-   */
-  set z(z: number);
 
   /**
    * Returns the angle between this vector and vector `v`. Interval [0, PI].
@@ -677,6 +659,11 @@ declare interface Vec3Constructor extends Vec3ConstructorBase {
 
 declare interface Vec4Base extends Vec3Base {
   /**
+   * Value of the `w` component of this vector.
+   */
+  w: number;
+
+  /**
    * Alias for the `w` component of this vector.
    * @returns The `w` component of this vector.
    */
@@ -717,11 +704,6 @@ declare interface Vec4Base extends Vec3Base {
   get rgba(): number[];
 
   /**
-   * @returns The `w` component of this vector.
-   */
-  get w(): number;
-
-  /**
    * Shortcut to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
@@ -738,12 +720,6 @@ declare interface Vec4Base extends Vec3Base {
    * @param rgba An array of numeric values.
    */
   set rgba(rgba: number[]);
-
-  /**
-   * Set the `w` component of this vector.
-   * @param w A numeric value.
-   */
-  set w(w: number);
 
   /**
    * Shortcut to set all the components of this vector from an array.
