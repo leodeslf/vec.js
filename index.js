@@ -191,19 +191,11 @@ class Vec2 {
     );
   }
 
-  get x() {
-    return this.x;
-  }
-
   get xy() {
     return [
       this.x,
       this.y
     ];
-  }
-
-  get y() {
-    return this.y;
   }
 
   set angleX(phi) {
@@ -224,17 +216,9 @@ class Vec2 {
     this.y = this.y / M * m;
   }
 
-  set x(x) {
-    this.x = x;
-  }
-
   set xy(xy) {
     this.x = xy[0];
     this.y = xy[1];
-  }
-
-  set y(y) {
-    this.y = y;
   }
 
   add(v) {
@@ -713,24 +697,12 @@ class Vec3 {
     ];
   }
 
-  get x() {
-    return this.x;
-  }
-
   get xyz() {
     return [
       this.x,
       this.y,
       this.z
     ];
-  }
-
-  get y() {
-    return this.y;
-  }
-
-  get z() {
-    return this.z;
   }
 
   set b(b) {
@@ -758,22 +730,10 @@ class Vec3 {
     this.z = rgb[2];
   }
 
-  set x(x) {
-    this.x = x;
-  }
-
   set xyz(xyz) {
     this.x = xyz[0];
     this.y = xyz[1];
     this.z = xyz[2];
-  }
-
-  set y(y) {
-    this.y = y;
-  }
-
-  set z(z) {
-    this.z = z;
   }
 
   add(v) {
@@ -1323,14 +1283,6 @@ class Vec4 {
     ];
   }
 
-  get w() {
-    return this.w;
-  }
-
-  get x() {
-    return this.x;
-  }
-
   get xyzw() {
     return [
       this.x,
@@ -1338,14 +1290,6 @@ class Vec4 {
       this.z,
       this.w
     ];
-  }
-
-  get y() {
-    return this.y;
-  }
-
-  get z() {
-    return this.z;
   }
 
   set a(a) {
@@ -1379,27 +1323,11 @@ class Vec4 {
     this.w = rgba[3];
   }
 
-  set w(w) {
-    this.w = w;
-  }
-
-  set x(x) {
-    this.x = x;
-  }
-
   set xyzw(xyzw) {
     this.x = xyzw[0];
     this.y = xyzw[1];
     this.z = xyzw[2];
     this.w = xyzw[3];
-  }
-
-  set y(y) {
-    this.y = y;
-  }
-
-  set z(z) {
-    this.z = z;
   }
 
   add(v) {
