@@ -478,12 +478,6 @@ declare interface Vec2Constructor extends Vec2ConstructorBase {
 
 declare interface Vec3Base extends Vec2Base {
   /**
-   * Array-like notation to get `z`.
-   * @returns The `z` component of this vector.
-   */
-  get 2(): number;
-
-  /**
    * Angle relative to the positive x-axis towards the point defined by (y,
    * z). Interval [0, PI].
    * @returns Value in radians.
@@ -674,20 +668,14 @@ declare interface Vec3Constructor extends Vec3ConstructorBase {
    * - φ (phi): The polar angle to be relative to the positive x-axis towards
    * the positive y-axis.
    * @param r Radius, a numeric value.
-   * @param theta Azimuthal angle in radians, a numeric value.
-   * @param phi Polar angle in radians, a numeric value.
+   * @param theta Azimuthal angle in radians, interval [0, PI], a numeric value.
+   * @param phi Polar angle in radians, interval [0, 2PI), a numeric value.
    * @returns A new vector.
    */
   fromSphericalCoords(r: number, theta: number, phi: number): Vec3;
 }
 
 declare interface Vec4Base extends Vec3Base {
-  /**
-   * Array-like notation to get `w`.
-   * @returns The `w` component of this vector.
-   */
-  get 3(): number;
-
   /**
    * Alias for the `w` component of this vector.
    * @returns The `w` component of this vector.
