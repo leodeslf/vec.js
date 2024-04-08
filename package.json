@@ -7,9 +7,9 @@
   },
   "description": "JavaScript vector library",
   "devDependencies": {
-    "chai": "^4.3.7",
-    "mocha": "^10.1.0",
-    "terser": "^5.19.2"
+    "chai": "^4.4.1",
+    "mocha": "^10.4.0",
+    "terser": "^5.30.3"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -35,7 +35,8 @@
   },
   "scripts": {
     "test": "mocha ./index.test.js",
-    "minify": "terser ./index.js --compress --mangle --output ./index.min.js"
+    "minify": "terser ./index.js --compress --mangle --output ./index.min.js",
+    "prebuild": "npm run test && npm run minify && echo Successfully prebuild."
   },
   "type": "module",
   "types": "./index.d.ts",
