@@ -221,7 +221,8 @@ declare interface Vec2Base {
   [Symbol.iterator](): Generator<number, void, never>;
 }
 
-declare interface Vec2 extends Vec2Base {/**
+declare interface Vec2 extends Vec2Base {
+  /**
    * Shortcut to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
