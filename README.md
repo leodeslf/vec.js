@@ -56,11 +56,11 @@ yarn add @leodeslf/vec.js
 ## CDNs
 
 ```bash
-https://unpkg.com/@leodeslf/vec.js@3.0.0
+https://unpkg.com/@leodeslf/vec.js@3.0.1
 ```
 
 ```bash
-https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@3.0.0
+https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@3.0.1
 ```
 
 ## Usage
