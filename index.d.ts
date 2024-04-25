@@ -755,9 +755,8 @@ declare interface Vec4Constructor extends Vec4ConstructorBase { }
  * A set of classes that provide functionality related to basic linear-algebra,
  * geometry, and more, for 2, 3, and 4-dimensional vectors.
  * @summary JavaScript vector library.
- * @version 3.0.0
- * @copyright Copyright (c) Leonardo de S.L.F, 2018-present.
- * @author Leonardo de S.L.F <hello@leodeslf.com>
+ * @copyright Copyright (c) Leonardo de S. Leal F., 2018-present.
+ * @author Leonardo de S. Leal F. <hello@leodeslf.com>
  * @license MIT
  */
 declare module '@leodeslf/vec.js' {
