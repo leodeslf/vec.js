@@ -71,9 +71,10 @@ class Vec2 {
   }
 
   static isInfinite(v) {
+    const { x, y } = v;
     return (
-      v.x === Infinity || v.x === -Infinity ||
-      v.y === Infinity || v.y === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity
     );
   }
 
@@ -94,9 +95,10 @@ class Vec2 {
   static lerp(v, w, t) {
     if (t > 1) t = 1;
     else if (t < 0) t = 0;
+    const { x: vx, y: vy } = v;
     return new Vec2(
-      v.x + (w.x - v.x) * t,
-      v.y + (w.y - v.y) * t
+      vx + (w.x - vx) * t,
+      vy + (w.y - vy) * t
     );
   }
 
@@ -117,13 +119,15 @@ class Vec2 {
 
   static project(v, w) {
     const m2 = w.magnitude;
+    const { x: vx, y: vy } = v;
+    const { x: wx, y: wy } = w;
     const f = v.magnitude * cos(atan2(
-      v.x * w.y - v.y * w.x,
-      v.x * w.x + v.y * w.y
+      vx * wy - vy * wx,
+      vx * wx + vy * wy
     ));
     return new Vec2(
-      w.x / m2 * f,
-      w.y / m2 * f
+      wx / m2 * f,
+      wy / m2 * f
     );
   }
 
@@ -228,9 +232,11 @@ class Vec2 {
   }
 
   angleBetween(v) {
+    const { x, y } = this;
+    const { x: vx, y: vy } = v;
     return atan2(
-      this.x * v.y - this.y * v.x,
-      this.x * v.x + this.y * v.y
+      x * vy - y * vx,
+      x * vx + y * vy
     );
   }
 
@@ -281,9 +287,10 @@ class Vec2 {
   }
 
   isInfinite() {
+    const { x, y } = this;
     return (
-      this.x === Infinity || this.x === -Infinity ||
-      this.y === Infinity || this.y === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity
     );
   }
 
@@ -342,12 +349,14 @@ class Vec2 {
 
   project(v) {
     const mV = v.magnitude;
+    const { x, y } = this;
+    const { x: vx, y: vy } = v;
     const f = this.magnitude * cos(atan2(
-      this.x * v.y - this.y * v.x,
-      this.x * v.x + this.y * v.y
+      x * vy - y * vx,
+      x * vx + y * vy
     ));
-    this.x = v.x / mV * f;
-    this.y = v.y / mV * f;
+    this.x = vx / mV * f;
+    this.y = vy / mV * f;
     return this;
   }
 
@@ -362,9 +371,9 @@ class Vec2 {
   rotateZ(phi) {
     const cosPhi = cos(phi);
     const sinPhi = sin(phi);
-    const x = this.x;
-    this.x = this.x * cosPhi - this.y * sinPhi;
-    this.y = x * sinPhi + this.y * cosPhi;
+    const { x, y } = this;
+    this.x = x * cosPhi - y * sinPhi;
+    this.y = x * sinPhi + y * cosPhi;
     return this;
   }
 
@@ -444,10 +453,12 @@ class Vec3 {
   }
 
   static cross(v, w) {
+    const { x: vx, y: vy, z: vz } = v;
+    const { x: wx, y: wy, z: wz } = w;
     return new Vec3(
-      v.y * w.z - v.z * w.y,
-      v.z * w.x - v.x * w.z,
-      v.x * w.y - v.y * w.x
+      vy * wz - vz * wy,
+      vz * wx - vx * wz,
+      vx * wy - vy * wx
     );
   }
 
@@ -519,10 +530,11 @@ class Vec3 {
   }
 
   static isInfinite(v) {
+    const { x, y, z } = v;
     return (
-      v.x === Infinity || v.x === -Infinity ||
-      v.y === Infinity || v.y === -Infinity ||
-      v.z === Infinity || v.z === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity ||
+      z === Infinity || z === -Infinity
     );
   }
 
@@ -572,15 +584,16 @@ class Vec3 {
   static project(v, w) {
     const m1 = v.magnitude;
     const m2 = w.magnitude;
+    const { x: wx, y: wy, z: wz } = w;
     const f = m1 * cos(acos((
-      v.x * w.x +
-      v.y * w.y +
-      v.z * w.z
+      v.x * wx +
+      v.y * wy +
+      v.z * wz
     ) / (m1 * m2)));
     return new Vec3(
-      w.x / m2 * f,
-      w.y / m2 * f,
-      w.z / m2 * f
+      wx / m2 * f,
+      wy / m2 * f,
+      wz / m2 * f
     );
   }
 
@@ -781,11 +794,11 @@ class Vec3 {
   }
 
   cross(v) {
-    const x = this.x;
-    const y = this.y;
-    this.x = this.y * v.z - this.z * v.y;
-    this.y = this.z * v.x - x * v.z;
-    this.z = x * v.y - y * v.x;
+    const { x, y, z } = this;
+    const { x: vx, y: vy, z: vz } = v;
+    this.x = y * vz - z * vy;
+    this.y = z * vx - x * vz;
+    this.z = x * vy - y * vx;
     return this;
   }
 
@@ -814,10 +827,11 @@ class Vec3 {
   }
 
   isInfinite() {
+    const { x, y, z } = this;
     return (
-      this.x === Infinity || this.x === -Infinity ||
-      this.y === Infinity || this.y === -Infinity ||
-      this.z === Infinity || this.z === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity ||
+      z === Infinity || z === -Infinity
     );
   }
 
@@ -884,14 +898,15 @@ class Vec3 {
   project(v) {
     const m = this.magnitude;
     const mV = v.magnitude;
+    const { x: vx, y: vy, z: vz } = v;
     const f = m * cos(acos((
-      this.x * v.x +
-      this.y * v.y +
-      this.z * v.z
+      this.x * vx +
+      this.y * vy +
+      this.z * vz
     ) / (m * mV)));
-    this.x = v.x / mV * f;
-    this.y = v.y / mV * f;
-    this.z = v.z / mV * f;
+    this.x = vx / mV * f;
+    this.y = vy / mV * f;
+    this.z = vz / mV * f;
     return this;
   }
 
@@ -913,27 +928,27 @@ class Vec3 {
   rotateX(phi) {
     const cosPhi = cos(phi);
     const sinPhi = sin(phi);
-    const y = this.y;
-    this.y = this.y * cosPhi - this.z * sinPhi;
-    this.z = y * sinPhi + this.z * cosPhi;
+    const { y, z } = this;
+    this.y = y * cosPhi - z * sinPhi;
+    this.z = y * sinPhi + z * cosPhi;
     return this;
   }
 
   rotateY(phi) {
     const cosPhi = cos(phi);
     const sinPhi = sin(phi);
-    const x = this.x;
-    this.x = this.x * cosPhi + this.z * sinPhi;
-    this.z = x * sinPhi + this.z * cosPhi;
+    const { x, z } = this;
+    this.x = x * cosPhi + z * sinPhi;
+    this.z = x * sinPhi + z * cosPhi;
     return this;
   }
 
   rotateZ(phi) {
     const cosPhi = cos(phi);
     const sinPhi = sin(phi);
-    const x = this.x;
-    this.x = this.x * cosPhi - this.y * sinPhi;
-    this.y = x * sinPhi + this.y * cosPhi;
+    const { x, y } = this;
+    this.x = x * cosPhi - y * sinPhi;
+    this.y = x * sinPhi + y * cosPhi;
     return this;
   }
 
@@ -1067,11 +1082,12 @@ class Vec4 {
   }
 
   static isInfinite(v) {
+    const { x, y, z, w } = v;
     return (
-      v.x === Infinity || v.x === -Infinity ||
-      v.y === Infinity || v.y === -Infinity ||
-      v.z === Infinity || v.z === -Infinity ||
-      v.w === Infinity || v.w === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity ||
+      z === Infinity || z === -Infinity ||
+      w === Infinity || w === -Infinity
     );
   }
 
@@ -1096,11 +1112,12 @@ class Vec4 {
   static lerp(v, w, t) {
     if (t > 1) t = 1;
     else if (t < 0) t = 0;
+    const { x: vx, y: vy, z: vz, w: vw } = v;
     return new Vec4(
-      v.x + (w.x - v.x) * t,
-      v.y + (w.y - v.y) * t,
-      v.z + (w.z - v.z) * t,
-      v.w + (w.w - v.w) * t
+      vx + (w.x - vx) * t,
+      vy + (w.y - vy) * t,
+      vz + (w.z - vz) * t,
+      vw + (w.w - vw) * t
     );
   }
 
@@ -1126,17 +1143,18 @@ class Vec4 {
   static project(v, w) {
     const m1 = v.magnitude;
     const m2 = w.magnitude;
+    const { x: wx, y: wy, z: wz, w: ww } = w;
     const f = m1 * cos(acos((
-      v.x * w.x +
-      v.y * w.y +
-      v.z * w.z +
-      v.w * w.w
+      v.x * wx +
+      v.y * wy +
+      v.z * wz +
+      v.w * ww
     ) / (m1 * m2)));
     return new Vec4(
-      w.x / m2 * f,
-      w.y / m2 * f,
-      w.z / m2 * f,
-      w.w / m2 * f
+      wx / m2 * f,
+      wy / m2 * f,
+      wz / m2 * f,
+      ww / m2 * f
     );
   }
 
@@ -1408,11 +1426,12 @@ class Vec4 {
   }
 
   isInfinite() {
+    const { x, y, z, w } = this;
     return (
-      this.x === Infinity || this.x === -Infinity ||
-      this.y === Infinity || this.y === -Infinity ||
-      this.z === Infinity || this.z === -Infinity ||
-      this.w === Infinity || this.w === -Infinity
+      x === Infinity || x === -Infinity ||
+      y === Infinity || y === -Infinity ||
+      z === Infinity || z === -Infinity ||
+      w === Infinity || w === -Infinity
     );
   }
 
@@ -1486,16 +1505,17 @@ class Vec4 {
   project(v) {
     const m = this.magnitude;
     const mV = v.magnitude;
+    const { x: vx, y: vy, z: vz, w: vw } = v;
     const f = m * cos(acos((
-      this.x * v.x +
-      this.y * v.y +
-      this.z * v.z +
-      this.w * v.w
+      this.x * vx +
+      this.y * vy +
+      this.z * vz +
+      this.w * vw
     ) / (m * mV)));
-    this.x = v.x / mV * f;
-    this.y = v.y / mV * f;
-    this.z = v.z / mV * f;
-    this.w = v.w / mV * f;
+    this.x = vx / mV * f;
+    this.y = vy / mV * f;
+    this.z = vz / mV * f;
+    this.w = vw / mV * f;
     return this;
   }
 
