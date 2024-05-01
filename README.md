@@ -60,11 +60,11 @@ bun i @leodeslf/vec.js
 ## CDNs
 
 ```bash
-https://unpkg.com/@leodeslf/vec.js@3.0.2
+https://unpkg.com/@leodeslf/vec.js
 ```
 
 ```bash
-https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@3.0.2
+https://cdn.jsdelivr.net/npm/@leodeslf/vec.js
 ```
 
 ## Usage
