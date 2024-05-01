@@ -60,11 +60,11 @@ bun i @leodeslf/vec.js
 ## CDNs
 
 ```bash
-https://unpkg.com/@leodeslf/vec.js@3.0.1
+https://unpkg.com/@leodeslf/vec.js@3.0.2
 ```
 
 ```bash
-https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@3.0.1
+https://cdn.jsdelivr.net/npm/@leodeslf/vec.js@3.0.2
 ```
 
 ## Usage
@@ -171,7 +171,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 
 ## Author
 
-Copyright (c) [Leonardo de S.L.F](https://github.com/leodeslf "GitHub profile"), 2018-present.
+Copyright (c) [Leonardo de S. Leal F.](https://github.com/leodeslf "GitHub profile"), 2018-present.
 
 ## License
 
