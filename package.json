@@ -1,16 +1,28 @@
 {
   "name": "@leodeslf/vec.js",
   "version": "3.0.1",
-  "author": "Leonardo de S.L.F <hello@leodeslf.com> (https://leodeslf.com)",
+  "author": "Leonardo de S. Leal F. <hello@leodeslf.com> (https://leodeslf.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leodeslf/vec.js.git"
+  },
+  "main": "./index.js",
+  "devDependencies": {
+    "@types/bun": "^1.1.0"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./index.js",
+        "types": "./index.d.ts"
+      },
+      "require": null
+    }
+  },
   "bugs": {
     "url": "https://github.com/leodeslf/vec.js/issues"
   },
   "description": "JavaScript vector library",
-  "devDependencies": {
-    "chai": "^4.4.1",
-    "mocha": "^10.4.0",
-    "terser": "^5.30.3"
-  },
   "engines": {
     "node": ">=8.0.0"
   },
@@ -24,19 +36,13 @@
     "linear-algebra"
   ],
   "license": "MIT",
-  "main": "./index.js",
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leodeslf/vec.js.git"
-  },
   "scripts": {
-    "test": "mocha ./index.test.js",
-    "minify": "terser ./index.js --compress --mangle --output ./index.min.js",
-    "prebuild": "npm run test && npm run minify && echo Successfully prebuild."
+    "minify": "bun build index.js --outfile index.min.js --minify --format esm",
+    "test": "bun test --bail"
   },
   "type": "module",
   "types": "./index.d.ts",
