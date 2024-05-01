@@ -53,6 +53,10 @@ pnpm i @leodeslf/vec.js
 yarn add @leodeslf/vec.js
 ```
 
+```bash
+bun i @leodeslf/vec.js
+```
+
 ## CDNs
 
 ```bash
