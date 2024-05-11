@@ -94,6 +94,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `distanceMinkowski`|✓|✓|✓
 `distanceSq`|✓|✓|✓
 `dot`|✓|✓|✓
+`immutable`|✓|✓|✓
 `lerp`|✓|✓|✓
 `negate`|✓|✓|✓
 `normalize`|✓|✓|✓
@@ -103,6 +104,7 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `rotateZ`|✓|✓|
 `scale`|✓|✓|✓
 `subtract`|✓|✓|✓
+`zero`|✓|✓|✓
 
 ### Copying & Creating
 
@@ -132,7 +134,6 @@ Name|`Vec2`|`Vec3`|`Vec4`
 `limitMax`|✓|✓|✓
 `limitMin`|✓|✓|✓
 `clamp`|✓|✓|✓
-`zero`|✓|✓|✓
 
 ### Miscellaneous
 
@@ -146,18 +147,18 @@ Name|`Vec2`|`Vec3`|`Vec4`
 
 Name|`Vec2`|`Vec3`|`Vec4`
 :--|:-:|:-:|:-:
-`angleW`|||✓*
-`angleX`|✓|✓\*|✓*
-`angleY`|✓|✓\*|✓*
-`angleZ`||✓\*|✓*
+`angleW`|||✓\*
+`angleX`|✓|✓\*|✓\*
+`angleY`|✓|✓\*|✓\*
+`angleZ`||✓\*|✓\*
 `magnitude`|✓|✓|✓
-`magnitudeSq`|✓\*|✓\*|✓*
-`a` (alias for `w`)|||✓
-`r` (alias for `x`)|✓|✓|✓
-`g` (alias for `y`)|✓|✓|✓
-`b` (alias for `z`)||✓|✓
+`magnitudeSq`\*|✓|✓|✓
+`w` (or alias `a`)|||✓
+`x` (or alias `r`)|✓|✓|✓
+`y` (or alias `g`)|✓|✓|✓
+`z` (or alias `b`)||✓|✓
 
-*read only.
+*`readonly`.
 
 #### Shortcuts
 
