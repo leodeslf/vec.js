@@ -585,27 +585,6 @@ declare interface Vec3Base<Vec> extends Vec2Base<Vec> {
 
 declare interface Vec3 extends Vec3Base<Vec3> {
   /**
-   * Angle relative to the positive x-axis towards the point defined by (y,
-   * z). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleX(): number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z,
-   * x). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleY(): number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (x,
-   * y). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleZ(): number;
-
-  /**
    * Alias to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
@@ -628,6 +607,24 @@ declare interface Vec3 extends Vec3Base<Vec3> {
    * @param xyz An array of numeric values.
    */
   set xyz(xyz: number[]);
+
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y,
+   * z). Interval [0, PI]. Value in radians.
+   */
+  readonly angleX: number;
+
+  /**
+   * Angle relative to the positive y-axis towards the point defined by (z,
+   * x). Interval [0, PI]. Value in radians.
+   */
+  readonly angleY: number;
+
+  /**
+   * Angle relative to the positive z-axis towards the point defined by (x,
+   * y). Interval [0, PI]. Value in radians.
+   */
+  readonly angleZ: number;
 
   /**
    * Transforms this vector into the {@link https://en.wikipedia.org/wiki/Cross_product cross product}
@@ -808,34 +805,6 @@ declare interface Vec4 extends Vec4Base<Vec4> {
   get a(): number;
 
   /**
-   * Angle relative to the positive w-axis towards the point defined by (x, y,
-   * z). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleW(): number;
-
-  /**
-   * Angle relative to the positive x-axis towards the point defined by (y, z,
-   * w). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleX(): number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z, w,
-   * x). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleY(): number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (w, x,
-   * y). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleZ(): number;
-
-  /**
    * Alias to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
@@ -864,6 +833,30 @@ declare interface Vec4 extends Vec4Base<Vec4> {
    * @param xyzw An array of numeric values.
    */
   set xyzw(xyzw: number[]);
+
+  /**
+   * Angle relative to the positive w-axis towards the point defined by (x, y,
+   * z). Interval [0, PI]. Value in radians.
+   */
+  readonly angleW: number;
+
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y, z,
+   * w). Interval [0, PI]. Value in radians.
+   */
+  readonly angleX: number;
+
+  /**
+   * Angle relative to the positive y-axis towards the point defined by (z, w,
+   * x). Interval [0, PI]. Value in radians.
+   */
+  readonly angleY: number;
+
+  /**
+   * Angle relative to the positive z-axis towards the point defined by (w, x,
+   * y). Interval [0, PI]. Value in radians.
+   */
+  readonly angleZ: number;
 }
 
 declare interface Vec4ImmutableBase {
