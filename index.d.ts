@@ -1,37 +1,10 @@
-declare interface Vec2Base {
-  /**
-   * Value of the `x` component of this vector.
-   */
-  x: number;
+// #region Vec2 instance
 
-  /**
-   * Value of the `y` component of this vector.
-   */
-  y: number;
-
-  /**
-   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
-   * interval [0, 2PI).
-   * @returns Value in radians.
-   */
-  get angleX(): number;
-
-  /**
-   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
-   * interval [0, 2PI).
-   * @returns Value in radians.
-   */
-  get angleY(): number;
-
+declare interface Vec2Base<Vec> {
   /**
    * @returns The `magnitude` of this vector.
    */
   get magnitude(): number;
-
-  /**
-   * @returns The squared `magnitude` of this vector.
-   */
-  get magnitudeSq(): number;
 
   /**
    * Set the `magnitude` of this vector to the given value. Fails to perform if
@@ -41,18 +14,16 @@ declare interface Vec2Base {
   set magnitude(m: number);
 
   /**
+   * The squared `magnitude` of this vector.
+   */
+  readonly magnitudeSq: number;
+
+  /**
    * Adds vector `v` to this vector.
    * @param v A vector.
    * @returns This vector.
    */
-  add<Vec>(v: Vec): this;
-
-  /**
-   * Returns the angle between this vector and vector `v`. Interval (-PI, PI].
-   * @param v A vector.
-   * @returns Value in radians.
-   */
-  angleBetween<Vec>(v: Vec): number;
+  add(v: Vec): this;
 
   /**
    * Keeps the `magnitude` of this vector between the given minimum and maximum
@@ -67,21 +38,21 @@ declare interface Vec2Base {
    * Returns a new copy of this vector.
    * @returns A new vector.
    */
-  clone<Vec>(): Vec;
+  clone(): Vec;
 
   /**
    * Copy each component from vector `v` to this vector.
    * @param v A vector.
    * @returns This vector.
    */
-  copy<Vec>(v: Vec): this;
+  copy(v: Vec): this;
 
   /**
    * Computes the distance from this vector to vector `v` (with the {@link https://en.wikipedia.org/wiki/Euclidean_distance Euclidean metric}).
    * @param v A vector.
    * @returns Euclidean distance.
    */
-  distance<Vec>(v: Vec): number;
+  distance(v: Vec): number;
 
   /**
    * Computes the squared distance from this vector to vector `v` (with the 
@@ -89,7 +60,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns Euclidean distance squared.
    */
-  distanceSq<Vec>(v: Vec): number;
+  distanceSq(v: Vec): number;
 
   /**
    * The {@link https://en.wikipedia.org/wiki/Dot_product dot product} (aka.
@@ -102,7 +73,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns The dot product.
    */
-  dot<Vec>(v: Vec): number;
+  dot(v: Vec): number;
 
   /**
    * Checks whether or not this vector is infinite.
@@ -141,7 +112,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns This vector.
    */
-  lookAt<Vec>(v: Vec): this;
+  lookAt(v: Vec): this;
 
   /**
    * Transforms this vector into its negation (aka. opposite).
@@ -161,7 +132,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns This vector.
    */
-  project<Vec>(v: Vec): this;
+  project(v: Vec): this;
 
   /**
    * Randomizes the direction of this vector keeping its `magnitude`.
@@ -183,7 +154,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns Boolean result.
    */
-  satisfyEquality<Vec>(v: Vec): boolean;
+  satisfyEquality(v: Vec): boolean;
 
   /**
    * Checks whether or not this vector and vector `v` satisfy the opposition
@@ -191,7 +162,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns Boolean result.
    */
-  satisfyOpposition<Vec>(v: Vec): boolean;
+  satisfyOpposition(v: Vec): boolean;
 
   /**
    * Transforms this vector into the scalar multiplication of itself by a given
@@ -206,7 +177,7 @@ declare interface Vec2Base {
    * @param v A vector.
    * @returns This vector.
    */
-  subtract<Vec>(v: Vec): this;
+  subtract(v: Vec): this;
 
   /**
    * Transforms this vector into a zero vector (i.e.: `magnitude` = 0).
@@ -221,12 +192,20 @@ declare interface Vec2Base {
   [Symbol.iterator](): Generator<number, void, never>;
 }
 
-declare interface Vec2 extends Vec2Base {
+declare interface Vec2 extends Vec2Base<Vec2> {
   /**
-   * Shortcut to get all the components of this vector as an array.
-   * @returns An array of numbers.
+   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
+   * interval [0, 2PI).
+   * @returns Value in radians.
    */
-  get xy(): number[];
+  get angleX(): number;
+
+  /**
+   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
+   * interval [0, 2PI).
+   * @returns Value in radians.
+   */
+  get angleY(): number;
 
   /**
    * Set the angle relative the x-axis towards the positive y-axis
@@ -243,10 +222,23 @@ declare interface Vec2 extends Vec2Base {
   set angleY(phi: number);
 
   /**
+   * Shortcut to get all the components of this vector as an array.
+   * @returns An array of numbers.
+   */
+  get xy(): Float64Array;
+
+  /**
    * Shortcut to set all the components of this vector from an array.
    * @param xy An array of numeric values.
    */
   set xy(xy: number[]);
+
+  /**
+   * Returns the angle between this vector and vector `v`. Interval (-PI, PI].
+   * @param v A vector.
+   * @returns Value in radians.
+   */
+  angleBetween(v: Vec2): number;
 
   /**
    * Points this vector to its left, a z-axis rotation of 90 degrees (0.5PI).
@@ -261,37 +253,72 @@ declare interface Vec2 extends Vec2Base {
   turnRight(): this;
 }
 
-declare interface Vec2ConstructorBase {
+declare interface Vec2ImmutableBase {
   /**
-   * Creates a 2-dimensional vector pointing to `x` and `y`.
-   * @param x A numeric value.
-   * @param y A numeric value.
+   * The boolean condition of infinity of this vector.
    */
-  new(x?: number, y?: number): Vec2;
+  readonly isInfinite: boolean;
 
+  /**
+   * The boolean condition of NaN of this vector.
+   */
+  readonly isNaN: boolean;
+
+  /**
+   * The boolean condition of zero of this vector.
+   */
+  readonly isZero: boolean;
+
+  /**
+   * The `magnitude` of this vector.
+   */
+  readonly magnitude: number;
+
+  /**
+   * The squared `magnitude` of this vector.
+   */
+  readonly magnitudeSq: number;
+
+  /**
+   * Value of the `x` component of this vector.
+   */
+  readonly x: number;
+
+  /**
+   * Value of the `y` component of this vector.
+   */
+  readonly y: number;
+}
+
+declare interface Vec2Immutable extends Vec2ImmutableBase {
+  /**
+   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
+   * interval [0, 2PI). Value in radians.
+   */
+  readonly angleX: number;
+
+  /**
+   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
+   * interval [0, 2PI). Value in radians.
+   */
+  readonly angleY: number;
+
+  /**
+   * Shortcut to get all the components of this vector as an array.
+   */
+  readonly xy: number[];
+}
+
+// #region Vec2 constructor
+
+declare interface Vec2ConstructorBase<Vec> {
   /**
    * Returns the addition of `v` plus `w`.
    * @param v A vector.
    * @param w A vector.
    * @returns A new vector.
    */
-  add<Vec>(v: Vec, w: Vec): Vec;
-
-  /**
-   * Returns the angle between `v` and `w`. Interval (-PI, PI].
-   * @param v A vector.
-   * @param w A vector.
-   * @returns Value in radians.
-   */
-  angleBetween<Vec>(v: Vec, w: Vec): number;
-
-  /**
-   * Computes the squared distance from `v` to `w` with the Euclidean metric.
-   * @param v A vector.
-   * @param w A vector.
-   * @returns Euclidean distance squared.
-   */
-  distanceSq<Vec>(v: Vec, w: Vec): number;
+  add(v: Vec, w: Vec): Vec;
 
   /**
    * Computes the distance from `v` to `w` with the {@link https://en.wikipedia.org/wiki/Euclidean_distance Euclidean metric}.
@@ -299,7 +326,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns Euclidean distance.
    */
-  distance<Vec>(v: Vec, w: Vec): number;
+  distance(v: Vec, w: Vec): number;
 
   /**
    * Computes the distance from `v` to `w` with the {@link https://en.wikipedia.org/wiki/Chebyshev_distance Chebyshev metric}.
@@ -310,7 +337,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns Chebyshev distance.
    */
-  distanceChebyshev<Vec>(v: Vec, w: Vec): number;
+  distanceChebyshev(v: Vec, w: Vec): number;
 
   /**
    * Computes the distance from `v` to `w` with the {@link https://en.wikipedia.org/wiki/Taxicab_geometry Manhattan metric}
@@ -324,7 +351,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns Manhattan distance.
    */
-  distanceManhattan<Vec>(v: Vec, w: Vec): number;
+  distanceManhattan(v: Vec, w: Vec): number;
 
   /**
    * Computes the distance from `v` to `w` with the Minkowski metric.
@@ -341,7 +368,15 @@ declare interface Vec2ConstructorBase {
    * @param p A numeric value equal to or greater than 1.
    * @returns Minkowski distance.
    */
-  distanceMinkowski<Vec>(v: Vec, w: Vec, p: number): number;
+  distanceMinkowski(v: Vec, w: Vec, p: number): number;
+
+  /**
+   * Computes the squared distance from `v` to `w` with the Euclidean metric.
+   * @param v A vector.
+   * @param w A vector.
+   * @returns Euclidean distance squared.
+   */
+  distanceSq(v: Vec, w: Vec): number;
 
   /**
    * The {@link https://en.wikipedia.org/wiki/Dot_product dot product} (aka.
@@ -355,28 +390,28 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns The dot product.
    */
-  dot<Vec>(v: Vec, w: Vec): number;
+  dot(v: Vec, w: Vec): number;
 
   /**
    * Checks whether or not vector `v` is infinite.
    * @param v A vector.
    * @returns Boolean result.
    */
-  isInfinite<Vec>(v: Vec): boolean;
+  isInfinite(v: Vec): boolean;
 
   /**
    * Checks whether or not a component of vector `v` is `NaN`.
    * @param v A vector.
    * @returns Boolean result.
    */
-  isNaN<Vec>(v: Vec): boolean;
+  isNaN(v: Vec): boolean;
 
   /**
    * Checks whether or not vector `v` has a magnitude of zero.
    * @param v A vector.
    * @returns Boolean result.
    */
-  isZero<Vec>(v: Vec): boolean;
+  isZero(v: Vec): boolean;
 
   /**
    * Linearly interpolates between `v` and `w`. Parameter `t` is clamped to the
@@ -390,21 +425,21 @@ declare interface Vec2ConstructorBase {
    * @param t The interpolant (aka. alpha), a numeric value.
    * @returns A new Vector.
    */
-  lerp<Vec>(v: Vec, w: Vec, t: number): Vec;
+  lerp(v: Vec, w: Vec, t: number): Vec;
 
   /**
    * Returns the negation (aka. opposite) of vector `v`.
    * @param v A vector.
    * @returns A new vector.
    */
-  negate<Vec>(v: Vec): Vec;
+  negate(v: Vec): Vec;
 
   /**
    * Returns a unit vector (i.e.: `magnitude` = 1) from vector `v`.
    * @param v A vector.
    * @returns A new Vector.
    */
-  normalize<Vec>(v: Vec): Vec;
+  normalize(v: Vec): Vec;
 
   /**
    * Returns a vector that is the orthogonal projection of `v` onto `w`, i.e.:
@@ -413,14 +448,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns The projection vector.
    */
-  project<Vec>(v: Vec, w: Vec): Vec;
-
-  /**
-   * Returns a random vector uniformly distributed on the circumference of a
-   * unit circle. Method by Marsaglia (1972).
-   * @returns A new vector.
-   */
-  random<Vec>(): Vec;
+  project(v: Vec, w: Vec): Vec;
 
   /**
    * Checks whether or not `v` and `w` satisfy the equality definition.
@@ -428,7 +456,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns Boolean result.
    */
-  satisfyEquality<Vec>(v: Vec, w: Vec): boolean;
+  satisfyEquality(v: Vec, w: Vec): boolean;
 
   /**
    * Checks whether or not `v` and `w` satisfy the opposition definition.
@@ -436,7 +464,7 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns Boolean result.
    */
-  satisfyOpposition<Vec>(v: Vec, w: Vec): boolean;
+  satisfyOpposition(v: Vec, w: Vec): boolean;
 
   /**
    * Returns the scalar multiplication of `v` by a given scalar `c`.
@@ -444,7 +472,7 @@ declare interface Vec2ConstructorBase {
    * @param c A numeric value.
    * @returns A new vector.
    */
-  scale<Vec>(v: Vec, c: number): Vec;
+  scale(v: Vec, c: number): Vec;
 
   /**
    * Returns the subtraction of `v` minus `w`.
@@ -452,10 +480,31 @@ declare interface Vec2ConstructorBase {
    * @param w A vector.
    * @returns A new vector.
    */
-  subtract<Vec>(v: Vec, w: Vec): Vec;
+  subtract(v: Vec, w: Vec): Vec;
+
+  /**
+   * Returns a zero vector (i.e.: pointing to the origin).
+   * @returns A new Vector.
+   */
+  zero(v: Vec): Vec;
 }
 
-declare interface Vec2Constructor extends Vec2ConstructorBase {
+declare interface Vec2Constructor extends Vec2ConstructorBase<Vec2> {
+  /**
+   * Creates a 2-dimensional vector pointing to `x` and `y`.
+   * @param x A numeric value.
+   * @param y A numeric value.
+   */
+  new(x?: number, y?: number): Vec2;
+
+  /**
+   * Returns the angle between `v` and `w`. Interval (-PI, PI].
+   * @param v A vector.
+   * @param w A vector.
+   * @returns Value in radians.
+   */
+  angleBetween(v: Vec2, w: Vec2): number;
+
   /**
    * Returns a new vector created from polar coordinates (denoted by ρ, θ).
    * @param r Radius, a numeric value.
@@ -463,34 +512,32 @@ declare interface Vec2Constructor extends Vec2ConstructorBase {
    * @returns A new vector.
    */
   fromPolarCoords(r: number, theta: number): Vec2;
+
+  /** 
+   * Creates an immutable vector. It works faster than a regular instance while
+   * while keeping a compatible interface; its only members are precomputed,
+   * read-only properties.
+   * @param x A numeric value.
+   * @param y A numeric value.
+   * @returns An immutable vector.
+   */
+  immutable(x?: number, y?: number): Vec2Immutable;
+
+  /**
+   * Returns a random vector uniformly distributed on the circumference of a
+   * unit circle. Method by Marsaglia (1972).
+   * @returns A new vector.
+   */
+  random(): Vec2;
 }
 
-declare interface Vec3Base extends Vec2Base {
+// #region Vec3 instance
+
+declare interface Vec3Base<Vec> extends Vec2Base<Vec> {
   /**
    * Value of the `z` component of this vector.
    */
   z: number;
-
-  /**
-   * Angle relative to the positive x-axis towards the point defined by (y,
-   * z). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleX(): number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z,
-   * x). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleY(): number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (x,
-   * y). Interval [0, PI].
-   * @returns Value in radians.
-   */
-  get angleZ(): number;
 
   /**
    * Alias for the `z` component of this vector.
@@ -533,21 +580,42 @@ declare interface Vec3Base extends Vec2Base {
    * @param v A vector.
    * @returns Value in radians.
    */
-  angleBetween<Vec>(v: Vec): number;
+  angleBetween(v: Vec): number;
 }
 
-declare interface Vec3 extends Vec3Base {
+declare interface Vec3 extends Vec3Base<Vec3> {
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y,
+   * z). Interval [0, PI].
+   * @returns Value in radians.
+   */
+  get angleX(): number;
+
+  /**
+   * Angle relative to the positive y-axis towards the point defined by (z,
+   * x). Interval [0, PI].
+   * @returns Value in radians.
+   */
+  get angleY(): number;
+
+  /**
+   * Angle relative to the positive z-axis towards the point defined by (x,
+   * y). Interval [0, PI].
+   * @returns Value in radians.
+   */
+  get angleZ(): number;
+
   /**
    * Alias to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
-  get rgb(): number[];
+  get rgb(): Float64Array;
 
   /**
    * Shortcut to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
-  get xyz(): number[];
+  get xyz(): Float64Array;
 
   /**
    * Alias to set all the components of this vector from an array.
@@ -590,7 +658,71 @@ declare interface Vec3 extends Vec3Base {
   rotateY(phi: number): this;
 }
 
-declare interface Vec3ConstructorBase extends Vec2ConstructorBase {
+declare interface Vec3ImmutableBase {
+  /**
+   * Value of the `z` component of this vector.
+   */
+  readonly z: number;
+}
+
+declare interface Vec3Immutable extends Vec3ImmutableBase {
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y,
+   * z). Interval [0, PI]. Value in radians.
+   */
+  readonly angleX: number;
+
+  /**
+   * Angle relative to the positive y-axis towards the point defined by (z,
+   * x). Interval [0, PI]. Value in radians.
+   */
+  readonly angleY: number;
+
+  /**
+   * Angle relative to the positive z-axis towards the point defined by (x,
+   * y). Interval [0, PI]. Value in radians.
+   */
+  readonly angleZ: number;
+
+  /**
+   * Alias for the `z` component of this vector.
+   */
+  readonly b: number;
+
+  /**
+   * Alias for the `y` component of this vector.
+   */
+  readonly g: number;
+
+  /**
+   * Alias for the `x` component of this vector.
+   */
+  readonly r: number;
+
+  /**
+   * Alias to get all the components of this vector as an array.
+   */
+  readonly rgb: number[];
+
+  /**
+   * Shortcut to get all the components of this vector as an array.
+   */
+  readonly xyz: number[];
+}
+
+// #region Vec3 constructor
+
+declare interface Vec3ConstructorBase<Vec> extends Vec2ConstructorBase<Vec> {
+  /**
+   * Returns the angle between `v` and `w`. Interval [0, PI].
+   * @param v A vector.
+   * @param w A vector.
+   * @returns Value in radians.
+   */
+  angleBetween(v: Vec, w: Vec): number;
+}
+
+declare interface Vec3Constructor extends Vec3ConstructorBase<Vec3> {
   /**
    * Creates a 3-dimensional vector pointing to `x`, `y`, and `z`.
    * @param x A numeric value.
@@ -599,23 +731,6 @@ declare interface Vec3ConstructorBase extends Vec2ConstructorBase {
    */
   new(x?: number, y?: number, z?: number): Vec3;
 
-  /**
-   * Returns the angle between `v` and `w`. Interval [0, PI].
-   * @param v A vector.
-   * @param w A vector.
-   * @returns Value in radians.
-   */
-  angleBetween<Vec>(v: Vec, w: Vec): number;
-
-  /**
-   * Returns a random vector uniformly distributed on the surface of a unit
-   * sphere. Method by Marsaglia (1972).
-   * @returns A new vector.
-   */
-  random<Vec>(): Vec;
-}
-
-declare interface Vec3Constructor extends Vec3ConstructorBase {
   /**
    * The {@link https://en.wikipedia.org/wiki/Cross_product cross product}
    * (aka. vector product) of `v` cross `w`, which is perpendicular to both of
@@ -656,9 +771,31 @@ declare interface Vec3Constructor extends Vec3ConstructorBase {
    * @returns A new vector.
    */
   fromSphericalCoords(r: number, theta: number, phi: number): Vec3;
+
+  /** 
+   * Creates an immutable vector. It works faster than a regular instance while
+   * while keeping a compatible interface; its only members are precomputed,
+   * read-only properties.
+   * @param x A numeric value.
+   * @param y A numeric value.
+   * @param z A numeric value.
+   * @returns An immutable vector.
+   */
+  immutable(x?: number, y?: number, z?: number): Vec3Immutable;
+
+  /**
+   * Returns a random vector uniformly distributed on the surface of a unit
+   * sphere. Method by Marsaglia (1972).
+   * @returns A new vector.
+   */
+  random(): Vec3;
 }
 
-declare interface Vec4Base extends Vec3Base {
+// #region Vec4 instance
+
+declare interface Vec4Base<Vec> extends Omit<Vec3Base<Vec>, 'rotateZ'> { }
+
+declare interface Vec4 extends Vec4Base<Vec4> {
   /**
    * Value of the `w` component of this vector.
    */
@@ -702,13 +839,13 @@ declare interface Vec4Base extends Vec3Base {
    * Alias to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
-  get rgba(): number[];
+  get rgba(): Float64Array;
 
   /**
    * Shortcut to get all the components of this vector as an array.
    * @returns An array of numbers.
    */
-  get xyzw(): number[];
+  get xyzw(): Float64Array;
 
   /**
    * Alias to set the `w` component of this vector.
@@ -729,9 +866,59 @@ declare interface Vec4Base extends Vec3Base {
   set xyzw(xyzw: number[]);
 }
 
-declare interface Vec4 extends Vec4Base { }
+declare interface Vec4ImmutableBase {
+  /**
+   * Value of the `w` component of this vector.
+   */
+  readonly w: number;
+}
 
-declare interface Vec4ConstructorBase extends Vec3ConstructorBase {
+declare interface Vec4Immutable extends Vec3ImmutableBase {
+  /**
+   * Alias for the `w` component of this vector.
+   */
+  readonly a: number;
+
+  /**
+   * Angle relative to the positive w-axis towards the point defined by (x, y,
+   * z). Interval [0, PI]. Value in radians.
+   */
+  readonly angleW: number;
+
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y, z,
+   * w). Interval [0, PI]. Value in radians.
+   */
+  readonly angleX: number;
+
+  /**
+   * Angle relative to the positive y-axis towards the point defined by (z, w,
+   * x). Interval [0, PI]. Value in radians.
+   */
+  readonly angleY: number;
+
+  /**
+   * Angle relative to the positive z-axis towards the point defined by (w, x,
+   * y). Interval [0, PI]. Value in radians.
+   */
+  readonly angleZ: number;
+
+  /**
+   * Alias to get all the components of this vector as an array.
+   */
+  readonly rgba: number[];
+
+  /**
+   * Shortcut to get all the components of this vector as an array.
+   */
+  readonly xyzw: number[];
+}
+
+// #region Vec4 constructor
+
+declare interface Vec4ConstructorBase<Vec> extends Vec3ConstructorBase<Vec> { }
+
+declare interface Vec4Constructor extends Vec4ConstructorBase<Vec4> {
   /**
    * Creates a 4-dimensional vector pointing to `x`, `y`, `z`, and `w`.
    * @param x A numeric value.
@@ -741,15 +928,27 @@ declare interface Vec4ConstructorBase extends Vec3ConstructorBase {
    */
   new(x?: number, y?: number, z?: number, w?: number): Vec4;
 
+  /** 
+   * Creates an immutable vector. It works faster than a regular instance while
+   * while keeping a compatible interface; its only members are precomputed,
+   * read-only properties.
+   * @param x A numeric value.
+   * @param y A numeric value.
+   * @param z A numeric value.
+   * @param w A numeric value.
+   * @returns An immutable vector.
+   */
+  immutable(x?: number, y?: number, z?: number, w?: number): Vec4Immutable;
+
   /**
    * Returns a random vector uniformly distributed on the surface of a 4-sphere.
    * Method by Marsaglia (1972).
    * @returns A new vector.
    */
-  random<Vec>(): Vec;
+  random(): Vec4;
 }
 
-declare interface Vec4Constructor extends Vec4ConstructorBase { }
+// #region @leodeslf/vec.js module
 
 /**
  * A set of classes that provide functionality related to basic linear-algebra,
