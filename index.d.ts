@@ -1,23 +1,53 @@
-// #region Vec2 instance
+// #region Vec2
 
-declare interface Vec2Base<Vec> {
+declare interface Vec2PropertiesBase {
   /**
-   * @returns The `magnitude` of this vector.
+   * The `magnitude` of this vector.
    */
-  get magnitude(): number;
-
-  /**
-   * Set the `magnitude` of this vector to the given value. Fails to perform if
-   * the current magnitude is zero.
-   * @param m A numeric value.
-   */
-  set magnitude(m: number);
+  magnitude: number;
 
   /**
    * The squared `magnitude` of this vector.
    */
   readonly magnitudeSq: number;
 
+  /**
+   * The `x` component of this vector.
+   */
+  x: number;
+
+  /**
+   * The `y` component of this vector.
+   */
+  y: number;
+
+  /**
+   * Iterator method for this vector.
+   * @yields This vector's components.
+   */
+  [Symbol.iterator](): Generator<number, void, undefined>;
+}
+
+declare interface Vec2Properties extends Vec2PropertiesBase {
+  /**
+   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
+   * interval [0, 2PI). Value in radians.
+   */
+  angleX: number;
+
+  /**
+   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
+   * interval [0, 2PI). Value in radians.
+   */
+  angleY: number;
+
+  /**
+   * Shortcut to get all the components of this vector as an array.
+   */
+  xy: number[];
+}
+
+declare interface Vec2MethodsBase<Vec> {
   /**
    * Adds vector `v` to this vector.
    * @param v A vector.
@@ -184,55 +214,9 @@ declare interface Vec2Base<Vec> {
    * @returns This vector.
    */
   zero(): this;
-
-  /**
-   * Iterator method for this vector.
-   * @yields This vector's components.
-   */
-  [Symbol.iterator](): Generator<number, void, never>;
 }
 
-declare interface Vec2 extends Vec2Base<Vec2> {
-  /**
-   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
-   * interval [0, 2PI).
-   * @returns Value in radians.
-   */
-  get angleX(): number;
-
-  /**
-   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
-   * interval [0, 2PI).
-   * @returns Value in radians.
-   */
-  get angleY(): number;
-
-  /**
-   * Set the angle relative the x-axis towards the positive y-axis
-   * (counter-clockwise) to `phi`.
-   * @param phi Angle in radians.
-   */
-  set angleX(phi: number);
-
-  /**
-   * Set the angle relative the y-axis towards the negative x-axis
-   * (counter-clockwise) to `phi`.
-   * @param phi Angle in radians.
-   */
-  set angleY(phi: number);
-
-  /**
-   * Shortcut to get all the components of this vector as an array.
-   * @returns An array of numbers.
-   */
-  get xy(): Float64Array;
-
-  /**
-   * Shortcut to set all the components of this vector from an array.
-   * @param xy An array of numeric values.
-   */
-  set xy(xy: number[]);
-
+declare interface Vec2Methods extends Vec2MethodsBase<Vec2> {
   /**
    * Returns the angle between this vector and vector `v`. Interval (-PI, PI].
    * @param v A vector.
@@ -253,7 +237,9 @@ declare interface Vec2 extends Vec2Base<Vec2> {
   turnRight(): this;
 }
 
-declare interface Vec2ImmutableBase {
+declare interface Vec2 extends Vec2Properties, Vec2Methods { }
+
+declare interface Vec2ImmutableBase extends Readonly<Vec2PropertiesBase> {
   /**
    * The boolean condition of infinity of this vector.
    */
@@ -268,48 +254,10 @@ declare interface Vec2ImmutableBase {
    * The boolean condition of zero of this vector.
    */
   readonly isZero: boolean;
-
-  /**
-   * The `magnitude` of this vector.
-   */
-  readonly magnitude: number;
-
-  /**
-   * The squared `magnitude` of this vector.
-   */
-  readonly magnitudeSq: number;
-
-  /**
-   * Value of the `x` component of this vector.
-   */
-  readonly x: number;
-
-  /**
-   * Value of the `y` component of this vector.
-   */
-  readonly y: number;
 }
 
-declare interface Vec2Immutable extends Vec2ImmutableBase {
-  /**
-   * Angle relative the x-axis towards the positive y-axis (counter-clockwise),
-   * interval [0, 2PI). Value in radians.
-   */
-  readonly angleX: number;
-
-  /**
-   * Angle relative the y-axis towards the negative x-axis (counter-clockwise),
-   * interval [0, 2PI). Value in radians.
-   */
-  readonly angleY: number;
-
-  /**
-   * Shortcut to get all the components of this vector as an array.
-   */
-  readonly xy: number[];
-}
-
-// #region Vec2 constructor
+declare interface Vec2Immutable extends
+  Vec2ImmutableBase, Readonly<Vec2Properties> { }
 
 declare interface Vec2ConstructorBase<Vec> {
   /**
@@ -531,50 +479,61 @@ declare interface Vec2Constructor extends Vec2ConstructorBase<Vec2> {
   random(): Vec2;
 }
 
-// #region Vec3 instance
+// #region Vec3
 
-declare interface Vec3Base<Vec> extends Vec2Base<Vec> {
+declare interface Vec3PropertiesBase extends Vec2PropertiesBase {
   /**
-   * Value of the `z` component of this vector.
+   * The `z` component of this vector.
    */
   z: number;
 
   /**
    * Alias for the `z` component of this vector.
-   * @returns The `z` component of this vector.
    */
-  get b(): number;
+  b: number;
 
   /**
    * Alias for the `y` component of this vector.
-   * @returns The `y` component of this vector.
    */
-  get g(): number;
+  g: number;
 
   /**
    * Alias for the `x` component of this vector.
-   * @returns The `x` component of this vector.
    */
-  get r(): number;
+  r: number;
+}
+
+declare interface Vec3Properties extends Vec3PropertiesBase {
+  /**
+   * Angle relative to the positive x-axis towards the point defined by (y,
+   * z). Interval [0, PI]. Value in radians.
+   */
+  angleX: number;
 
   /**
-   * Alias to set the `z` component of this vector.
-   * @param b A numeric value.
+   * Angle relative to the positive y-axis towards the point defined by (z,
+   * x). Interval [0, PI]. Value in radians.
    */
-  set b(b: number);
+  angleY: number;
 
   /**
-   * Alias to set the `y` component of this vector.
-   * @param g A numeric value.
+   * Angle relative to the positive z-axis towards the point defined by (x,
+   * y). Interval [0, PI]. Value in radians.
    */
-  set g(g: number);
+  angleZ: number;
 
   /**
-   * Alias to set the `x` component of this vector.
-   * @param r A numeric value.
+   * Alias to get all the components of this vector as an array.
    */
-  set r(r: number);
+  rgb: number[];
 
+  /**
+   * Shortcut to get all the components of this vector as an array.
+   */
+  xyz: number[];
+}
+
+declare interface Vec3MethodsBase<Vec> extends Vec2MethodsBase<Vec> {
   /**
    * Returns the angle between this vector and vector `v`. Interval [0, PI].
    * @param v A vector.
@@ -583,49 +542,7 @@ declare interface Vec3Base<Vec> extends Vec2Base<Vec> {
   angleBetween(v: Vec): number;
 }
 
-declare interface Vec3 extends Vec3Base<Vec3> {
-  /**
-   * Alias to get all the components of this vector as an array.
-   * @returns An array of numbers.
-   */
-  get rgb(): Float64Array;
-
-  /**
-   * Shortcut to get all the components of this vector as an array.
-   * @returns An array of numbers.
-   */
-  get xyz(): Float64Array;
-
-  /**
-   * Alias to set all the components of this vector from an array.
-   * @param rgb An array of numeric values.
-   */
-  set rgb(rgb: number[]);
-
-  /**
-   * Shortcut to set all the components of this vector from an array.
-   * @param xyz An array of numeric values.
-   */
-  set xyz(xyz: number[]);
-
-  /**
-   * Angle relative to the positive x-axis towards the point defined by (y,
-   * z). Interval [0, PI]. Value in radians.
-   */
-  readonly angleX: number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z,
-   * x). Interval [0, PI]. Value in radians.
-   */
-  readonly angleY: number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (x,
-   * y). Interval [0, PI]. Value in radians.
-   */
-  readonly angleZ: number;
-
+declare interface Vec3Methods extends Vec3MethodsBase<Vec3> {
   /**
    * Transforms this vector into the {@link https://en.wikipedia.org/wiki/Cross_product cross product}
    * (aka. vector product) of itself cross `v`, which is perpendicular to both
@@ -655,59 +572,13 @@ declare interface Vec3 extends Vec3Base<Vec3> {
   rotateY(phi: number): this;
 }
 
-declare interface Vec3ImmutableBase {
-  /**
-   * Value of the `z` component of this vector.
-   */
-  readonly z: number;
+declare interface Vec3 extends Vec3Properties, Vec3Methods { }
+
+declare interface Vec3ImmutableBase extends Vec2ImmutableBase, Readonly<Vec3PropertiesBase> { }
+
+declare interface Vec3Immutable extends
+  Vec3ImmutableBase, Readonly<Vec3Properties> {
 }
-
-declare interface Vec3Immutable extends Vec3ImmutableBase {
-  /**
-   * Angle relative to the positive x-axis towards the point defined by (y,
-   * z). Interval [0, PI]. Value in radians.
-   */
-  readonly angleX: number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z,
-   * x). Interval [0, PI]. Value in radians.
-   */
-  readonly angleY: number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (x,
-   * y). Interval [0, PI]. Value in radians.
-   */
-  readonly angleZ: number;
-
-  /**
-   * Alias for the `z` component of this vector.
-   */
-  readonly b: number;
-
-  /**
-   * Alias for the `y` component of this vector.
-   */
-  readonly g: number;
-
-  /**
-   * Alias for the `x` component of this vector.
-   */
-  readonly r: number;
-
-  /**
-   * Alias to get all the components of this vector as an array.
-   */
-  readonly rgb: number[];
-
-  /**
-   * Shortcut to get all the components of this vector as an array.
-   */
-  readonly xyz: number[];
-}
-
-// #region Vec3 constructor
 
 declare interface Vec3ConstructorBase<Vec> extends Vec2ConstructorBase<Vec> {
   /**
@@ -788,126 +659,68 @@ declare interface Vec3Constructor extends Vec3ConstructorBase<Vec3> {
   random(): Vec3;
 }
 
-// #region Vec4 instance
+// #region Vec4
 
-declare interface Vec4Base<Vec> extends Omit<Vec3Base<Vec>, 'rotateZ'> { }
-
-declare interface Vec4 extends Vec4Base<Vec4> {
+declare interface Vec4PropertiesBase extends Vec3PropertiesBase {
   /**
-   * Value of the `w` component of this vector.
+   * The `w` component of this vector.
    */
   w: number;
+}
 
+declare interface Vec4Properties extends Vec4PropertiesBase {
   /**
    * Alias for the `w` component of this vector.
-   * @returns The `w` component of this vector.
    */
-  get a(): number;
-
-  /**
-   * Alias to get all the components of this vector as an array.
-   * @returns An array of numbers.
-   */
-  get rgba(): Float64Array;
-
-  /**
-   * Shortcut to get all the components of this vector as an array.
-   * @returns An array of numbers.
-   */
-  get xyzw(): Float64Array;
-
-  /**
-   * Alias to set the `w` component of this vector.
-   * @param a A numeric value.
-   */
-  set a(a: number);
-
-  /**
-   * Alias to set all the components of this vector from an array.
-   * @param rgba An array of numeric values.
-   */
-  set rgba(rgba: number[]);
-
-  /**
-   * Shortcut to set all the components of this vector from an array.
-   * @param xyzw An array of numeric values.
-   */
-  set xyzw(xyzw: number[]);
+  a: number;
 
   /**
    * Angle relative to the positive w-axis towards the point defined by (x, y,
    * z). Interval [0, PI]. Value in radians.
    */
-  readonly angleW: number;
+  angleW: number;
 
   /**
    * Angle relative to the positive x-axis towards the point defined by (y, z,
    * w). Interval [0, PI]. Value in radians.
    */
-  readonly angleX: number;
+  angleX: number;
 
   /**
    * Angle relative to the positive y-axis towards the point defined by (z, w,
    * x). Interval [0, PI]. Value in radians.
    */
-  readonly angleY: number;
+  angleY: number;
 
   /**
    * Angle relative to the positive z-axis towards the point defined by (w, x,
    * y). Interval [0, PI]. Value in radians.
    */
-  readonly angleZ: number;
-}
-
-declare interface Vec4ImmutableBase {
-  /**
-   * Value of the `w` component of this vector.
-   */
-  readonly w: number;
-}
-
-declare interface Vec4Immutable extends Vec3ImmutableBase {
-  /**
-   * Alias for the `w` component of this vector.
-   */
-  readonly a: number;
-
-  /**
-   * Angle relative to the positive w-axis towards the point defined by (x, y,
-   * z). Interval [0, PI]. Value in radians.
-   */
-  readonly angleW: number;
-
-  /**
-   * Angle relative to the positive x-axis towards the point defined by (y, z,
-   * w). Interval [0, PI]. Value in radians.
-   */
-  readonly angleX: number;
-
-  /**
-   * Angle relative to the positive y-axis towards the point defined by (z, w,
-   * x). Interval [0, PI]. Value in radians.
-   */
-  readonly angleY: number;
-
-  /**
-   * Angle relative to the positive z-axis towards the point defined by (w, x,
-   * y). Interval [0, PI]. Value in radians.
-   */
-  readonly angleZ: number;
+  angleZ: number;
 
   /**
    * Alias to get all the components of this vector as an array.
    */
-  readonly rgba: number[];
+  rgba: number[];
 
   /**
    * Shortcut to get all the components of this vector as an array.
    */
-  readonly xyzw: number[];
+  xyzw: number[];
 }
 
-// #region Vec4 constructor
+declare interface Vec4MethodsBase<Vec> extends
+  Omit<Vec3MethodsBase<Vec>, 'rotateZ'> { }
+
+declare interface Vec4Methods extends Vec4MethodsBase<Vec4> { }
+
+declare interface Vec4 extends Vec4Properties, Vec4Methods { }
+
+declare interface Vec4ImmutableBase extends
+  Vec3ImmutableBase, Readonly<Vec4PropertiesBase> { }
+
+declare interface Vec4Immutable extends
+  Vec4ImmutableBase, Readonly<Vec4Properties> { }
 
 declare interface Vec4ConstructorBase<Vec> extends Vec3ConstructorBase<Vec> { }
 
