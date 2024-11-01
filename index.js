@@ -280,7 +280,7 @@ class Vec2 {
   }
 
   get xy() {
-    return this.#xy.slice();
+    return [...this.#xy];
   }
 
   get y() {
@@ -920,7 +920,7 @@ class Vec3 {
   }
 
   get rgb() {
-    return this.#xyz.slice();
+    return [...this.#xyz];
   }
 
   get x() {
@@ -928,7 +928,7 @@ class Vec3 {
   }
 
   get xyz() {
-    return this.#xyz.slice();
+    return [...this.#xyz];
   }
 
   get y() {
@@ -1675,7 +1675,7 @@ class Vec4 {
   }
 
   get rgba() {
-    return this.#xyzw.slice();
+    return [...this.#xyzw];
   }
 
   get w() {
@@ -1687,7 +1687,7 @@ class Vec4 {
   }
 
   get xyzw() {
-    return this.#xyzw.slice();
+    return [...this.#xyzw];
   }
 
   get y() {
