@@ -23,13 +23,14 @@
 * [Installation](#installation)
 * [CDNs](#cdns)
 * [Usage](#usage)
+  * [Properties](#properties)
+    * [Shortcuts](#shortcuts)
+    * [Alias](#alias)
   * [Linear Algebra](#linear-algebra)
   * [Copying & Creating](#copying--creating)
   * [Boolean Conditions](#boolean-conditions)
   * [Magnitude Manipulation](#magnitude-manipulation)
   * [Miscellaneous](#miscellaneous)
-  * [Getters & Setters](#getters--setters)
-    * [Shortcuts](#shortcuts)
 * [Author](#author)
 * [License](#license)
 
@@ -81,94 +82,111 @@ const distance = position.distance(target); // 8.2
 const direction = Vec2.subtract(target, position).normalize(); // { x: 0, y: 1 }
 ```
 
-### Linear Algebra
+### Properties
 
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`add`|✓|✓|✓
-`angleBetween`|✓|✓|✓
-`cross`||✓|
-`distance`|✓|✓|✓
-`distanceChebyshev`|✓|✓|✓
-`distanceManhattan`|✓|✓|✓
-`distanceMinkowski`|✓|✓|✓
-`distanceSq`|✓|✓|✓
-`dot`|✓|✓|✓
-`immutable`|✓|✓|✓
-`lerp`|✓|✓|✓
-`negate`|✓|✓|✓
-`normalize`|✓|✓|✓
-`project`|✓|✓|✓
-`rotateX`||✓|
-`rotateY`||✓|
-`rotateZ`|✓|✓|
-`scale`|✓|✓|✓
-`subtract`|✓|✓|✓
-`zero`|✓|✓|✓
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`angleW`|||✓\*|
+|`angleX`|✓|✓\*|✓\*|
+|`angleY`|✓|✓\*|✓\*|
+|`angleZ`||✓\*|✓\*|
+|`magnitude`|✓|✓|✓|
+|`magnitudeSq`\*|✓|✓|✓|
+|`w`|||✓|
+|`x`|✓|✓|✓|
+|`y`|✓|✓|✓|
+|`z`||✓|✓|
 
-### Copying & Creating
-
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`clone`|✓|✓|✓
-`copy`|✓|✓|✓
-`fromCylindricalCoords`||✓|
-`fromPolarCoords`|✓||
-`fromSphericalCoords`||✓|
-`random`|✓|✓|✓
-
-### Boolean Conditions
-
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`satisfyEquality`|✓|✓|✓
-`satisfyOpposition`|✓|✓|✓
-`isInfinite`|✓|✓|✓
-`isNaN`|✓|✓|✓
-`isZero`|✓|✓|✓
-
-### Magnitude Manipulation
-
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`limitMax`|✓|✓|✓
-`limitMin`|✓|✓|✓
-`clamp`|✓|✓|✓
-
-### Miscellaneous
-
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`lookAt`|✓|✓|✓
-`turnLeft`|✓||
-`turnRight`|✓||
-
-### Getters & Setters
-
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`angleW`|||✓\*
-`angleX`|✓|✓\*|✓\*
-`angleY`|✓|✓\*|✓\*
-`angleZ`||✓\*|✓\*
-`magnitude`|✓|✓|✓
-`magnitudeSq`\*|✓|✓|✓
-`w` (or alias `a`)|||✓
-`x` (or alias `r`)|✓|✓|✓
-`y` (or alias `g`)|✓|✓|✓
-`z` (or alias `b`)||✓|✓
-
-*`readonly`.
+*Property is `readonly`.
 
 #### Shortcuts
 
-Use them to `get`/`set` components as/from arrays.
+To set/get components straight as/from arrays.
 
-Name|`Vec2`|`Vec3`|`Vec4`
-:--|:-:|:-:|:-:
-`xy`|✓||
-`xyz` (or alias `rgb`)||✓|
-`xyzw` (or alias `rgba`)|||✓
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`xy`|✓|||
+|`xyz`||✓||
+|`xyzw`|||✓|
+
+#### Alias
+
+For 3D and 4D vector components and shortcuts.
+
+|(Name) Alias|`Vec3`|`Vec4`|
+|:-|:-:|:-:|
+|(`w`) `a`||✓|
+|(`x`) `r`|✓|✓|
+|(`y`) `g`|✓|✓|
+|(`z`) `b`|✓|✓|
+|(`xyz`) `rgb`|✓||
+|(`xyzw`) `rgba`||✓|
+
+### Linear Algebra
+
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`add`|✓|✓|✓|
+|`angleBetween`|✓|✓|✓|
+|`cross`||✓||
+|`distance`|✓|✓|✓|
+|`distanceChebyshev`\*|✓|✓|✓|
+|`distanceManhattan`\*|✓|✓|✓|
+|`distanceMinkowski`\*|✓|✓|✓|
+|`distanceSq`|✓|✓|✓|
+|`dot`|✓|✓|✓|
+|`immutable`\*|✓|✓|✓|
+|`lerp`\*|✓|✓|✓|
+|`negate`|✓|✓|✓|
+|`normalize`|✓|✓|✓|
+|`project`|✓|✓|✓|
+|`rotateX`||✓||
+|`rotateY`||✓||
+|`rotateZ`|✓|✓||
+|`scale`|✓|✓|✓|
+|`subtract`|✓|✓|✓|
+|`zero`|✓|✓|✓|
+
+*Static method only.
+
+### Copying & Creating
+
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`clone`|✓|✓|✓|
+|`copy`|✓|✓|✓|
+|`fromCylindricalCoords`\*||✓||
+|`fromPolarCoords`\*|✓|||
+|`fromSphericalCoords`\*||✓||
+|`random`|✓|✓|✓|
+
+*Static method only.
+
+### Boolean Conditions
+
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`satisfyEquality`|✓|✓|✓|
+|`satisfyOpposition`|✓|✓|✓|
+|`isInfinite`|✓|✓|✓|
+|`isNaN`|✓|✓|✓|
+|`isZero`|✓|✓|✓|
+
+### Magnitude Manipulation
+
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`limitMax`|✓|✓|✓|
+|`limitMin`|✓|✓|✓|
+|`clamp`|✓|✓|✓|
+
+### Miscellaneous
+
+|Name|`Vec2`|`Vec3`|`Vec4`|
+|:-|:-:|:-:|:-:|
+|`lookAt`|✓|✓|✓|
+|`turnLeft`|✓|||
+|`turnRight`|✓|||
 
 ## Author
 
