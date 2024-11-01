@@ -23,7 +23,7 @@ describe('@leodeslf/vec.js', () => {
     test('set & get [xy]', () => {
       const a = new Vec2(0, 0);
       a.xy = [1, 2];
-      expect(a.xy).toStrictEqual(new Float64Array([1, 2]));
+      expect(a.xy).toStrictEqual([1, 2]);
     });
     test('set & get [magnitude]', () => {
       const a = new Vec2(0, 1);
@@ -74,15 +74,15 @@ describe('@leodeslf/vec.js', () => {
     test('a vector can [look at] another vector', () => {
       const a = new Vec2(-0.5, 0);
       const b = new Vec2(1, 0);
-      expect(a.lookAt(b).xy).toStrictEqual(new Float64Array([0.5, 0]));
+      expect(a.lookAt(b).xy).toStrictEqual([0.5, 0]);
     });
     test('a vector can [turn left] (90 deg)', () => {
       const a = new Vec2(1, 1);
-      expect(a.turnLeft().xy).toStrictEqual(new Float64Array([-1, 1]));
+      expect(a.turnLeft().xy).toStrictEqual([-1, 1]);
     });
     test('a vector can [turn right] (-90 deg)', () => {
       const a = new Vec2(1, 1);
-      expect(a.turnRight().xy).toStrictEqual(new Float64Array([1, -1]));
+      expect(a.turnRight().xy).toStrictEqual([1, -1]);
     });
     test('find the [angle between] two vectors', () => {
       const a = new Vec2(1, 0);
@@ -117,7 +117,7 @@ describe('@leodeslf/vec.js', () => {
     test('set & get [xyz]', () => {
       const a = new Vec3(0, 0, 0);
       a.xyz = [1, 2, 3];
-      expect(a.xyz).toStrictEqual(new Float64Array([1, 2, 3]));
+      expect(a.xyz).toStrictEqual([1, 2, 3]);
     });
     test('set & get [magnitude]', () => {
       const a = new Vec3(0, 0, 1);
@@ -171,7 +171,7 @@ describe('@leodeslf/vec.js', () => {
     test('a vector can [look at] another vector', () => {
       const a = new Vec3(0, -0.5, 0);
       const b = new Vec3(0, 1, 0);
-      expect(a.lookAt(b).xyz).toStrictEqual(new Float64Array([0, 0.5, 0]));
+      expect(a.lookAt(b).xyz).toStrictEqual([0, 0.5, 0]);
     });
     test('find the [angle between] two vectors', () => {
       const a = new Vec3(0, 1, 0);
@@ -187,10 +187,10 @@ describe('@leodeslf/vec.js', () => {
       const c = new Vec3(0, 0, 1);
       expect(Vec3.cross(a1, a2).magnitude).toStrictEqual(0);
       expect(Vec3.cross(a1, b).magnitude).toStrictEqual(0);
-      expect(Vec3.cross(a1, c).xyz).toStrictEqual(new Float64Array([1, 0, 0]));
+      expect(Vec3.cross(a1, c).xyz).toStrictEqual([1, 0, 0]);
       expect(a1.cross(a2).magnitude).toStrictEqual(0);
       expect(a2.cross(b).magnitude).toStrictEqual(0);
-      expect(a3.cross(c).xyz).toStrictEqual(new Float64Array([1, 0, 0]));
+      expect(a3.cross(c).xyz).toStrictEqual([1, 0, 0]);
     });
     test('[rotate x-axis]', () => {
       const a = new Vec3(1, 0, 1);
@@ -239,7 +239,7 @@ describe('@leodeslf/vec.js', () => {
     test('set & get [xyzw]', () => {
       const a = new Vec4(0, 0, 0, 0);
       a.xyzw = [1, 2, 3, 4];
-      expect(a.xyzw).toStrictEqual(new Float64Array([1, 2, 3, 4]));
+      expect(a.xyzw).toStrictEqual([1, 2, 3, 4]);
     });
     test('set & get [magnitude]', () => {
       const a = new Vec4(0, 0, 0, 1);
@@ -352,8 +352,8 @@ describe('@leodeslf/vec.js', () => {
     test('[add] two vectors', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(1, 2, 3, 4);
-      expect(Vec4.add(a, b).xyzw).toStrictEqual(new Float64Array([2, 4, 6, 8]));
-      expect(a.add(b).xyzw).toStrictEqual(new Float64Array([2, 4, 6, 8]));
+      expect(Vec4.add(a, b).xyzw).toStrictEqual([2, 4, 6, 8]);
+      expect(a.add(b).xyzw).toStrictEqual([2, 4, 6, 8]);
     });
     test('find the [angle between] two vectors', () => {
       const a = new Vec4(0, 0, 1, 0);
@@ -405,7 +405,7 @@ describe('@leodeslf/vec.js', () => {
       expect(a.dot(a)).toStrictEqual(1);
       expect(a.dot(b)).toStrictEqual(-1);
       expect(a.dot(c)).toStrictEqual(0);
-    });   
+    });
     test('create an [immutable], readonly vector', () => {
       const a = Vec4.immutable(1, 2, 3, 4);
       expect(a.isInfinite).toBeFalse();
@@ -414,12 +414,12 @@ describe('@leodeslf/vec.js', () => {
     test('find the [linear interpolation] between two vectors', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(-1, -2, -3, -4);
-      expect(Vec4.lerp(a, b, 0.5).xyzw).toStrictEqual(new Float64Array([0, 0, 0, 0]));
+      expect(Vec4.lerp(a, b, 0.5).xyzw).toStrictEqual([0, 0, 0, 0]);
     });
     test('[negate] a vector', () => {
       const a = new Vec4(1, 2, 3, 4);
-      expect(Vec4.negate(a).xyzw).toStrictEqual(new Float64Array([-1, -2, -3, -4]));
-      expect(a.negate().xyzw).toStrictEqual(new Float64Array([-1, -2, -3, -4]));
+      expect(Vec4.negate(a).xyzw).toStrictEqual([-1, -2, -3, -4]);
+      expect(a.negate().xyzw).toStrictEqual([-1, -2, -3, -4]);
     });
     test('[normalize] a vector', () => {
       const a = new Vec4(1, 2, 3, 4);
@@ -429,19 +429,19 @@ describe('@leodeslf/vec.js', () => {
     test('[project] a vector onto another', () => {
       const a = new Vec4(0, 0, 0, 1);
       const b = new Vec4(0, 0, 0, 2);
-      expect(Vec4.project(a, b).xyzw).toStrictEqual(new Float64Array([0, 0, 0, 1]));
-      expect(a.project(b).xyzw).toStrictEqual(new Float64Array([0, 0, 0, 1]));
+      expect(Vec4.project(a, b).xyzw).toStrictEqual([0, 0, 0, 1]);
+      expect(a.project(b).xyzw).toStrictEqual([0, 0, 0, 1]);
     });
     test('[scale] a vector', () => {
       const a = new Vec4(1, 2, 3, 4);
-      expect(Vec4.scale(a, 0.5).xyzw).toStrictEqual(new Float64Array([0.5, 1, 1.5, 2]));
-      expect(a.scale(0.5).xyzw).toStrictEqual(new Float64Array([0.5, 1, 1.5, 2]));
+      expect(Vec4.scale(a, 0.5).xyzw).toStrictEqual([0.5, 1, 1.5, 2]);
+      expect(a.scale(0.5).xyzw).toStrictEqual([0.5, 1, 1.5, 2]);
     });
     test('[subtract] two vectors', () => {
       const a = new Vec4(1, 2, 3, 4);
       const b = new Vec4(1, 2, 3, 4);
-      expect(Vec4.subtract(a, b).xyzw).toStrictEqual(new Float64Array([0, 0, 0, 0]));
-      expect(a.subtract(b).xyzw).toStrictEqual(new Float64Array([0, 0, 0, 0]));
+      expect(Vec4.subtract(a, b).xyzw).toStrictEqual([0, 0, 0, 0]);
+      expect(a.subtract(b).xyzw).toStrictEqual([0, 0, 0, 0]);
     });
     test('create & set a [zero] vector', () => {
       const a = Vec4.zero();
